@@ -1,0 +1,49 @@
+<template lang="pug">
+div
+  AppHeader
+  HomeFone
+  PartnersComponent
+  HomeMeInfo
+  ImageGallery
+  StatisticsSection
+  FeatureSection
+  HomeCallToActionSection
+  
+  
+  EventsSection
+  
+  FooterSection
+</template>
+
+<script>
+import AppHeader from '@/views/AppHeader.vue';
+import FooterSection from '@/views/AppFooterSection.vue'
+import HomeFone from '@/components/HomeFone.vue';
+import HomeMeInfo from '@/components/HomeMeInfo.vue';
+import HomeCallToActionSection from '@/components/HomeCallToActionSection.vue';
+import StatisticsSection from '@/components/HomeStatisticsSection.vue';
+import FeatureSection from '@/components/HomeFeaturesection.vue'
+import EventsSection from '@/components/HomeEventsSection.vue'
+import ImageGallery from '@/components/HomeImageGallery.vue'
+import PartnersComponent from '@/components/ContactPartnersComponent.vue'
+
+export default {
+  name: 'HomePage',
+  components: {
+    AppHeader,
+    HomeFone,
+    HomeMeInfo,
+    HomeCallToActionSection,
+    StatisticsSection,
+    FeatureSection,
+    EventsSection,
+    ImageGallery,
+    FooterSection,
+    PartnersComponent,
+  }
+};
+</script>
+
+<style>
+</style>
+

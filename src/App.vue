@@ -1,14 +1,19 @@
-<!-- Home.vue -->
+<!-- src/App.vue -->
+
 <template>
-  <div>
-    <h1>Главная страница</h1>
-    <!-- Здесь размещается содержимое главной страницы -->
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
-}
+  name: 'App'
+};
 </script>
 
+<style>
+header nav ul li a {
+  text-decoration: none;
+}
+</style>
