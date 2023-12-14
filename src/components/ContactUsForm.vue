@@ -1,36 +1,29 @@
 <template lang="pug">
 section.contact-us
   h1 Свяжитесь с нами
-  form#contact-form(@submit="submitForm")
+  form#contact-form(@submit="redirectToAnotherSite")
+
     .input-group
-      input(type="text" placeholder="Имя" required v-model="contact.name")
-    .input-group
-      input(type="email" placeholder="Email" required v-model="contact.email")
-    .input-group
-      textarea(placeholder="Сообщение" required v-model="contact.message")
-    .input-group
-      button(type="submit") Отправить
+      button(type="submit") Перейти в диалог
 </template>
 
 <script>
 export default {
-  name: 'ContactUsForm',
-  data() {
-    return {
-      contact: {
-        name: '',
-        email: '',
-        message: ''
-      }
-    };
-  },
   methods: {
-    submitForm() {
-      // Обработка данных формы
+    redirectToAnotherSite(event) {
+      // Отменяем стандартное действие отправки формы
+      event.preventDefault();
+      
+      // Здесь вы можете указать URL другого сайта
+      const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ"; // Замените на желаемый URL
+      
+      // Перенаправляем пользователя на другой сайт
+      window.location.href = redirectTo;
     }
   }
-};
+}
 </script>
+
 
 <style scoped>
 .contact-us {
@@ -55,7 +48,7 @@ input, textarea {
 }
 
 button {
-  background-color: #e74c3c; /* Цвет кнопки */
+  background-color: #e74c3c; 
   color: white;
   border: none;
   padding: 15px 30px;

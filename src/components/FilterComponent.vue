@@ -42,7 +42,7 @@ export default {
 .filter {
   display: flex;
   flex-direction: row;
-  align-items: center; /* Центрирование по вертикали */
+  align-items: center; 
 	justify-content: center;
   padding: 15px;
   border: 1px solid #ddd;

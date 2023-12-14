@@ -1,6 +1,7 @@
 <template lang="pug">
 nav.navigation-bar
-  .logo STREET-STORE
+  router-link(to="/home")
+    .logo STREET-STORE
   ul.navigation-links
     li
       router-link(to="/home") Главная 
@@ -8,13 +9,9 @@ nav.navigation-bar
       router-link(to="/catalog") Каталог
     li
       router-link(to="/contact") Контакты
-    li
-      router-link(to="/favorites") Избранное
+
     li
       router-link(to="/corzina") Корзина
-  .sign-up-button
-    router-link(to="/signup") Войти
-    router-link(to="/signin") Регистрация
 </template>
 
 <script>
@@ -24,18 +21,28 @@ export default {
 </script>
 
 <style scoped>
+
+.router-link-active, .router-link-exact-active, .router-link-active:hover, .router-link-exact-active:hover {
+  text-decoration: none;
+}
 .navigation-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
   padding: 10px 50px; 
+  text-decoration: none;
 }
 
+.to-home,.to-catalog {
+  text-decoration: none; /* Убирает подчеркивание */
+}
 .logo {
   font-size: 30px; 
   font-weight: bold; 
   color:#e06c6c;
+  list-style: none; 
+  text-decoration: none;
 }
 
 .navigation-links {
@@ -67,6 +74,9 @@ export default {
 
 .sign-up-button a:hover {
   background-color: #444; 
+}
+.navigation-bar a {
+  text-decoration: none; /* Убирает подчеркивание для всех ссылок внутри .navigation-bar */
 }
 </style>
 

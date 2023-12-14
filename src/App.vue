@@ -13,6 +13,9 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: black;
+}
 header nav ul li a {
   text-decoration: none;
 }

@@ -1,35 +1,60 @@
 <template lang="pug">
 section.events
-  .event
-    img(src="../assets/images/photo-1617695103171-8f9c25f014c6.jpeg" alt="Распродажа")
-    h3 Распродажа
-    p.date 01.12.2023
-    p.description Скидки до 50% на все кроссовки в нашем магазине.
-    button Узнать
-  .event
-    img(src="../assets/images/photo-1592860986140-d77ede8b7116.jpeg" alt="Новая коллекция")
-    h3 Новая коллекция
-    p.date 15.12.2023
-    p.description Представляем новую коллекцию кроссовок от лучших брендов.
-    button Узнать
-  .event
-    img(src="../assets/images/photo-1595341888016-a392ef81b7de.jpeg" alt="Бесплатная доставка")
-    h3 Бесплатная доставка
-    p.date 31.12.2023
-    p.description Бесплатная доставка при заказе от 5000₽.
-    button Узнать
-  .event
-    img(src="../assets/images/photo-1608231387042-66d1773070a5.jpeg" alt="Скидка для студентов")
-    h3 Скидка для студентов
-    p.date 31.12.2023
-    p.description Скидка 10% для всех студентов при предъявлении студенческого билета.
-    button Узнать
+  .event(v-for="(event, index) in events" :key="index")
+    img(:src="event.image" :alt="event.alt")
+    h3 {{ event.title }}
+    p.date {{ event.date }}
+    p.description(v-if="event.showDescription") {{ event.description }}
+    button(@click="toggleDescription(index)") {{ event.showDescription ? 'Скрыть' : 'Узнать' }}
 </template>
 
 <script>
 export default {
   name: 'EventsSection',
-  // Здесь можно добавить свойства данных или методы, если они нужны
+  data() {
+    return {
+      events: [
+        {
+          image: require('@/assets/images/photo-1617695103171-8f9c25f014c6.jpeg'),
+          alt: "Распродажа",
+          title: "Распродажа",
+          date: "01.12.2023",
+          description: "Скидки до 50% на все кроссовки в нашем магазине.",
+          showDescription: false,
+        },
+        {
+          image: require('@/assets/images/photo-1592860986140-d77ede8b7116.jpeg'),
+          alt: "Новая коллекция",
+          title: "Новая коллекция",
+          date: "15.12.2023",
+          description: "Представляем новую коллекцию кроссовок от лучших брендов.",
+          showDescription: false,
+        },
+        {
+          image: require('@/assets/images/photo-1595341888016-a392ef81b7de.jpeg'),
+          alt: "Бесплатная доставка",
+          title: "Бесплатная доставка",
+          date: "31.12.2023",
+          description: "Бесплатная доставка при заказе от 5000₽.",
+          showDescription: false,
+        },
+        {
+          image: require('@/assets/images/photo-1608231387042-66d1773070a5.jpeg'),
+          alt: "Скидка для студентов",
+          title: "Скидка для студентов",
+          date: "31.12.2023",
+          description: "Скидка 10% для всех студентов при предъявлении студенческого билета.",
+          showDescription: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    toggleDescription(index) {
+      // Инвертируем значение showDescription только для выбранной карточки
+      this.events[index].showDescription = !this.events[index].showDescription;
+    },
+  },
 };
 </script>
 

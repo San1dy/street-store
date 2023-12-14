@@ -6,13 +6,20 @@
       img.selection-image(v-for="image in product.images", :src="image", @click="changeMainImage(image)", :class="{ active: product.image === image }")
     .product-details
       h1.product-name {{ product.name }}
-      p.product-description {{ product.description }}
+      p.brand Бренд: {{ product.brand }}
+      p.floor Пол: {{ product.floor }}
+      p.color Цвет: {{ product.color }}
+      p.material Материал: {{ product.material }}
+      p.season Сезон:  {{ product.season }}
+      p.size  Размер: {{ product.size }}
+      p.country Страна:  {{ product.country }}
+      p.product-description Описание:  {{ product.description }}
       .price-container
-        span.new-price {{ product.price | currency }}₽
-        span.old-price(strike) {{ product.oldPrice | currency }}₽
+        span.new-price Цена: {{ product.price | currency }} ₽
       .action-buttons
-        button.buy-button Купить
-        button.favorite-button Добавить в избранное
+        button.buy-button(@click="openExternalLink(product.buy)") Купить
+        button.favorite-button(@click="addToCard(product)") Добавить в корзину
+    p.item-added-text(v-if="product.itemAddedToCart") Товар добавлен в корзину
     button.close-button(@click="closeModal")
       img.close-icon(:src="require('@/assets/images/Close.svg')")
 </template>
@@ -20,31 +27,30 @@
 <script>
 export default {
   props: {
-    product: {
-      type: Object,
-      required: true
+    product: Object,
+    isVisible: Boolean
+  },
+  methods: {
+    changeMainImage(image) {
+      this.$emit('change-image', image);
     },
-    isVisible: {
-      type: Boolean,
-      default: false
+    closeModal() {
+      this.$emit('close');
+    },
+    addToCard(product) {
+      product.itemAddedToCart = true; // Устанавливаем флаг для конкретного товара
+      this.$emit('add-to-cart', product);
+    },
+    openExternalLink(url) {
+      window.open(url, '_blank');
     }
-  },
-	methods: {
-  closeModal() {
-    this.$emit('close');
-  },
-  changeMainImage(image) {
-    // Генерация события с новым изображением, родительский компонент должен обработать это
-    this.$emit('change-image', image);
   }
-}
-}
+};
 </script>
 
 
 <style scoped>
 .modal {
-  /* Общие стили фона модального окна */
   position: fixed;
   top: 0;
   left: 0;
@@ -57,7 +63,6 @@ export default {
 }
 
 .modal-content {
-  /* Стили контейнера содержимого */
   background: white;
   padding: 20px;
   border-radius: 10px;
@@ -67,7 +72,6 @@ export default {
 }
 
 .main-image {
-  /* Стили главного изображения */
   width: 100%;
   height: auto;
   border-bottom: 1px solid #eaeaea;
@@ -75,14 +79,12 @@ export default {
 }
 
 .image-selection {
-  /* Стили выбора изображения */
   display: flex;
   overflow-x: auto;
   margin-bottom: 10px;
 }
 
 .selection-image {
-  /* Стили для миниатюрных изображений */
   width: 60px;
   height: 60px;
   object-fit: cover;
@@ -92,37 +94,31 @@ export default {
 }
 
 .selection-image.active {
-  /* Стили для активного изображения */
   border-color: blue;
 }
 
 .product-details {
-  /* Стили для деталей продукта */
   text-align: left;
 }
 
 .product-name {
-  /* Стили для названия продукта */
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 0.5em;
 }
 
 .product-description {
-  /* Стили для описания продукта */
   margin-bottom: 1em;
   color: #666;
 }
 
 .price-container {
-  /* Стили для контейнера цены */
   display: flex;
   align-items: baseline;
   margin-bottom: 1em;
 }
 
 .new-price {
-  /* Стили для новой цены */
   font-size: 1.5em;
   font-weight: bold;
   color: #4CAF50;
@@ -130,20 +126,17 @@ export default {
 }
 
 .old-price {
-  /* Стили для старой цены */
   font-size: 1em;
   color: #999;
   text-decoration: line-through;
 }
 
 .action-buttons {
-  /* Стили для кнопок действий */
   display: flex;
   gap: 10px;
 }
 
 .buy-button, .favorite-button {
-  /* Общие стили для кнопок */
   border: none;
   padding: 10px 15px;
   cursor: pointer;
@@ -153,7 +146,6 @@ export default {
 }
 
 .buy-button {
-  /* Стили для кнопки купить */
   background-color: #2196F3;
   color: white;
 }
@@ -163,7 +155,6 @@ export default {
 }
 
 .favorite-button {
-  /* Стили для кнопки добавить в избранное */
   background-color: #E91E63;
   color: white;
 }
@@ -172,9 +163,15 @@ export default {
   background-color: darken(#E91E63, 10%);
 }
 
+.buy-button:hover, .favorite-button:hover {
+  background-color: #1976D2; 
+}
+
+.buy-button:active, .favorite-button:active {
+  background-color: #0D47A1;
+}
 .close-icon {
-  /* Стили для изображения крестика */
-  width: 24px; /* Укажите размер, который вам нужен */
+  width: 24px; 
   height: 24px;
   position: absolute;
   top: -30px;
@@ -182,5 +179,13 @@ export default {
   cursor: pointer;
 }
 
+img.main-image {
+  width: 250px;
+  height: 300px;
+  object-fit: cover; 
+  margin:auto;
+  border-radius: 20px;
+  display: block;
+}
 
 </style>

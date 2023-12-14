@@ -6,8 +6,6 @@ section.content#id
         h1.title(:class="{'active': active}")
           strong {{ title }}
         p.text {{ description }}
-        div.button
-          a.btn(:href="link") Подробнее
 </template>
 
 <script>

@@ -4,51 +4,48 @@ footer.footer
     .footer-section
       h3.section-title О нас
       ul.section-links
-        li О компании
-        li Наша команда
-        li Контакты
-        li Отзывы
-        li Вакансии
+        li
+          router-link(to="/home") О компании
+        li
+          router-link(to="/contact") Контакты
+        li
+          a(href="https://www.avito.ru/user/44e47fa5016ee18631ac7c90bdce2e10/profile/all/odezhda_obuv_aksessuary?id=3547881447&iid=3547881447&src=messenger&page_from=from_item_messenger&sellerId=44e47fa5016ee18631ac7c90bdce2e10") Отзывы
     .footer-section
       h3.section-title Каталог
       ul.section-links
-        li Мужские
-        li Женские
-        li Детские
-        li Спортивные
-        li Повседневные
+        li
+          router-link(to="/catalog") Мужские
+        li
+          router-link(to="/catalog") Женские
     .footer-section
       h3.section-title Помощь
       ul.section-links
-        li Доставка
-        li Оплата
-        li Возврат
-        li Гарантии
-        li FAQ
+        li
+          a(href="https://support.avito.ru/partitions/293") Доставка
+        li
+          a(href="https://support.avito.ru/partitions/63") Оплата
+        li
+          a(href="https://support.avito.ru/partitions/344") Возврат
     .footer-section
       h3.section-title Подписка
       ul.section-links
-        li Получать новости
-        li Следить за акциями
-        li Быть в курсе событий
-        li Получать скидки
-        li Участвовать в розыгрышах
+        li
+          a(href="https://www.avito.ru/user/44e47fa5016ee18631ac7c90bdce2e10/profile/all/odezhda_obuv_aksessuary?id=3547881447&iid=3547881447&src=messenger&page_from=from_item_messenger&sellerId=44e47fa5016ee18631ac7c90bdce2e10") Подписаться на нас
 
   .container
-    .footer-actions
-      button.action-button Войти
-      button.action-button.outline Регистрация
-    .footer-social
-      a(href="#") 
-        i(class="fab fa-facebook-f") VK
-      a(href="#") 
-        i(class="fab fa-twitter") X
-      a(href="#") 
-        i(class="fab fa-instagram") VK
-      a(href="#") 
-        i(class="fab fa-linkedin-in") X
-  .footer-bottom
-      p © 2023 Кроссовки онлайн
+    h3.section-title Наши страницы: 
+      ul.footer-social
+          li
+            a(href="https://vk.com")
+            img(src="src/", alt="Вконтакте")
+          li
+            a(href="https://web.telegram.org")
+              img(src="https://www.example.com/path/to/your-telegram-logo.png", alt="Телеграм")
+          li
+            a(href="https://www.instagram.com")
+              img(src="https://www.example.com/path/to/your-instagram-logo.png", alt="Инстаграм")
+    .footer-bottom
+        p © 2023 Кроссовки онлайн
 </template>
 
 <script>

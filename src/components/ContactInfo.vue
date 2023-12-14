@@ -4,16 +4,16 @@ section.contacts
   .contact-info
     .contact-item
       h2 Телефон
-      p +7 123 456-78-90
+      p +7 953 011-10-35
     .contact-item
       h2 Email
-      p info@crosses.ru
+      p obivan266@gmail.com
     .contact-item
       h2 Адрес
       p Чебоксары
     .contact-item
       h2 Режим работы
-      p Пн-Пт: 9:00-18:00
+      p Пн-Пт: 10:00-18:00
 </template>
 
 <script>
@@ -42,8 +42,12 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
+.contact-item:hover {
+  transform: translateY(-10px);
+}
 .contact-item h2 {
   font-size: 18px;
   color: #333;

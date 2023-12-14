@@ -1,8 +1,8 @@
 <template lang="pug">
-div.catalog
+.catalog
   h1 Каталог
-  div.products
-    div.product(v-for="item in items" :key="item.id")
+  .products
+    .product(v-for="item in items" :key="item.id")
       img(:src="item.image")
       h2 {{ item.name }}
       span.price {{ item.price }}₽

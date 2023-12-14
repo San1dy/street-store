@@ -38,7 +38,7 @@ export default {
 }
 
 .partners-logos img {
-  max-height: 50px; /* Adjust the size to fit your design */
+  max-height: 50px; 
   margin: 0 15px;
   opacity: 0.8;
   transition: opacity 0.3s ease;
