@@ -19,11 +19,16 @@ export default {
 
 <style scoped>
 .statistics {
-  background-color: #fff; 
+  background-color: #C6A153; 
   display: flex;
   justify-content: space-around; 
   padding: 20px 0; 
 	margin-top: 50px;
+  border-radius: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2); /* Прозрачный белый фон */
+  backdrop-filter: blur(5px); /* Размытие фона за элементом */
+  padding: 15px; /* Внутренние отступы */
 }
 
 .statistic-item {
@@ -31,13 +36,13 @@ export default {
 }
 
 .statistic-number {
-  color: #e06c6c; 
+  color: #fff; 
   font-size: 3em;
   margin: 0 0 10px;
 }
 
 .statistic-description {
-  color: #e06c6c;
+  color: #fff;
   font-size: 2em; 
   margin: 0; 
 }

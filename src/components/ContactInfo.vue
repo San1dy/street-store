@@ -33,28 +33,65 @@ export default {
 
 .contact-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr); /* Изначально 4 карточки в ряд */
   gap: 20px;
 }
 
 .contact-item {
-  background: #FFF;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  box-shadow: 5px 5px 5px #c6a153af ;
+}
+
+h1 {
+  color: #fff;
 }
 
 .contact-item:hover {
   transform: translateY(-10px);
 }
+
 .contact-item h2 {
   font-size: 18px;
-  color: #333;
+  color: #fff;
 }
 
 .contact-item p {
   font-size: 16px;
-  color: #666;
+  color: #fff;
+}
+
+/* Медиа-запросы для адаптивной верстки */
+@media (max-width: 1240px) {
+  .contact-info {
+    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд */
+  }
+}
+
+@media (max-width: 1080px) {
+  .contact-info {
+    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд */
+  }
+}
+
+@media (max-width: 720px) {
+  .contact-info {
+    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info {
+    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+  }
+}
+
+@media (max-width: 320px) {
+  .contact-info {
+    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+  }
 }
 </style>

@@ -1,23 +1,14 @@
 <template lang="pug">
 section.contact-us
   h1 Свяжитесь с нами
-  form#contact-form(@submit="redirectToAnotherSite")
-
-    .input-group
-      button(type="submit") Перейти в диалог
+  button(@click="redirectToAnotherSite") Перейти в диалог
 </template>
 
 <script>
 export default {
   methods: {
-    redirectToAnotherSite(event) {
-      // Отменяем стандартное действие отправки формы
-      event.preventDefault();
-      
-      // Здесь вы можете указать URL другого сайта
-      const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ"; // Замените на желаемый URL
-      
-      // Перенаправляем пользователя на другой сайт
+    redirectToAnotherSite() {
+      const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ";
       window.location.href = redirectTo;
     }
   }
@@ -31,35 +22,83 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
-.input-group {
-  margin-bottom: 20px;
-	max-width: 700px;
-	min-width: 500px;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 2em; /* Базовый размер текста */
+  transition: font-size 0.3s;
 }
 
 button {
-  background-color: #e74c3c; 
+  background-color: #C6A153; 
   color: white;
   border: none;
   padding: 15px 30px;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 16px; /* Базовый размер текста кнопки */
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, font-size 0.3s, padding 0.3s;
 }
 
 button:hover {
-  background-color: darken(#e74c3c, 10%);
+  background-color: #f5a804;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1240px) {
+  h1 {
+    font-size: 1.8em;
+  }
+  button {
+    font-size: 14px;
+    padding: 12px 25px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .contact-us {
+    flex-direction: column;
+  }
+  h1, button {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 720px) {
+  h1 {
+    font-size: 1.6em;
+  }
+  button {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4em;
+  }
+  button {
+    font-size: 11px;
+    padding: 8px 18px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 1.2em;
+  }
+  button {
+    font-size: 10px;
+    padding: 6px 16px;
+  }
 }
 </style>
+

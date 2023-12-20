@@ -26,36 +26,40 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 30px;
+  color:#C6A153;
+}
 .team {
   text-align: center;
   margin: 20px;
 }
 
 .team-members {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Изначально 4 карточки в ряд */
+  gap: 20px;
+  justify-content: center;
   margin-top: 20px;
 }
 
 .team-member {
-  background: #FFF;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  width: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  box-shadow: 10px 10px 10px #c6a153af ;
 }
-h1{
-  font-size: 3em;
-}
+
 .team-member:hover {
   transform: translateY(-5px);
 }
 
 .team-member img {
-  max-width: 100%;
-  border-radius: 10px;
+  width: 100%;
   height: auto;
+  border-radius: 10px;
 }
 
 .member-info {
@@ -64,12 +68,54 @@ h1{
 
 .member-info h2 {
   margin: 10px 0;
-  font-size: 25px;
-  color: #333;
+  font-size: 1.5em; /* Базовый размер шрифта */
+  color: #fff;
 }
 
 .member-info p {
-  font-size: 20px;
-  color: #666;
+  font-size: 1.2em; /* Базовый размер шрифта */
+  color: #fff;
+}
+
+/* Медиа-запросы */
+@media (max-width: 1240px) {
+  .team-members {
+    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд */
+  }
+}
+
+@media (max-width: 1080px) {
+  .member-info h2 {
+    font-size: 1.4em;
+  }
+  .member-info p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 720px) {
+  .team-members {
+    grid-template-columns: 1fr; /* 1 карточка в ряд */
+  }
+}
+
+@media (max-width: 480px) {
+  .member-info h2 {
+    font-size: 1.3em;
+  }
+  .member-info p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 320px) {
+  .member-info h2 {
+    font-size: 1.2em;
+  }
+  .member-info p {
+    font-size: 0.9em;
+  }
 }
 </style>
+
+

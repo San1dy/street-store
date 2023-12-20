@@ -1,7 +1,7 @@
 <template lang="pug">
 section.events
-  .event(v-for="(event, index) in events" :key="index")
-    img(:src="event.image" :alt="event.alt")
+  .event(v-for="(event, index) in events", :key="index", :class="{ 'expanded': event.showDescription }")
+    img(:src="event.image", :alt="event.alt")
     h3 {{ event.title }}
     p.date {{ event.date }}
     p.description(v-if="event.showDescription") {{ event.description }}
@@ -60,55 +60,81 @@ export default {
 
 <style scoped>
 .events {
-  margin-top: 50px;
-  display: flex;
-  justify-content: space-around;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Четыре колонки по умолчанию */
+  grid-gap: 20px; /* Отступы между элементами сетки */
+  padding: 20px; /* Внутренние отступы сетки для создания пространства по краям */
+  margin-top: 50px; /* Отступ сверху для всей секции событий */
 }
 
 .event {
-  flex-basis: calc(25% - 20px); 
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: #fff; 
+  background: #fff;
+  color: #000;
+  transition: transform 0.3s ease;
+  max-width: 300px; /* Максимальная ширина карточки */
+  margin: 0 auto; /* Центрирование карточки в колонке */
+  min-width: 250px; /* Минимальная ширина карточки */
+  max-width: 300px; /* Максимальная ширина карточки */
+  height: auto;
 }
 
 .event img {
-  width: 100%; 
-  height: 300px;
-  border-radius: 10px; 
+  width: 100%; /* Процентное значение для поддержания пропорций */
+  height: 200px; /* Фиксированная высота для одинакового размера всех изображений */
+  border-radius: 10px;
+  object-fit: cover; /* Гарантирует, что изображения будут покрывать весь элемент img */
   margin-bottom: 20px;
-  object-fit: cover;
 }
 
-.event h3 {
+.event h3, .event .date {
+  color: #000;
   margin-bottom: 10px;
-  color: #333; 
-}
-
-.event .date {
-  color: #666; 
 }
 
 .event .description {
+  color: #000;
   margin-bottom: 10px;
-  color: #666; 
-  height: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .event button {
-  padding: 10px 20px;
-  background-color: #e74c3c; 
+  padding: 8px 16px;
+  background-color: #e74c3c;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px; /* Увеличенный радиус для закругления кнопки */
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 70%; /* Уменьшенная ширина кнопки до 70% от ширины карточки */
+  margin-top: auto; /* Выравнивание кнопки внизу карточки */
 }
 
 .event button:hover {
-  background-color: #c0392b; 
+  background-color: #c0392b;
+}
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 1080px) {
+  .events {
+    grid-template-columns: repeat(2, 1fr); /* Две колонки для экранов среднего размера */
+  }
+}
+
+@media (max-width: 480px) {
+  .events {
+    grid-template-columns: 1fr; /* Одна колонка для маленьких экранов */
+  }
 }
 </style>
+
+

@@ -1,6 +1,6 @@
 <template lang="pug">
 footer.footer
-  .container
+  //.container
     .footer-section
       h3.section-title О нас
       ul.section-links
@@ -26,26 +26,9 @@ footer.footer
           a(href="https://support.avito.ru/partitions/63") Оплата
         li
           a(href="https://support.avito.ru/partitions/344") Возврат
-    .footer-section
-      h3.section-title Подписка
-      ul.section-links
-        li
-          a(href="https://www.avito.ru/user/44e47fa5016ee18631ac7c90bdce2e10/profile/all/odezhda_obuv_aksessuary?id=3547881447&iid=3547881447&src=messenger&page_from=from_item_messenger&sellerId=44e47fa5016ee18631ac7c90bdce2e10") Подписаться на нас
-
   .container
-    h3.section-title Наши страницы: 
-      ul.footer-social
-          li
-            a(href="https://vk.com")
-            img(src="src/", alt="Вконтакте")
-          li
-            a(href="https://web.telegram.org")
-              img(src="https://www.example.com/path/to/your-telegram-logo.png", alt="Телеграм")
-          li
-            a(href="https://www.instagram.com")
-              img(src="https://www.example.com/path/to/your-instagram-logo.png", alt="Инстаграм")
     .footer-bottom
-        p © 2023 Кроссовки онлайн
+        p © 2023 Онлайн магазин Street Store
 </template>
 
 <script>
@@ -56,9 +39,7 @@ export default {
 
 <style scoped>
 .footer {
-  background-color: #fff; 
   border-radius: 20px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   padding: 10px; 
   display: flex;
   flex-direction: column; 
@@ -80,7 +61,7 @@ export default {
 }
 
 .section-title {
-  color: #333; 
+  color: #fff; 
   margin-bottom: 10px; 
 }
 
@@ -130,8 +111,23 @@ a {
 
 .footer-bottom {
   text-align: center; 
-  color: #666; 
+  color: #fff; 
   width: 100%; 
   margin-top: 20px; 
 }
+
+
+/* Медиазапросы для адаптивности */
+@media (max-width: 1080px) {
+  .events {
+    grid-template-columns: repeat(2, 1fr); /* Переключение на две колонки */
+  }
+}
+
+@media (max-width: 480px) {
+  .events {
+    grid-template-columns: 1fr; /* Переключение на одну колонку */
+  }
+}
 </style>
+

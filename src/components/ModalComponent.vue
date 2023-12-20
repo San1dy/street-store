@@ -16,8 +16,6 @@
         span.new-price Цена: {{ product.price | currency }} ₽
       .action-buttons
         button.buy-button(@click="openExternalLink(product.buy)") Купить
-        button.favorite-button(@click="addToCart(product)") Добавить в корзину
-    p.item-added-text(v-if="product.itemAddedToCart") Товар добавлен в корзину
     img.close-button(@click="closeModal", :src="require('@/assets/images/Close.svg')")
 </template>
 
@@ -33,10 +31,6 @@ export default {
     },
     closeModal() {
       this.$emit('close');
-    },
-    addToCart(product) {
-      product.itemAddedToCart = true;
-      this.$emit('add-to-cart', product);
     },
     openExternalLink(url) {
       window.open(url, '_blank');

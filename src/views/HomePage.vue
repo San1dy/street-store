@@ -2,16 +2,15 @@
 div
   AppHeader
   HomeFone
-  PartnersComponent
   HomeMeInfo
-  ImageGallery
+  
   StatisticsSection
   FeatureSection
   HomeCallToActionSection
   
   
   EventsSection
-  
+  ImageGallery
   FooterSection
 </template>
 

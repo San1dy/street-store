@@ -24,11 +24,13 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  color:#C6A153;
+}
 .partners {
   text-align: center;
   margin: 50px 0;
 }
-
 .partners-logos {
   display: flex;
   justify-content: center;
@@ -42,6 +44,7 @@ export default {
   margin: 0 15px;
   opacity: 0.8;
   transition: opacity 0.3s ease;
+  color:#fff;
 }
 
 .partners-logos img:hover {

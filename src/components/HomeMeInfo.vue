@@ -1,6 +1,5 @@
 <template lang="pug">
 .about-us-container
-  .row
     .image-wrapper
       img.full-width-image(src="../assets/images/photo-1556637640-2c80d3201be8.jpeg", alt="")
     .content-column
@@ -19,13 +18,21 @@ export default {
 </script>
 
 <style scoped>
-.about-us-container {
-  margin: 50px auto 50px;
-  width: 70%;
-  background-color: #ffffff;
+
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype'),
+
 }
 
-.row {
+.about-us-container {
+  margin: 50px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1); /* Прозрачный белый фон */
+  backdrop-filter: blur(5px); /* Размытие фона за элементом */
+  padding: 15px; /* Внутренние отступы */
   display: flex;
   justify-content: space-between;
 }
@@ -50,13 +57,51 @@ export default {
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 25px;
   font-weight: bold;
+  font-family: 'MyCustomFont', sans-serif;
 }
 
 .main-text {
   font-size: 18px;
   line-height: 1.5;
+  font-family: 'MyCustomFont', sans-serif;
 }
 
+
+@media (max-width: 1080px) {
+  .section-title {
+    font-size: 20px;
+  }
+
+  .main-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-title {
+    font-size: 15px;
+  }
+
+  .main-text {
+    font-size: 10px;
+  }
+}
+@media (max-width: 900px) {
+  .about-us-container {
+    width: auto;
+  flex-direction: column; /* Элементы теперь располагаются вертикально */
+  align-items: center; /* Выравнивание элементов по центру по вертикали */
+  justify-content: center; /* Выравнивание элементов по центру по горизонтали */
+
+}
+.image-wrapper {
+  width: 100%;
+	margin: auto;
+}
+.content-column {
+  width: 100%;
+}
+}
 </style>

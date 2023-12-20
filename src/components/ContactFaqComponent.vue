@@ -44,17 +44,25 @@ export default {
 .faq {
   max-width: 600px;
   margin: 0 auto;
-  text-align: left;
+  padding: 0 10px; /* Добавьте небольшой отступ по бокам */
 }
 
 h1{
-	text-align: center;
-	font-size: 3em; 
+  text-align: center;
+  font-size: 3em; 
+  color: #C6A153;
 }
 .faq-item {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
+h2 {
+  color: #fff;
+  size:3em;
+}
+p {
+  color: #C6A153;
+}
 .faq-question {
   width: 100%;
   text-align: left;
@@ -77,9 +85,59 @@ h1{
 .faq-answer {
   padding: 10px;
   padding-left: 40px;
-  border: 1px solid #ddd;
   border-top: none;
   border-radius: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Медиа-запросы для адаптации к разным размерам экрана */
+@media (max-width: 1240px) {
+  h1 {
+    font-size: 2.5em;
+  }
+}
+
+@media (max-width: 1080px) {
+  .faq-question {
+    padding-left: 30px;
+    font-size: 10px;
+  }
+
+
+}
+
+@media (max-width: 720px) {
+  .faq {
+    max-width: 500px;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  .faq-answer {
+    padding-left: 20px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq {
+    max-width: 400px;
+  }
+  .faq-question {
+    padding-left: 20px;
+    font-size: 7px;
+  }
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 320px) {
+  .faq {
+    max-width: 300px;
+  }
+  h1 {
+    font-size: 1em;
+  }
 }
 </style>
