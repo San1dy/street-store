@@ -29,29 +29,28 @@ export default {
 }
 
 h1 {
-  color: #fff;
+  color: #000;
   margin: 0;
-  font-size: 2em; /* Базовый размер текста */
+  font-size: 2em; 
   transition: font-size 0.3s;
 }
 
 button {
-  background-color: #C6A153; 
+  background-color: #BA1519; 
   color: white;
   border: none;
   padding: 15px 30px;
   text-transform: uppercase;
-  font-size: 16px; /* Базовый размер текста кнопки */
+  font-size: 16px; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s, font-size 0.3s, padding 0.3s;
 }
 
 button:hover {
-  background-color: #f5a804;
+  background-color: #605E61;
 }
 
-/* Медиа-запросы */
 @media (max-width: 1240px) {
   h1 {
     font-size: 1.8em;

@@ -13,7 +13,7 @@
       p.size Размеры: {{ product.size.join(', ') }}
       p.product-description Описание:  {{ product.description }}
       .price-container
-        span.new-price Цена: {{ product.price | currency }} ₽
+        span.new-price Цена: {{ product.price  }} ₽
       .action-buttons
         button.buy-button(@click="openExternalLink(product.buy)") Купить
     img.close-button(@click="closeModal", :src="require('@/assets/images/Close.svg')")
@@ -40,6 +40,7 @@ export default {
 </script>
 
 
+
 <style scoped>
 .modal {
   display: flex;
@@ -50,18 +51,21 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.825);
   z-index: 1000;
 }
 
 .modal-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  width: 50%;
+  background-color: rgba(2, 2, 2, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  width: 80%;
   max-width: 700px;
+  transition: width 0.3s ease;
 }
 
 .row {
@@ -78,19 +82,20 @@ export default {
 
 .image-selection {
   width: 60px;
-  height: 75px; /* Высота устанавливается так, чтобы суммарно было равно высоте основного изображения */
+  height: 75px;
   margin-bottom: 10px;
   cursor: pointer;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .image-selection.active {
-  border: 2px solid #3498db;
+  border: 2px solid #BA1519;
 }
 
 .main-image {
   width: 100%;
-  height: 300px;
+  height: 330px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -98,9 +103,14 @@ export default {
 .product-details {
   display: flex;
   flex-direction: column;
+  color: #ffffff;
 }
 
-.product-name,
+.product-name {
+  color: #e57b7b;
+  margin-bottom: 10px;
+}
+
 .brand,
 .floor,
 .color,
@@ -118,6 +128,7 @@ export default {
 .new-price {
   font-size: 24px;
   font-weight: bold;
+  color: #e57b7b;
 }
 
 .action-buttons {
@@ -125,47 +136,87 @@ export default {
   gap: 10px;
 }
 
-.buy-button,
-.favorite-button {
+.buy-button {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
-}
-
-.buy-button {
-  background-color: #27ae60;
+  background-color: #BA1519;
   color: #fff;
 }
 
-.favorite-button {
-  background-color: #2980b9;
-  color: #fff;
-}
-
-.buy-button:hover,
-.favorite-button:hover {
+.buy-button:hover {
   opacity: 0.8;
 }
 
-.buy-button:active,
-.favorite-button:active {
+.buy-button:active {
   opacity: 0.6;
-}
-
-.item-added-text {
-  color: #2ecc71;
-  font-size: 16px;
-  margin-top: 10px;
+  transform: scale(0.95);
 }
 
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: -25px;
+  right: -25px;
   cursor: pointer;
   width: 24px;
   height: 24px;
+}
+
+@media (max-width: 1080px) {
+  .modal-content, .image-selection-container {
+    flex-direction: row;
+  }
+  .row {
+    flex-direction: column-reverse;
+  }
+  .image-selection-container {
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+  .image-selection {
+    width: 20%;
+    margin-right: 2%;
+  }
+  .main-image {
+    width: 300px;
+    height: 250px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  .modal-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 720px) {
+  .main-image, .image-selection {
+    width: 100%;
+  }
+  .modal-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-details {
+    font-size: 14px;
+  }
+  .action-buttons button {
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 320px) {
+  .modal-content {
+    width: 95%;
+    padding: 10px;
+  }
+  .close-button {
+    width: 20px;
+    height: 20px;
+  }
 }
 </style>

@@ -45,12 +45,12 @@ h1, h2, p, a, li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(252, 251, 251, 0.3);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 0.5rem 2rem;
-  margin: 20px;
-  position: relative; /* Позиционирование относительно */
+  margin: 5px 10px 10px 10px;
+  position: relative; 
   z-index: 25; 
 }
 
@@ -61,13 +61,13 @@ a {
 .logo {
   font-size: 30px;
   font-weight: bold;
-  color: #fff;
+  color: #BA1519;
   text-decoration: none;
   transition: transform 0.3s ease;
 }
 
 .logo:hover {
-  color: #C6A153;
+  color: #605E61;
 }
 
 .navigation-links {
@@ -78,7 +78,7 @@ a {
 
 .navigation-links li a {
   text-decoration: none;
-  color: #fff;
+  color: #000;
   font-size: 1rem;
   padding: 10px 15px;
   border-radius: 10px;
@@ -86,9 +86,9 @@ a {
 }
 
 .navigation-links li a:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
-  color:#C6A153;
+  color:#fff;
 }
 
 .burger-button {
@@ -98,7 +98,7 @@ a {
   font-size: 2rem;
   color: #fff;
   cursor: pointer;
-  z-index: 20; /* Убедитесь, что кнопка находится над другими элементами */
+  z-index: 20; 
 }
 
 @media (max-width: 850px) {
@@ -119,12 +119,12 @@ a {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.9); /* Полупрозрачный белый фон */
+    background: rgba(0, 0, 0, 0.9); 
     border-radius: 20px;
     padding: 1rem;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
-    z-index: 15; /* Повысить z-index, чтобы меню было над другими элементами */
+    z-index: 15; 
   }
 
   .navigation-links.active {

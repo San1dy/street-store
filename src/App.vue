@@ -1,4 +1,3 @@
-<!-- src/App.vue -->
 
 <template>
   <div id="app">
@@ -26,8 +25,9 @@ h1 h2 p a {
 
 
 body {
-  background: linear-gradient(to bottom right, #000, #999999);
+  background: linear-gradient(to bottom right, #D5D5D5, #D5D5D5);
   margin:0px;
+  font-family: 'MyCustomFont', sans-serif;
 }
 header nav ul li a {
   text-decoration: none;

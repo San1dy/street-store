@@ -35,5 +35,5 @@ export default {
 
 
 <style scoped>
-/* Стили для каталога */
+
 </style>

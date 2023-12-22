@@ -13,7 +13,7 @@ div
 export default {
   data() {
     return {
-      favorites: [], // Массив для хранения избранных товаров
+      favorites: [], 
     };
   },
   methods: {
@@ -31,5 +31,5 @@ export default {
 </script>
 
 <style scoped>
-/* Стили для компонента "Избранное" */
+
 </style>

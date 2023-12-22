@@ -14,9 +14,10 @@
     "slick-carousel": "^1.8.1",
     "vue": "^3.3.11",
     "vue-demi": "^0.14.6",
+    "vue-range-slider": "^0.6.0",
     "vue-router": "^4.2.5",
     "vue-slick-carousel": "^1.0.6",
-    "vue-slider-component": "^3.2.24",
+    "vue-slider-component": "^4.1.0-beta.7",
     "vue3-carousel": "^0.3.1",
     "vuex": "^4.1.0"
   },

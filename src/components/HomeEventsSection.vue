@@ -1,11 +1,11 @@
 <template lang="pug">
 section.events
   .event(v-for="(event, index) in events", :key="index", :class="{ 'expanded': event.showDescription }")
-    img(:src="event.image", :alt="event.alt")
-    h3 {{ event.title }}
-    p.date {{ event.date }}
-    p.description(v-if="event.showDescription") {{ event.description }}
-    button(@click="toggleDescription(index)") {{ event.showDescription ? 'Скрыть' : 'Узнать' }}
+    img.event-image(:src="event.image", :alt="event.alt")
+    h3.event-title {{ event.title }}
+    p.event-date {{ event.date }}
+    p.event-description(v-if="event.showDescription") {{ event.description }}
+    button.toggle-button(@click="toggleDescription(index)") {{ event.showDescription ? 'Скрыть' : 'Узнать' }}
 </template>
 
 <script>
@@ -50,21 +50,27 @@ export default {
     };
   },
   methods: {
-    toggleDescription(index) {
-      // Инвертируем значение showDescription только для выбранной карточки
-      this.events[index].showDescription = !this.events[index].showDescription;
+    toggleDescription(selectedIndex) {
+      this.events.forEach((event, index) => {
+        event.showDescription = index === selectedIndex ? !event.showDescription : false;
+      });
     },
   },
 };
 </script>
 
 <style scoped>
+button:active {
+  transform: scale(0.95);
+}
 .events {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Четыре колонки по умолчанию */
-  grid-gap: 20px; /* Отступы между элементами сетки */
-  padding: 20px; /* Внутренние отступы сетки для создания пространства по краям */
-  margin-top: 50px; /* Отступ сверху для всей секции событий */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px;
+  margin-top: 50px;
+  max-width: 1200px; 
+  margin: 50px auto 0; 
 }
 
 .event {
@@ -73,68 +79,69 @@ export default {
   align-items: center;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: #fff;
-  color: #000;
-  transition: transform 0.3s ease;
-  max-width: 300px; /* Максимальная ширина карточки */
-  margin: 0 auto; /* Центрирование карточки в колонке */
-  min-width: 250px; /* Минимальная ширина карточки */
-  max-width: 300px; /* Максимальная ширина карточки */
-  height: auto;
+  box-shadow: 2px 2px 2px rgba(8, 8, 8, 0.74);
+  background: rgba(255, 255, 255, 0.623);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative; 
+  height: 350px; 
 }
 
-.event img {
-  width: 100%; /* Процентное значение для поддержания пропорций */
-  height: 200px; /* Фиксированная высота для одинакового размера всех изображений */
+.event-image {
+  width: 100%;
+  height: 200px;
   border-radius: 10px;
-  object-fit: cover; /* Гарантирует, что изображения будут покрывать весь элемент img */
+  object-fit: cover;
   margin-bottom: 20px;
 }
-
-.event h3, .event .date {
-  color: #000;
-  margin-bottom: 10px;
-}
-
-.event .description {
-  color: #000;
-  margin-bottom: 10px;
+.event-description {
+  position: absolute; 
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  background-color: rgba(255, 255, 255, 0.9); 
+  max-height: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  transition: max-height 0.3s ease;
+}
+.event-title, .event-date {
+  color: #000;
+  margin-bottom: 10px;
+}
+.event.expanded .event-description {
+  max-height: 100px;
+  padding: 20px; 
 }
 
-.event button {
+.toggle-button {
   padding: 8px 16px;
-  background-color: #e74c3c;
+  background-color: #BA1519;
   border: none;
-  border-radius: 20px; /* Увеличенный радиус для закругления кнопки */
+  border-radius: 20px;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: 70%; /* Уменьшенная ширина кнопки до 70% от ширины карточки */
-  margin-top: auto; /* Выравнивание кнопки внизу карточки */
+  width: 70%;
+  margin-top: auto;
 }
 
-.event button:hover {
-  background-color: #c0392b;
+.toggle-button:hover {
+  background-color: #f80509;
 }
 
-/* Медиазапросы для адаптивности */
-@media (max-width: 1080px) {
+@media (max-width: 1024px) {
   .events {
-    grid-template-columns: repeat(2, 1fr); /* Две колонки для экранов среднего размера */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .events {
-    grid-template-columns: 1fr; /* Одна колонка для маленьких экранов */
+    grid-template-columns: 1fr; 
   }
 }
 </style>
+
 
 

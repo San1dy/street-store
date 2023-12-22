@@ -2,11 +2,11 @@
 section.home-image-gallery
   h2 Галерея
   p Посмотрите наши лучшие модели кроссовок в действии.
-  div.slider
-    div.slides-container(ref="slidesContainer")
-      div.slide(v-for="image in images", :key="image.id")
+  .slider
+    .slides-container(ref="slidesContainer")
+      .slide(v-for="image in images", :key="image.id")
         img(:src="image.src", :alt="image.alt")
-    div.navigation-dots
+    .navigation-dots
       span.dot(
         v-for="index in images.length", 
         :key="index", 
@@ -71,13 +71,17 @@ export default {
 <style scoped>
 .home-image-gallery {
   text-align: center;
+  max-width: 1240px;
+  margin: auto;
 }
 
 .slider {
   position: relative;
   overflow: hidden;
-  width: 70%; /* Занимать всю доступную ширину */
-  margin: auto;
+  width: 90%;
+  height: 50vw; 
+  max-height: 600px; 
+  margin: 20px auto;
   border-radius: 20px;
 }
 
@@ -87,14 +91,13 @@ export default {
 }
 
 .slide {
-  min-width: 100%; /* Каждый слайд занимает всю ширину контейнера */
-  box-sizing: border-box; /* Включаем padding и border в общую ширину */
+  min-width: 100%; 
 }
 
 .slide img {
   width: 100%;
-  height: 100%; /* Высота картинки такая же, как и у слайда */
-  object-fit: cover; /* Подгоняем изображение по размеру блока */
+  height: auto;
+  object-fit: cover; 
 }
 
 .navigation-dots {
@@ -107,64 +110,65 @@ export default {
 
 .dot {
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   background-color: grey;
   margin: 0 5px;
   cursor: pointer;
 }
 
-h2 {
-  font-size: 35px; /* Начальный размер текста */
-  color:#C6A153;
+.dot.active {
+  background-color: #BA1519;
 }
 
-/* Создаем медиазапрос для адаптивной верстки */
-@media screen and (max-width: 768px) {
-  h2 {
-    font-size: 25px; /* Уменьшаем размер текста при ширине экрана менее 768px */
+h2, p {
+  color: #605E61;
+  margin: 20px 0;
+}
+
+
+@media (max-width: 1240px) {
+  h2, p {
+    font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1240 - 320)));
   }
 }
 
-@media screen and (max-width: 480px) {
-  h2 {
-    font-size: 15px; /* Еще меньший размер текста при ширине экрана менее 480px */
+@media (max-width: 1080px) {
+  .slider {
+    height: 45vw;
+    max-height: 500px;
   }
 }
 
-p {
-  font-size: 20px; /* Начальный размер текста */
-  color:#fff;
-}
-
-/* Создаем медиазапрос для адаптивной верстки */
-@media screen and (max-width: 768px) {
-  p {
-    font-size: 15px; /* Уменьшаем размер текста при ширине экрана менее 768px */
+@media (max-width: 720px) {
+  .slider {
+    height: 40vw;
+    max-height: 400px;
   }
 }
 
-@media screen and (max-width: 480px) {
-  p {
-    font-size: 10px; /* Еще меньший размер текста при ширине экрана менее 480px */
+@media (max-width: 480px) {
+  .slider {
+    height: 35vw;
+    max-height: 300px;
   }
-}
-@media screen and (max-width: 768px) {
+
   .dot {
     width: 10px;
-  height: 10px;
+    height: 10px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media (max-width: 320px) {
+  .slider {
+    height: 30vw;
+    max-height: 250px;
+  }
+
   .dot {
-    width: 5px;
-  height: 5px;
+    width: 8px;
+    height: 8px;
   }
-}
-
-.dot.active {
-  background-color: white;
 }
 </style>

@@ -3,21 +3,33 @@
   .filter-item
     label(for="brand") Бренд:
     select(v-model="selectedBrand")
+      option(value='') Все
       option(v-for="brand in brands" :value="brand" :key="brand") {{ brand }}
   .filter-item
     label(for="size") Размер:
     select(v-model="selectedSize")
+      option(value='') Все
       option(v-for="size in sizes" :value="size" :key="size") {{ size }}
   .filter-item
     label(for="price") Цена:
-    input(type="number", v-model.number="minPrice", :min="minPriceLimit", :max="maxPrice", placeholder="От")
-    input(type="number", v-model.number="maxPrice", :min="minPrice", :max="maxPriceLimit", placeholder="До")
+    .price-inputs
+      input(type="number", v-model.number="minPrice", :min="minPriceLimit", :max="maxPrice", placeholder="От")
+      input(type="number", v-model.number="maxPrice", :min="minPrice", :max="maxPriceLimit", placeholder="До")
+    VueSlider(:min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
   button(@click="applyFilters") Применить фильтры
 </template>
 
+
+
 <script>
+import VueSlider from 'vue-slider-component';
+import 'vue-slider-component/theme/default.css';
+
 export default {
   name: 'FilterComponent',
+  components: {
+    VueSlider
+  },
   props: {
     minPriceLimit: {
       type: Number,
@@ -34,9 +46,22 @@ export default {
       selectedSize: '',
       minPrice: this.minPriceLimit,
       maxPrice: this.maxPriceLimit,
-      brands: ['Все', 'Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
-      sizes: ['Все', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
+      priceRange: [this.minPriceLimit, this.maxPriceLimit],
+      brands: [ 'Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
+      sizes: ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
     };
+  },
+  watch: {
+    priceRange(newVal) {
+      this.minPrice = newVal[0];
+      this.maxPrice = newVal[1];
+    },
+    minPrice(newVal) {
+      this.priceRange[0] = newVal;
+    },
+    maxPrice(newVal) {
+      this.priceRange[1] = newVal;
+    }
   },
   methods: {
     applyFilters() {
@@ -57,67 +82,93 @@ export default {
 };
 </script>
 
+
+
 <style scoped>
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype');
-}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 .filter {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: space-around;
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid #C6A153;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  border-radius: 8px;
-  margin: 20px 0;
+  background: linear-gradient(170deg, #fffefe, #848484); 
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  margin: 10px;
 }
 
 .filter-item {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 0 10px;
+  flex-direction: column;
+  margin: 10px;
+  width: 200px;
 }
 
-.filter-item label {
+label {
+  font-weight: 500;
   margin-bottom: 5px;
-  font-weight: bold;
-  color: #C6A153; /* Золотой цвет для текста */
+  color: #605E61;
 }
 
-.filter-item select, 
-.filter-item input {
-  width: 100px;
-  padding: 5px 10px;
+select, .price-inputs input {
+  padding: 10px 15px;
   border-radius: 5px;
-  border: 1px solid rgba(183, 147, 95, 0.5); /* Золотой цвет для границ */
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #333;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 400;
+  color: #605E61;
 }
 
-.filter-item input[type=number]::-webkit-inner-spin-button, 
-.filter-item input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.price-inputs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price-inputs input {
+  width: calc(50% - 10px);
 }
 
 button {
-  padding: 10px 20px;
-  background-color: rgba(183, 147, 95, 1); /* Золотой фон для кнопки */
+  padding: 10px 15px;
+  background-color: #BA1519;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
   transition: background-color 0.3s ease;
+  width: auto; 
+  align-self: center; 
 }
 
 button:hover {
-  background-color: rgba(183, 147, 95, 0.8); /* Более светлый золотой фон при наведении */
+  background-color: #f70307;
+}
+button:active {
+  transform: scale(0.9);
 }
 
+@media (max-width: 768px) {
+  .filter {
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .filter-item {
+    width: 100%;
+  }
+
+  select, .price-inputs input {
+    width: 100%;
+  }
+
+  .price-inputs input {
+    margin-bottom: 10px;
+  }
+}
 </style>
+

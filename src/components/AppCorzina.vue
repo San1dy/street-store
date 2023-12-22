@@ -1,5 +1,5 @@
 <template lang="pug">
-div.catalog
+.catalog
   h1 Корзина
   .products
     p(v-if="cartItems.length === 0") Ваша корзина пуста
@@ -26,7 +26,6 @@ div.catalog
 </template>
 
 
-
 <script>
 import ModalComponent from './ModalComponent.vue';
 
@@ -36,19 +35,17 @@ export default {
   },
   data() {
     return {
-      selectedItem: null, // Данные для выбранного элемента
-      isModalVisible: false, // Переменная для управления видимостью модального окна
+      selectedItem: null,
+      isModalVisible: false,
     };
   },
   computed: {
     cartItems() {
-      // Добавляем свойство showDelete к каждому элементу корзины
       return this.$store.state.cart.map(item => ({ ...item, showDelete: false }));
     }
   },
   methods: {
     removeFromCart(itemToRemove) {
-      // Отправить действие удаления в Vuex store
       this.$store.dispatch('removeFromCart', itemToRemove);
     },
     openExternalLink(url) {
@@ -70,94 +67,50 @@ export default {
 
 
 <style scoped>
-.item-added-text {
-  position: absolute;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  background-color: #1b1b1b; 
-  padding: 15px; 
-  border-radius: 10px; 
-  text-align: center;
-}
-
-.catalog {
+.catalog, .products {
   text-align: center;
   width: 80%;
   margin: auto;
-}
-
-p {
-  text-align: left;
-  margin-left: 5px;
+  height: auto;
 }
 
 .products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-content: center;
   margin-top: 30px;
 }
 
 .product {
-  width: calc(25% - 20px); 
-  margin-bottom: 20px;
   box-sizing: border-box;
-  padding: 10px;
+  padding: 1rem;
   transition: transform 0.3s ease;
   position: relative;
-  margin-right: 20px;
-  background: rgba(255, 255, 255, 0.1); /* Прозрачный белый фон */
-  backdrop-filter: blur(10px); /* Размытие фона за элементом */
-  border-radius: 20px; /* Скругление углов */
-  padding: 0.5rem 2rem; /* Внутренние отступы */
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); /* Тень для эффекта воздушности */
-}
-
-.product:hover {
-  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .product img {
   width: 100%;
-  height: 300px;
   border-radius: 10px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  margin-bottom: 1rem;
 }
 
-.product h2 {
-  color: #333;
-  font-size: 20px;
-  margin-top: 15px;
+.product h2, .product .price, button {
+  color: #000;
+  font-size: 1rem;
 }
 
-.product .price {
-  font-size: 24px;
-  color: #555;
-  margin: 10px 0;
-}
-
-.product p {
-  color: #666;
-  font-size: 16px;
-}
-
-button {
-  border: none;
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: #e74c3c;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
-
-button:hover {
-  background-color: #c0392b;
-}
-
-.delete-button {
+.buy-button, .delete-button {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -172,18 +125,46 @@ button:hover {
   transition: opacity 0.3s ease, display 0.3s ease;
 }
 
-.product:hover .delete-button {
-  display: block; /* Показать кнопку при наведении */
+.product:hover .buy-button, .product:hover .delete-button {
+  display: block;
 }
 
-
-.delete-button:hover {
-  background-color: #c0392b; /* Цвет фона при наведении на саму кнопку */
+.buy-button:hover, .delete-button:hover {
+  background-color: #c0392b;
 }
-
 
 .show-delete {
   display: block;
   opacity: 1;
+}
+
+@media (max-width: 1240px) {
+  .product {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .product {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 720px) {
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+@media (max-width: 320px) {
+  .products {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
 }
 </style>

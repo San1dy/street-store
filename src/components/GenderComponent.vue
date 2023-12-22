@@ -29,57 +29,109 @@ export default {
 @font-face {
   font-family: 'MyCustomFont';
   src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype'),
-
 }
+
 .gallery {
   display: flex;
-  justify-content: space-between;
-	width: 70%;
-	margin: auto;
-	margin-top: 50px;
-
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 50px auto;
+  gap: 20px;
+  max-width: 95%;
 }
 
 .gallery-item {
-	font-family: 'MyCustomFont';
-  width: 40%; /* Изначально было 48%, теперь уменьшаем в два раза */
+  font-family: 'MyCustomFont';
+  flex: 1 1 30%;
   position: relative;
-  cursor: pointer; /* Изменяем курсор, чтобы показать интерактивность элемента */
-  overflow: hidden; /* Чтобы анимация оставалась внутри блока */
-  transition: transform 0.5s ease; /* Добавляем плавный переход для анимации */
-
-	background: rgba(255, 255, 255, 0.1); /* Прозрачный белый фон */
-  backdrop-filter: blur(10px); /* Размытие фона за элементом */
-  border-radius: 20px; /* Скругление углов */
-  padding: 0.5rem 2rem; /* Внутренние отступы */
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5); /* Тень для эффекта воздушности */
+  cursor: pointer;
+  transition: transform 0.5s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  padding: 20px; 
 }
-
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  box-shadow: 10зч 10px 10px 10px rgba(255, 255, 255, 0.74);
+  opacity: 0; 
+  transition: opacity 0.5s ease;
+}
+.gallery-item:hover::before {
+  opacity: 1;
+}
 .gallery-item:hover {
-  transform: scale(1.05); /* Увеличиваем масштаб при наведении */
+  transform: scale(1.03);
 }
 
 .gallery-item img {
   width: 100%;
-	height: 600px;
-  display: block;
-	object-fit: cover;
-  transition: transform 0.5s ease; /* Добавляем плавный переход для анимации */
-	border-radius: 20px; 
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  border-radius: 10px; 
 }
 
-img {
-	height: 600px;
-	margin-top: 20px;
-	object-fit: cover;
-  width: 100%;
-	border-radius: 20px; 
+.caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  text-align: center;
+  transition: opacity 0.5s ease;
+  opacity: 0; 
 }
 
+.gallery-item:hover .caption {
+  opacity: 1; 
+}
 
 .caption h2 {
-  font-size: 2em; 
-	text-align: center;
+  color: #fff;
+  background-color: transparent;
+  padding: 10px;
+  margin: 0;
+  border-radius: 10px;
 }
 
+.gallery-item:hover .caption {
+  display: block; 
+}
+
+@media (max-width: 1080px) {
+  .gallery-item {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 720px) {
+  .gallery-item {
+    flex: 1 1 60%;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .gallery-item {
+    flex: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .caption h2 {
+    font-size: 1.2em;
+  }
+}
 </style>

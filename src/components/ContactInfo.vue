@@ -19,7 +19,6 @@ section.contacts
 <script>
 export default {
   name: 'ContactInfo',
-
 };
 </script>
 
@@ -33,21 +32,21 @@ export default {
 
 .contact-info {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Изначально 4 карточки в ряд */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
 }
 
 .contact-item {
   transition: transform 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 0.5rem 2rem;
-  box-shadow: 5px 5px 5px #c6a153af ;
+  box-shadow: 5px 5px 5px #605E61 ;
 }
 
 h1 {
-  color: #fff;
+  color: #000;
 }
 
 .contact-item:hover {
@@ -56,42 +55,41 @@ h1 {
 
 .contact-item h2 {
   font-size: 18px;
-  color: #fff;
+  color: #000;
 }
 
 .contact-item p {
   font-size: 16px;
-  color: #fff;
+  color: #605E61;
 }
 
-/* Медиа-запросы для адаптивной верстки */
 @media (max-width: 1240px) {
   .contact-info {
-    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 1080px) {
   .contact-info {
-    grid-template-columns: repeat(2, 1fr); /* 2 карточки в ряд */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 720px) {
   .contact-info {
-    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+    grid-template-columns: repeat(1, 1fr); 
   }
 }
 
 @media (max-width: 480px) {
   .contact-info {
-    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+    grid-template-columns: repeat(1, 1fr); 
   }
 }
 
 @media (max-width: 320px) {
   .contact-info {
-    grid-template-columns: repeat(1, 1fr); /* 1 карточка в ряд */
+    grid-template-columns: repeat(1, 1fr); 
   }
 }
 </style>

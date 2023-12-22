@@ -16,10 +16,11 @@ section.featured-section
 </script>
     
 <style scoped>
+
 .featured-section {
   padding: 40px 20px;
   margin: 20px;
-  background: linear-gradient(145deg, #6e8efb, #a777e3);
+  background: linear-gradient(145deg, #ffffff, #000000);
   color: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -45,11 +46,12 @@ section.featured-section
     font-size: 1.2rem;
     margin-bottom: 20px;
     max-width: 600px;
+    color:#000;
   }
 
   .btn-primary {
-    background-color: #fff;
-    color: #6e8efb;
+    background-color: #BA1519;
+    color: #fff;
     border: none;
     padding: 10px 30px;
     border-radius: 30px;
@@ -57,16 +59,18 @@ section.featured-section
     font-weight: bold;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
-
     &:hover {
-      background-color: #a777e3;
-      color: #fff;
+      background-color: #BA1519;
+      color: #605E61;
       cursor: pointer;
     }
   }
+
+  .btn-primary:active {
+  transform: scale(0.95);
+}
 }
 
-/* Адаптивные стили */
 @media (max-width: 768px) {
   .featured-section {
     .title {

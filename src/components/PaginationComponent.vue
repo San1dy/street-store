@@ -1,5 +1,5 @@
 <template lang="pug">
-div.pagination
+.pagination
   button(
     v-for="page in totalPages"
     :key="page"
@@ -43,29 +43,33 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  color: #C6A153;
+  color: #605E61;
 }
 
 button {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   border: none;
-  padding: 5px 10px;
+  padding: 5px 15px; 
   margin: 0 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  color:#C6A153;
+  color: #605E61;
+  border-radius: 20px;
+  font-size: 14px; 
 }
 
 button:hover {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.6); 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 button:active {
-  transform: scale(0.9);
+  transform: scale(0.95); 
 }
 
 button.active {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8); 
   font-weight: bold;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
 }
 </style>

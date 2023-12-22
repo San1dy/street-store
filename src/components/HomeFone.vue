@@ -1,12 +1,20 @@
 <template lang="pug">
 section.content#id
   .container-fluid
+    img.slider-image(:src="images[activeImageIndex]", :alt="`Image ${activeImageIndex + 1}`")
+    .navigation-panel
+      span.navigation-dot(v-for="(image, index) in images" :key="index" :class="{ active: activeImageIndex === index }" @click="setActiveImage(index)")
     h1.title(:class="{'active': active}")
       strong {{ title }}
     p.text {{ description }}
 </template>
 
 <script>
+import image1 from '@/assets/images/1.jpg';
+import image2 from '@/assets/images/2.jpg';
+import image3 from '@/assets/images/3.jpg';
+import image4 from '@/assets/images/4.jpg';
+
 export default {
   name: "HomeFone",
   data() {
@@ -14,114 +22,172 @@ export default {
       title: "STREET STORE",
       description: "Лучший выбор кроссовок для всех любителей спорта и стиля",
       active: true,
-      link: "/products",
+      images: [image1, image2, image3, image4],
+      activeImageIndex: 0,
+      slideInterval: null,
     };
   },
+  methods: {
+    nextSlide() {
+      this.activeImageIndex = (this.activeImageIndex + 1) % this.images.length;
+    },
+    setActiveImage(index) {
+      this.activeImageIndex = index;
+    },
+    startSlideshow() {
+      this.slideInterval = setInterval(this.nextSlide, 10000);
+    },
+    stopSlideshow() {
+      clearInterval(this.slideInterval);
+    }
+  },
+  mounted() {
+    this.startSlideshow();
+  },
+  beforeUnmount() { 
+    this.stopSlideshow();
+  }
 };
 </script>
+
   
 <style scoped>
+.slider-image {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
+
+.navigation-panel {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.navigation-dot {
+  height: 10px;
+  width: 10px;
+  margin: 0 5px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.navigation-dot.active {
+  background-color: #717171;
+}
+
 @font-face {
   font-family: 'MyCustomFont';
   src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype');
 }
 
 .content {
-  
   z-index: 1;
   background-size: cover;
-  background-position: center center;
-  height: 900px; /* Устанавливаем начальную высоту */
+  background-position: center;
+  height: 1000px; 
 }
 
 .container-fluid {
   position: relative;
-  width: 90%;
-  height: 100%; /* Используем всю высоту content */
-  background-image: url(../assets/images/1667675290_9-sportishka-com-p-dinamovskie-krossovki-oboi-10.jpg);
+  height: 100%; 
   background-size: cover;
   background-position: center;
   border-radius: 20px;
-  margin: auto;
+  margin: -70px 0px 0 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center; /* Центрируем текст */
+  text-align: center;
 }
 
 .title {
   position: absolute;
   font-family: 'MyCustomFont', sans-serif;
-  font-size: 5rem; /* Начальный размер шрифта для заголовка */
-  color: #C6A153;
+  font-size: 5rem; 
+  color: #BA1519;
   margin: 0;
-  left: 40px;
-  top:0;
+  left: 70px;
+  top: 80px;
 }
 
 .text {
   position: absolute;
-  left: 0px;
-  top:100px;
+  left: 40px;
+  top: 400px;
   font-family: 'MyCustomFont', sans-serif;
-  font-size: 1.5rem; /* Начальный размер шрифта для текста */
-  color: #fff;
-  max-width: 50%; /* Максимальная ширина текста */
+  font-size: 2rem; 
+  color: #605E61;
+  max-width: 40%; 
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
 }
 
-/* Адаптивность */
+
 @media (max-width: 1240px) {
   .title {
-    font-size: 3rem; /* Уменьшенный размер шрифта для заголовка на мобильных */
+    font-size: 3rem; 
   }
 
   .text {
-    font-size: 1.2rem; /* Уменьшенный размер шрифта для текста на мобильных */
-    max-width: 70%; /* Увеличенная максимальная ширина текста для мобильных */
+    font-size: 1.2rem; 
+    left: 40px;
+    top: 300px;
   }
 
   .content {
-  height: 700px; /* Устанавливаем начальную высоту */
+  height: 700px; 
 }
 }
 @media (max-width: 800px) {
   .title {
-    font-size: 2rem; /* Уменьшенный размер шрифта для заголовка на мобильных */
+    font-size: 2rem; 
+    left: 40px;
+    top: 230px;
+    opacity: 0;
   }
 
   .text {
-    font-size: 1rem; /* Уменьшенный размер шрифта для текста на мобильных */
-    max-width: 70%; /* Увеличенная максимальная ширина текста для мобильных */
+    font-size: 1rem; 
+    left: 40px;
+    top: 330px;
+    opacity: 0;
   }
 
   .content {
-  height: 500px; /* Устанавливаем начальную высоту */
+  height: 500px; 
 }
 }
 
 @media (max-width: 480px) {
   .content {
-  height: 250px; /* Устанавливаем начальную высоту */
+  height: 250px; 
 }
 
   .container-fluid {
-    max-width: 100%; /* Используем всю ширину экрана */
+    max-width: 100%; 
   }
 
   .title {
-    font-size: 1rem; /* Еще меньше для очень маленьких экранов */
+    font-size: 1rem; 
   }
 
   .text {
-    font-size: 0.5rem; /* Меньше для очень маленьких экранов */
-    max-width: 90%; /* Еще больше текста на экране */
+    font-size: 0.5rem;
+ 
+
   }
 }
 
 @media (max-width: 320px) {
   .content {
-  height: 150px; /* Устанавливаем начальную высоту */
+  height: 150px; 
 }
 }
 </style>

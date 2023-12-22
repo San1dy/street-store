@@ -20,7 +20,6 @@ export default createStore({
       commit('ADD_TO_CART', item);
     },
     removeFromCart({ commit }, item) {
-      // Вызываем мутацию removeFromCart
       commit('removeFromCart', item);
     }
   }

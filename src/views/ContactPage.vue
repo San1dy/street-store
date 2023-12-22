@@ -1,8 +1,6 @@
 <template lang="pug">
 div
   AppHeader
-  
- 
   TeamComponent
   ContactInfo
   ContactUsForm
@@ -34,6 +32,6 @@ export default {
 </script>
 
 <style scoped>
-/* Стили для каталога */
+
 </style>
   

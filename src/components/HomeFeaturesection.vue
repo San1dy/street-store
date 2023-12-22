@@ -23,45 +23,78 @@ export default {
 
 <style scoped>
 .features {
-  margin: auto;
-  width: 100%;
+  margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Три колонки по умолчанию */
-  grid-gap: 20px; /* Отступы между элементами сетки */
-  padding: 20px;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 50px;
+  padding: 30px;
   text-align: center;
+  max-width: 1200px; 
 }
 
 .feature {
   padding: 15px;
+  margin-bottom: 20px; 
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.2); /* Прозрачный белый фон */
-  backdrop-filter: blur(5px); /* Размытие фона за элементом */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  height: auto; 
 }
 
 .feature img {
-  width: 100%; /* Ширина изображения подстраивается под размер колонки */
-  height: auto; /* Высота изображения подстраивается пропорционально */
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .feature h2 {
   color: #333;
-  font-size: 1.5rem; /* Размер заголовка */
+  font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
 .feature p {
   color: #666;
-  font-size: 1rem; /* Размер текста */
+  font-size: 1rem;
 }
 
-/* Медиазапросы для адаптивности */
-@media (max-width: 768px) {
+@media (max-width: 1240px) {
   .features {
-    grid-template-columns: 1fr; /* Одна колонка для устройств среднего и малого размера */
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+@media (max-width: 1080px) {
+  .features {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (max-width: 720px) {
+  .features {
+    grid-template-columns: 1fr; 
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    grid-template-columns: 1fr; 
+  }
+
+  .feature {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 320px) {
+  .feature img {
+    height: 180px; 
   }
 }
 </style>
+
+

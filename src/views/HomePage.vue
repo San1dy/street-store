@@ -3,12 +3,9 @@ div
   AppHeader
   HomeFone
   HomeMeInfo
-  
   StatisticsSection
   FeatureSection
   HomeCallToActionSection
-  
-  
   EventsSection
   ImageGallery
   FooterSection

@@ -27,14 +27,15 @@ export default {
 
 .about-us-container {
   margin: 50px;
-  background-color: #ffffff;
+  background-color: #605E61;
   border-radius: 20px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1); /* Прозрачный белый фон */
-  backdrop-filter: blur(5px); /* Размытие фона за элементом */
-  padding: 15px; /* Внутренние отступы */
+  color: #000;
+  background: linear-gradient(145deg, #00000000, #ffffff00);
+  backdrop-filter: blur(5px); 
+  padding: 15px;
   display: flex;
   justify-content: space-between;
+
 }
 
 .image-wrapper {
@@ -46,6 +47,7 @@ export default {
   width: 100%;
   height: auto;
   border-radius: 20px;
+  box-shadow: 2px 2px 2px rgba(228, 35, 35, 0.74);
 }
 
 .content-column {
@@ -91,9 +93,9 @@ export default {
 @media (max-width: 900px) {
   .about-us-container {
     width: auto;
-  flex-direction: column; /* Элементы теперь располагаются вертикально */
-  align-items: center; /* Выравнивание элементов по центру по вертикали */
-  justify-content: center; /* Выравнивание элементов по центру по горизонтали */
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
 
 }
 .image-wrapper {

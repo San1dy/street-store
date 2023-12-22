@@ -111,22 +111,21 @@ a {
 
 .footer-bottom {
   text-align: center; 
-  color: #fff; 
+  color: #605E61; 
   width: 100%; 
   margin-top: 20px; 
 }
 
 
-/* Медиазапросы для адаптивности */
 @media (max-width: 1080px) {
   .events {
-    grid-template-columns: repeat(2, 1fr); /* Переключение на две колонки */
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
 
 @media (max-width: 480px) {
   .events {
-    grid-template-columns: 1fr; /* Переключение на одну колонку */
+    grid-template-columns: 1fr;
   }
 }
 </style>

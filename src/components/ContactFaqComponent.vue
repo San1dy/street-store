@@ -44,24 +44,24 @@ export default {
 .faq {
   max-width: 600px;
   margin: 0 auto;
-  padding: 0 10px; /* Добавьте небольшой отступ по бокам */
+  padding: 0 10px; 
 }
 
 h1{
   text-align: center;
   font-size: 3em; 
-  color: #C6A153;
+  color: #605E61;
 }
 .faq-item {
   margin-bottom: 20px;
 }
 
 h2 {
-  color: #fff;
+  color: #000;
   size:3em;
 }
 p {
-  color: #C6A153;
+  color: #605E61;
 }
 .faq-question {
   width: 100%;
@@ -73,13 +73,13 @@ p {
   font-weight: bold;
   cursor: pointer;
   border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   transition: background-color 0.3s;
   padding-left: 50px;
 }
 
 .faq-question:hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.3);
 }
 
 .faq-answer {
@@ -90,7 +90,6 @@ p {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Медиа-запросы для адаптации к разным размерам экрана */
 @media (max-width: 1240px) {
   h1 {
     font-size: 2.5em;
@@ -102,8 +101,6 @@ p {
     padding-left: 30px;
     font-size: 10px;
   }
-
-
 }
 
 @media (max-width: 720px) {
