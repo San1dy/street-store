@@ -1,4 +1,4 @@
-<template lang="pug">
+ <template lang="pug">
 div
   FilterComponent(:min-price-limit="minItemPrice", :max-price-limit="maxItemPrice", @filter-changed="applyFilters")
   .catalog
@@ -24,7 +24,7 @@ div
 import FilterComponent from './FilterComponent.vue';
 import ProductModal from './ProductModal.vue';
 import PaginationComponent from './PaginationComponent.vue';
-import { products } from '@/data/products.js';
+//import { products } from '@/data/products.js';
 
 export default {
   name: 'CatalogContainer',
@@ -40,7 +40,8 @@ export default {
     return {
       selectedProduct: null,
       isModalVisible: false,
-      items: products,
+      //items: products,
+      items: [], 
       itemsPerPage: 12,
       currentPage: 1,
       filters: {
@@ -50,6 +51,9 @@ export default {
         maxPrice: null,
       }
     };
+  },
+  created() {
+    this.fetchProducts(); 
   },
   computed: {
     displayedItems() {
@@ -109,13 +113,22 @@ export default {
     },
     
     addToCart(item) {
-    this.$store.dispatch('addToCart', item);
-    item.itemAddedToCart = true;
-    setTimeout(() => {
-      item.itemAddedToCart = false;
-    }, 2000); 
-  }
-    
+      this.$store.dispatch('addToCart', item);
+      item.itemAddedToCart = true;
+      
+      setTimeout(() => {
+        item.itemAddedToCart = false;
+      }, 2000); 
+    },
+
+    fetchProducts() {
+    fetch('http://localhost:3000/api/products')
+      .then(response => response.json())
+      .then(data => {
+        this.items = data;
+      })
+      .catch(error => console.error('Error:', error));
+  },    
   }
 };
 </script>
@@ -162,7 +175,7 @@ p{
   padding: 1rem;
   transition: transform 0.3s ease;
   position: relative;
-  background: #c8c8c897;
+  background: #ffffff;
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 5px 5px 5px #2826269b;
@@ -184,7 +197,7 @@ p{
   width: 100%;
   border-radius: 10px;
   cursor: pointer;
-  aspect-ratio: 3 / 4; 
+  aspect-ratio: 1 / 1; 
   object-fit: cover; 
   margin-bottom: 1rem; 
 }
@@ -199,7 +212,7 @@ p{
 
 .product .price {
   font-size: 24px;
-  color: #fff;
+  color: #000;
   margin: 10px 0;
   margin-bottom: 0.8rem;
 }

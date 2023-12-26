@@ -21,7 +21,6 @@ import StatisticsSection from '@/components/HomeStatisticsSection.vue';
 import FeatureSection from '@/components/HomeFeaturesection.vue'
 import EventsSection from '@/components/HomeEventsSection.vue'
 import ImageGallery from '@/components/HomeImageGallery.vue'
-import PartnersComponent from '@/components/ContactPartnersComponent.vue'
 
 export default {
   name: 'HomePage',
@@ -35,7 +34,6 @@ export default {
     EventsSection,
     ImageGallery,
     FooterSection,
-    PartnersComponent,
   }
 };
 </script>

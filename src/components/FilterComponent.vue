@@ -48,7 +48,7 @@ export default {
       maxPrice: this.maxPriceLimit,
       priceRange: [this.minPriceLimit, this.maxPriceLimit],
       brands: [ 'Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
-      sizes: ['35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
+      sizes: ['34','35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
     };
   },
   watch: {

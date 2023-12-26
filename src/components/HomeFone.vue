@@ -56,6 +56,7 @@ export default {
   width: 100%;
   height: auto;
   border-radius: 20px;
+  margin-bottom: 20px;
 }
 
 .navigation-panel {

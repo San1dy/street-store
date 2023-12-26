@@ -119,7 +119,7 @@ a {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.9); 
+    background: rgba(168, 168, 168, 0.836); 
     border-radius: 20px;
     padding: 1rem;
     transform: translateY(-100%);

@@ -13,7 +13,6 @@ import AppHeader from '@/views/AppHeader.vue';
 import FooterSection from '@/views/AppFooterSection.vue'
 import TeamComponent from '@/components/ContactTeamComponent.vue'
 import FaqComponent from '@/components/ContactFaqComponent.vue'
-import PartnersComponent from '@/components/ContactPartnersComponent.vue'
 import ContactUsForm from '@/components/ContactUsForm.vue'
 import ContactInfo from '@/components/ContactInfo.vue'
 
@@ -23,7 +22,6 @@ export default {
     AppHeader,
     TeamComponent,
     FaqComponent,
-    PartnersComponent,
     ContactUsForm,
     ContactInfo,
     FooterSection,

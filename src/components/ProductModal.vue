@@ -57,7 +57,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.825);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
 
@@ -66,7 +66,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: rgba(2, 2, 2, 0.5);
+  background-color: rgba(2, 2, 2, 0.2);
   backdrop-filter: blur(10px);
   border-radius: 15px;
   width: 80%;

@@ -2,7 +2,7 @@
 .catalog
   h1 Корзина
   .products
-    p(v-if="cartItems.length === 0") Ваша корзина пуста
+    p.text(v-if="cartItems.length === 0") Ваша корзина пуста
     .product(
       v-for="item in cartItems", 
       :key="item.id",
@@ -27,6 +27,7 @@
 
 
 <script>
+import { mapActions } from 'vuex';
 import ModalComponent from './ModalComponent.vue';
 
 export default {
@@ -36,7 +37,7 @@ export default {
   data() {
     return {
       selectedItem: null,
-      isModalVisible: false,
+      isModalVisible: false
     };
   },
   computed: {
@@ -44,7 +45,12 @@ export default {
       return this.$store.state.cart.map(item => ({ ...item, showDelete: false }));
     }
   },
+  created() {
+    // Вызываем действие для инициализации корзины при создании компонента
+    this.initializeCart();
+  },
   methods: {
+    ...mapActions(['initializeCart']),
     removeFromCart(itemToRemove) {
       this.$store.dispatch('removeFromCart', itemToRemove);
     },
@@ -69,11 +75,18 @@ export default {
 <style scoped>
 .catalog, .products {
   text-align: center;
-  width: 80%;
+  width: 90%;
   margin: auto;
   height: auto;
 }
 
+.catalog {
+  position: relative;
+}
+.text {
+  position: absolute;
+  margin: auto;
+}
 .products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -100,14 +113,14 @@ export default {
 .product img {
   width: 100%;
   border-radius: 10px;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   margin-bottom: 1rem;
 }
 
 .product h2, .product .price, button {
   color: #000;
-  font-size: 1rem;
+  font-size: 25px;
 }
 
 .buy-button, .delete-button {
@@ -125,6 +138,9 @@ export default {
   transition: opacity 0.3s ease, display 0.3s ease;
 }
 
+p{
+  text-align: center;
+}
 .product:hover .buy-button, .product:hover .delete-button {
   display: block;
 }
@@ -142,24 +158,32 @@ export default {
   .product {
     max-width: 300px;
   }
+  .product h2, .product .price, button {
+  font-size: 20px;
+}
 }
 
 @media (max-width: 1080px) {
   .product {
     max-width: 250px;
   }
+  .product h2, .product .price, button {
+  font-size: 15px;
+}
 }
 
 @media (max-width: 720px) {
   .products {
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   }
+
 }
 
 @media (max-width: 480px) {
   .products {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
+
 }
 
 @media (max-width: 320px) {

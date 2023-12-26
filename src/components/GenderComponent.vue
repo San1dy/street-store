@@ -37,10 +37,12 @@ export default {
   justify-content: space-around;
   margin: 50px auto;
   gap: 20px;
-  max-width: 95%;
+  max-width: 85%;
 }
 
 .gallery-item {
+  max-width: 500px;
+  max-height: 700px;
   font-family: 'MyCustomFont';
   flex: 1 1 30%;
   position: relative;
@@ -60,7 +62,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.9); 
   box-shadow: 10зч 10px 10px 10px rgba(255, 255, 255, 0.74);
   opacity: 0; 
   transition: opacity 0.5s ease;
