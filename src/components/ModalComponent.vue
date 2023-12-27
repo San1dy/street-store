@@ -107,7 +107,7 @@ export default {
 }
 
 .product-name {
-  color: #e57b7b;
+  color: #000000;
   margin-bottom: 10px;
 }
 
@@ -128,7 +128,7 @@ export default {
 .new-price {
   font-size: 24px;
   font-weight: bold;
-  color: #e57b7b;
+  color: #0a0000;
 }
 
 .action-buttons {
@@ -137,22 +137,39 @@ export default {
 }
 
 .buy-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  background-color: #BA1519;
+  width: 130px;
+  height: 40px;
   color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
+              7px 7px 20px 0px rgba(255, 255, 255, 0.329),
+              4px 4px 5px 0px rgba(255, 255, 255, 0.199);
+  outline: none;
+  background: rgb(207, 84, 84); 
+  background: linear-gradient(0deg, rgb(238, 13, 13) 0%, rgb(82, 19, 19) 100%);
+  text-decoration: none;
 }
 
 .buy-button:hover {
-  opacity: 0.8;
+  text-decoration: none;
+  color: #fff;
+  opacity: .7;
 }
 
 .buy-button:active {
-  opacity: 0.6;
-  transform: scale(0.95);
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+              inset -4px -4px 6px 0 rgba(255,255,255,.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
 
 .close-button {

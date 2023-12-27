@@ -24,49 +24,56 @@ div
 import FilterComponent from './FilterComponent.vue';
 import ProductModal from './ProductModal.vue';
 import PaginationComponent from './PaginationComponent.vue';
-//import { products } from '@/data/products.js';
 
 export default {
   name: 'CatalogContainer',
+
   components: {
     ProductModal,
     FilterComponent,
     PaginationComponent
   },
+
   props: {
     selectedFloor: String
   },
+
   data() {
     return {
       selectedProduct: null,
       isModalVisible: false,
-      //items: products,
       items: [], 
       itemsPerPage: 12,
       currentPage: 1,
       filters: {
         brand: '',
         size: '',
-        minPrice: null,
-        maxPrice: null,
+        minPrice: this.minPriceLimit, 
+        maxPrice: this.maxPriceLimit, 
+        priceRange: [this.minPriceLimit, this.maxPriceLimit], 
       }
     };
   },
+
   created() {
     this.fetchProducts(); 
   },
+
   computed: {
     displayedItems() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
       return this.filteredItems.slice(start, end);
     },
+
     minItemPrice() {
       return Math.min(...this.items.map(item => parseFloat(item.price.replace(/\s/g, ''))));
     },
+
     maxItemPrice() {
       return Math.max(...this.items.map(item => parseFloat(item.price.replace(/\s/g, ''))));
     },
+
     filteredItems() {
     return this.items.filter(item => {
       const price = parseFloat(item.price.replace(/\s/g, ''));
@@ -76,30 +83,32 @@ export default {
              (!this.filters.maxPrice || price <= this.filters.maxPrice) &&
              (!this.selectedFloor || item.floor === this.selectedFloor);
     });
-  },
+    },
+
     showLoadMoreButton() {
       return this.visibleItems < this.filteredItems.length;
     }
   },
+
   methods: {
     changePage(page) {
-    this.currentPage = page;
-    this.updateDisplayedItems(); 
+      this.currentPage = page;
+      this.updateDisplayedItems(); 
     },
 
     updateDisplayedItems() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.displayedItems = this.filteredItems.slice(startIndex, endIndex);
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      this.displayedItems = this.filteredItems.slice(startIndex, endIndex);
     },
 
     openModal(product) {
-    this.selectedProduct = product;
-    this.isModalVisible = true;
+      this.selectedProduct = product;
+      this.isModalVisible = true;
     },
 
     handleImageChange(newImage) {
-    this.selectedProduct = { ...this.selectedProduct, image: newImage };
+      this.selectedProduct = { ...this.selectedProduct, image: newImage };
     },
 
     loadMore() {
@@ -107,9 +116,9 @@ export default {
     },
 
     applyFilters(newFilters) {
-    this.filters = { ...this.filters, ...newFilters };
-    this.currentPage = 1; 
-    this.updateDisplayedItems(); 
+      this.filters = { ...this.filters, ...newFilters };
+      this.currentPage = 1; 
+      this.updateDisplayedItems(); 
     },
     
     addToCart(item) {
@@ -122,13 +131,13 @@ export default {
     },
 
     fetchProducts() {
-    fetch('http://localhost:3000/api/products')
-      .then(response => response.json())
-      .then(data => {
-        this.items = data;
-      })
+      fetch('http://localhost:3000/api/products')
+        .then(response => response.json())
+        .then(data => {
+          this.items = data;
+        })
       .catch(error => console.error('Error:', error));
-  },    
+    },    
   }
 };
 </script>
@@ -156,7 +165,7 @@ export default {
   font-family: 'MyCustomFont';
 }
 h1 {
-  color:#BA1519;
+  color:#f3080b;
 }
 p{ 
   text-align: left;
@@ -164,7 +173,7 @@ p{
 }
 .products {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   justify-content: center;
   margin-top: 30px;
@@ -224,7 +233,7 @@ p{
 
 button {
   border: none;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 10px 20px;
   background-color: #BA1519;
   color: white;
@@ -235,15 +244,35 @@ button {
   transition: transform 0.2s, background-color 0.2s;
   align-self: center; 
   margin-top: auto;
+
+ 
+  font-weight: 500;
+  font-size: 15px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
+              7px 7px 20px 0px rgba(0,0,0,.3),
+              4px 4px 5px 0px rgba(0,0,0,.3);
+  outline: none;
+  background: rgb(207, 84, 84); 
+  background: linear-gradient(0deg, rgb(245, 3, 3) 0%, rgb(243, 53, 53) 100%);
+  text-decoration: none;
 }
 
 button:hover {
-  background-color: #fb0307;
+  text-decoration: none;
+  color: #fff;
+  opacity: .7;
 }
 
 button:active {
-  transform: scale(0.95); 
-  background-color: #171616;
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+              inset -4px -4px 6px 0 rgba(255,255,255,.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
 
 .no-items {

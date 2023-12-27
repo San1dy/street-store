@@ -1,7 +1,14 @@
 <template lang="pug">
 nav.navigation-bar
   router-link.to-home(to="/home")
-    .logo STREET STORE
+    img.logo(
+      :class="{ clicked: logoClicked }",
+      :src="logoSrc", 
+      alt="Логотип", 
+      @mouseover="mouseOverLogo", 
+      @mouseleave="mouseLeaveLogo",
+      @click="clickOnLogo"
+    )
   button.burger-button(@click="toggleMenu") ☰
   ul.navigation-links(:class="{ 'active': menuActive }")
     li
@@ -15,20 +22,43 @@ nav.navigation-bar
 </template>
 
 <script>
+
+import logoDefault from '@/assets/images/5.svg';
+import logoHover from '@/assets/images/4.svg';
+import logoClickedImg from '@/assets/images/5.svg';
+
 export default {
   name: 'AppHeader',
   data() {
     return {
-      menuActive: false
+      menuActive: false,
+      logoSrc: logoDefault,
+      logoHoverSrc: logoHover,
+      logoClickedSrc: logoClickedImg,
+      logoClicked: false
     };
   },
   methods: {
     toggleMenu() {
       this.menuActive = !this.menuActive;
+    },
+    mouseOverLogo() {
+      this.logoSrc = this.logoHoverSrc;
+    },
+    mouseLeaveLogo() {
+      this.logoSrc = this.logoClicked ? this.logoClickedSrc : logoDefault;
+    },
+    clickOnLogo() {
+      this.logoClicked = true;
+      setTimeout(() => {
+        this.logoClicked = false;
+      }, 300); 
     }
   }
 };
 </script>
+
+
 
 <style scoped>
 @font-face {
@@ -45,7 +75,7 @@ h1, h2, p, a, li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(252, 251, 251, 0.3);
+  background: rgba(252, 251, 251, 0.856);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 0.5rem 2rem;
@@ -64,10 +94,45 @@ a {
   color: #BA1519;
   text-decoration: none;
   transition: transform 0.3s ease;
+  width: 200px;
+  height: 50px;
 }
 
-.logo:hover {
-  color: #605E61;
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.logo.clicked {
+  animation: clickAnimation 0.5s ease;
+}
+
+.logo:active {
+  transform: scale(0.9);
+}
+@media (max-width: 850px) {
+  .logo {
+    width: 150px; 
+  }
+}
+
+@media (max-width: 720px) {
+  .logo {
+    width: 120px; 
+  }
+}
+
+@media (max-width: 400px) {
+  .logo {
+    width: 100px; 
+  }
 }
 
 .navigation-links {
@@ -91,6 +156,9 @@ a {
   color:#fff;
 }
 
+.navigation-links li a:active {
+  transform: scale(0.6);
+}
 .burger-button {
   display: none;
   background: none;
@@ -99,12 +167,6 @@ a {
   color: #fff;
   cursor: pointer;
   z-index: 20; 
-}
-
-@media (max-width: 850px) {
-  .logo {
-    font-size: 20px;
-  }
 }
 
 @media (max-width: 720px) {
@@ -146,3 +208,4 @@ a {
   }
 }
 </style>
+

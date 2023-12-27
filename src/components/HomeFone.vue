@@ -4,8 +4,7 @@ section.content#id
     img.slider-image(:src="images[activeImageIndex]", :alt="`Image ${activeImageIndex + 1}`")
     .navigation-panel
       span.navigation-dot(v-for="(image, index) in images" :key="index" :class="{ active: activeImageIndex === index }" @click="setActiveImage(index)")
-    h1.title(:class="{'active': active}")
-      strong {{ title }}
+    img.logo(:src="logo", :alt="`Logo`")
     p.text {{ description }}
 </template>
 
@@ -14,12 +13,13 @@ import image1 from '@/assets/images/1.jpg';
 import image2 from '@/assets/images/2.jpg';
 import image3 from '@/assets/images/3.jpg';
 import image4 from '@/assets/images/4.jpg';
+import logo from '@/assets/images/5.svg';
 
 export default {
   name: "HomeFone",
   data() {
     return {
-      title: "STREET STORE",
+      logo,
       description: "Лучший выбор кроссовок для всех любителей спорта и стиля",
       active: true,
       images: [image1, image2, image3, image4],
@@ -107,14 +107,14 @@ export default {
   text-align: center;
 }
 
-.title {
+.logo {
   position: absolute;
   font-family: 'MyCustomFont', sans-serif;
   font-size: 5rem; 
   color: #BA1519;
   margin: 0;
   left: 70px;
-  top: 80px;
+  top: 50px;
 }
 
 .text {

@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.main-container
   AppHeader
   AppCorzina
   FooterSection
@@ -21,5 +21,7 @@ div
   </script>
   
   <style scoped>
-
+    .main-container {
+      min-height: 100vh; 
+    }
   </style>

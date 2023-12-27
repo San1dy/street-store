@@ -2,7 +2,7 @@
 .catalog
   h1 Корзина
   .products
-    p.text(v-if="cartItems.length === 0") Ваша корзина пуста
+    p.text(v-if="cartItems.length === 0") В данный момент ваша корзина пустая
     .product(
       v-for="item in cartItems", 
       :key="item.id",
@@ -12,7 +12,6 @@
       img(:src="item.image", @click="openModal(item)")
       h2 {{ item.name }}
       span.price {{ item.price }} ₽
-      button.buy-button(@click="openExternalLink(item.buy)") Купить
       button.delete-button(
         :class="{'show-delete': item.showDelete}", 
         @click="removeFromCart(item)"
@@ -46,7 +45,6 @@ export default {
     }
   },
   created() {
-    // Вызываем действие для инициализации корзины при создании компонента
     this.initializeCart();
   },
   methods: {
@@ -139,7 +137,8 @@ export default {
 }
 
 p{
-  text-align: center;
+  position: absolute;
+  font-size: 20px;
 }
 .product:hover .buy-button, .product:hover .delete-button {
   display: block;
@@ -149,6 +148,9 @@ p{
   background-color: #c0392b;
 }
 
+.buy-button:hover, .delete-button:active {
+  transform: scale(0.95);
+}
 .show-delete {
   display: block;
   opacity: 1;

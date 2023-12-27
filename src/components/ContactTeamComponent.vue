@@ -28,7 +28,7 @@ export default {
 <style scoped>
 h1 {
   font-size: 40px;
-  color:#BA1519;
+  color:#f7070b;
 }
 .team {
   text-align: center;

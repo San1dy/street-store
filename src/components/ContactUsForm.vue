@@ -36,7 +36,7 @@ h1 {
 }
 
 button {
-  background-color: #BA1519; 
+  background-color: #f3080b; 
   color: white;
   border: none;
   padding: 15px 30px;
@@ -51,6 +51,9 @@ button:hover {
   background-color: #605E61;
 }
 
+button:active {
+  transform: scale(0.8);
+}
 @media (max-width: 1240px) {
   h1 {
     font-size: 1.8em;

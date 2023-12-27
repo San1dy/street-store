@@ -7,8 +7,6 @@ section.featured-section
       router-link.btn-primary(to="/catalog") Посмотреть предложения
 </template>
 
-
-    
 <script>
   export default {
     name: 'HomeCallToActionSection'
@@ -50,24 +48,39 @@ section.featured-section
   }
 
   .btn-primary {
-    background-color: #BA1519;
-    color: #fff;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 30px;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
-    &:hover {
-      background-color: #BA1519;
-      color: #605E61;
-      cursor: pointer;
-    }
-  }
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
+              7px 7px 20px 0px rgba(0,0,0,.3),
+              4px 4px 5px 0px rgba(0,0,0,.3);
+  outline: none;
+  background: rgb(207, 84, 84); 
+  background: linear-gradient(0deg, rgb(17, 17, 17) 0%, rgba(169,169,169,1) 100%);
+  text-decoration: none;
+}
 
-  .btn-primary:active {
-  transform: scale(0.95);
+.btn-primary:hover {
+  text-decoration: none;
+  color: #fff;
+  opacity: .7;
+}
+
+.btn-primary:active {
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+              inset -4px -4px 6px 0 rgba(255,255,255,.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
 }
 

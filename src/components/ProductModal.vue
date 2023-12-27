@@ -89,10 +89,10 @@ p{
   color:#ffffff;
 }
 h1{
-  color:#e57b7b;
+  color:#030000;
 }
 span{
-  color:#e57b7b;
+  color:#050000;
 }
 .image-selection {
   width: 60px;
@@ -151,11 +151,33 @@ span{
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s;
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
+              7px 7px 20px 0px rgba(0,0,0,.3),
+              4px 4px 5px 0px rgba(0,0,0,.3);
+  outline: none;
+  background: rgb(207, 84, 84); 
+  background: linear-gradient(0deg, rgb(252, 16, 16) 0%, rgb(238, 96, 96) 100%);
+  text-decoration: none;
 }
 
 .buy-button {
   background-color: #BA1519;
   color: #fff;
+  font-size: 15px;
+  
 }
 
 .favorite-button {
@@ -177,9 +199,16 @@ button:active {
   transform: scale(0.95);
 }
 .item-added-text {
-  color: #2ecc71;
-  font-size: 16px;
-  margin-top: 10px;
+  text-align: center;
+  background-color: #020202;
+  border-radius: 10px;
+  position:absolute;
+  color: #ffffff;
+  font-size: 30px;
+  width: 400px;
+  top:50%;
+  left:20%;
+  padding: 15px;
 }
 
 @media (max-width: 1240px) {

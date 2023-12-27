@@ -74,6 +74,9 @@ export default {
   transform: scale(1.03);
 }
 
+.gallery-item:active {
+  transform: scale(0.95);
+}
 .gallery-item img {
   width: 100%;
   height: auto;

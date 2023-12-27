@@ -7,14 +7,12 @@ export default createStore({
   mutations: {
     ADD_TO_CART(state, item) {
       state.cart.push(item);
-      // Сохраняем данные корзины в localStorage после каждого изменения
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
     removeFromCart(state, itemToRemove) {
       const index = state.cart.findIndex(item => item.id === itemToRemove.id);
       if (index !== -1) {
         state.cart.splice(index, 1);
-        // Сохраняем данные корзины в localStorage после каждого изменения
         localStorage.setItem('cart', JSON.stringify(state.cart));
       }
     },

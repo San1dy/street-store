@@ -15,8 +15,8 @@
     .price-inputs
       input(type="number", v-model.number="minPrice", :min="minPriceLimit", :max="maxPrice", placeholder="От")
       input(type="number", v-model.number="maxPrice", :min="minPrice", :max="maxPriceLimit", placeholder="До")
-    VueSlider(:min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
-  button(@click="applyFilters") Применить фильтры
+    VueSlider(v-if="isSliderReady", :min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
+  button.button-apply-filters(@click="applyFilters") Применить фильтры
 </template>
 
 
@@ -46,24 +46,75 @@ export default {
       selectedSize: '',
       minPrice: this.minPriceLimit,
       maxPrice: this.maxPriceLimit,
-      priceRange: [this.minPriceLimit, this.maxPriceLimit],
-      brands: [ 'Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
-      sizes: ['34','35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
+      priceRange: [null, null],
+      brands: ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
+      sizes: ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'],
+      isSliderReady: false,
     };
   },
+  created() {
+    this.restoreFiltersFromSessionStorage();
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.isSliderReady = true;
+      this.priceRange = [this.minPrice, this.maxPrice];
+    });
+  },
   watch: {
+    minPriceLimit(newVal) {
+      if (this.isSliderReady && newVal !== this.minPrice) {
+        this.minPrice = newVal;
+        this.priceRange[0] = newVal;
+      }
+    },
+    maxPriceLimit(newVal) {
+      if (this.isSliderReady && newVal !== this.maxPrice) {
+        this.maxPrice = newVal;
+        this.priceRange[1] = newVal;
+      }
+    },
     priceRange(newVal) {
-      this.minPrice = newVal[0];
-      this.maxPrice = newVal[1];
+      if (this.isSliderReady) {
+        if (newVal[0] !== this.minPrice) {
+          this.minPrice = newVal[0];
+        }
+        if (newVal[1] !== this.maxPrice) {
+          this.maxPrice = newVal[1];
+        }
+      }
     },
     minPrice(newVal) {
-      this.priceRange[0] = newVal;
+      if (this.isSliderReady) {
+        this.priceRange[0] = newVal;
+      }
     },
     maxPrice(newVal) {
-      this.priceRange[1] = newVal;
+      if (this.isSliderReady) {
+        this.priceRange[1] = newVal;
+      }
     }
   },
   methods: {
+    saveFiltersToSessionStorage() {
+      sessionStorage.setItem('selectedBrand', this.selectedBrand);
+      sessionStorage.setItem('selectedSize', this.selectedSize);
+      sessionStorage.setItem('minPrice', this.minPrice.toString());
+      sessionStorage.setItem('maxPrice', this.maxPrice.toString());
+      sessionStorage.setItem('priceRange', JSON.stringify(this.priceRange));
+    },
+
+    restoreFiltersFromSessionStorage() {
+      this.selectedBrand = sessionStorage.getItem('selectedBrand') || '';
+      this.selectedSize = sessionStorage.getItem('selectedSize') || '';
+      const minPrice = sessionStorage.getItem('minPrice');
+      const maxPrice = sessionStorage.getItem('maxPrice');
+      this.minPrice = (minPrice !== null) ? Number(minPrice) : this.minPriceLimit;
+      this.maxPrice = (maxPrice !== null) ? Number(maxPrice) : this.maxPriceLimit;
+      const savedRange = sessionStorage.getItem('priceRange');
+      this.priceRange = savedRange ? JSON.parse(savedRange) : [this.minPrice, this.maxPrice];
+    },
+
     applyFilters() {
       console.log("Применяемые фильтры:", {
         brand: this.selectedBrand,
@@ -77,10 +128,14 @@ export default {
         minPrice: this.minPrice,
         maxPrice: this.maxPrice,
       });
+      this.saveFiltersToSessionStorage();
     },
   },
 };
 </script>
+
+
+
 
 
 
@@ -150,6 +205,74 @@ button:hover {
 }
 button:active {
   transform: scale(0.9);
+}
+
+.vue-slider {
+  height: 8px; 
+  background-color: #E0E0E0; 
+  border-radius: 4px; 
+}
+
+.vue-slider-dot {
+  width: 25px; 
+  height: 25px; 
+  border: none; 
+  background-color: #ff0000; 
+  box-shadow: none; 
+}
+
+.vue-slider-dot-handle {
+  display: none; 
+}
+
+.vue-slider-process {
+  background-color: #FF6A00; 
+  border-radius: 4px; 
+}
+
+.vue-slider-mark {
+  display: none; 
+}
+.button-apply-filters {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
+              7px 7px 20px 0px rgba(0,0,0,.3),
+              4px 4px 5px 0px rgba(0,0,0,.3);
+  outline: none;
+  background: rgb(128,128,128); /* серый цвет */
+  background: linear-gradient(0deg, rgb(245, 3, 3) 0%, rgb(243, 53, 53) 100%);
+}
+
+.button-apply-filters:hover {
+  text-decoration: none;
+  color: #fff;
+  opacity: .7;
+}
+
+.button-apply-filters:active {
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+              inset -4px -4px 6px 0 rgba(255,255,255,.2),
+              inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+@keyframes shiny-btn1 {
+  0% { transform: scale(0) rotate(45deg); opacity: 0; }
+  80% { transform: scale(0) rotate(45deg); opacity: 0.5; }
+  81% { transform: scale(4) rotate(45deg); opacity: 1; }
+  100% { transform: scale(50) rotate(45deg); opacity: 0; }
 }
 
 @media (max-width: 768px) {
