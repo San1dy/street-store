@@ -12,15 +12,15 @@ div
 </template>
 
 <script>
-import AppHeader from '@/views/AppHeader.vue';
-import FooterSection from '@/views/AppFooterSection.vue'
-import HomeFone from '@/components/HomeFone.vue';
-import HomeMeInfo from '@/components/HomeMeInfo.vue';
-import HomeCallToActionSection from '@/components/HomeCallToActionSection.vue';
-import StatisticsSection from '@/components/HomeStatisticsSection.vue';
-import FeatureSection from '@/components/HomeFeaturesection.vue'
-import EventsSection from '@/components/HomeEventsSection.vue'
-import ImageGallery from '@/components/HomeImageGallery.vue'
+import AppHeader from '@/components/MainComponents/AppHeader.vue';
+import FooterSection from '@/components/MainComponents/AppFooterSection.vue';
+import HomeFone from '@/components/HomeComponents/HomeFone.vue';
+import HomeMeInfo from '@/components/HomeComponents/HomeMeInfo.vue';
+import HomeCallToActionSection from '@/components/HomeComponents/HomeCallToActionSection.vue';
+import StatisticsSection from '@/components/HomeComponents/HomeStatisticsSection.vue';
+import FeatureSection from '@/components/HomeComponents/HomeFeaturesection.vue';
+import EventsSection from '@/components/HomeComponents/HomeEventsSection.vue';
+import ImageGallery from '@/components/HomeComponents/HomeImageGallery.vue';
 
 export default {
   name: 'HomePage',
@@ -34,10 +34,15 @@ export default {
     EventsSection,
     ImageGallery,
     FooterSection,
+  },
+  setup() {
+
   }
 };
 </script>
 
 <style>
+
 </style>
+
 

@@ -2,69 +2,81 @@
 nav.navigation-bar
   router-link.to-home(to="/home")
     img.logo(
-      :class="{ clicked: logoClicked }",
-      :src="logoSrc", 
+      :class="{ clicked: logoState.clicked }",
+      :src="logoState.src", 
       alt="Логотип", 
-      @mouseover="mouseOverLogo", 
-      @mouseleave="mouseLeaveLogo",
-      @click="clickOnLogo"
+      @mouseover="handleMouseOver", 
+      @mouseleave="handleMouseLeave",
+      @click="handleClick"
     )
   button.burger-button(@click="toggleMenu") ☰
-  ul.navigation-links(:class="{ 'active': menuActive }")
-    li
-      router-link(to="/home") Главная 
-    li
-      router-link(to="/catalog") Каталог
-    li
-      router-link(to="/contact") Контакты
-    li
-      router-link(to="/corzina") Корзина
+  ul.navigation-links(:class="{ 'active': isMenuActive }")
+    li(v-for="link in navLinks" :key="link.path")
+      router-link(:to="link.path") {{ link.name }}
 </template>
 
 <script>
-
+import { ref, reactive } from 'vue';
 import logoDefault from '@/assets/images/5.svg';
 import logoHover from '@/assets/images/4.svg';
 import logoClickedImg from '@/assets/images/5.svg';
 
 export default {
   name: 'AppHeader',
-  data() {
-    return {
-      menuActive: false,
-      logoSrc: logoDefault,
-      logoHoverSrc: logoHover,
-      logoClickedSrc: logoClickedImg,
-      logoClicked: false
+  setup() {
+    const isMenuActive = ref(false);
+    const navLinks = ref([
+      { name: 'Главная', path: '/home' },
+      { name: 'Каталог', path: '/catalog' },
+      { name: 'Контакты', path: '/contact' },
+      { name: 'Корзина', path: '/corzina' }
+    ]);
+    
+    const logoState = reactive({
+      src: logoDefault,
+      hovered: logoHover,
+      clicked: logoClickedImg,
+      isClicked: false
+    });
+
+    const toggleMenu = () => {
+      isMenuActive.value = !isMenuActive.value;
     };
-  },
-  methods: {
-    toggleMenu() {
-      this.menuActive = !this.menuActive;
-    },
-    mouseOverLogo() {
-      this.logoSrc = this.logoHoverSrc;
-    },
-    mouseLeaveLogo() {
-      this.logoSrc = this.logoClicked ? this.logoClickedSrc : logoDefault;
-    },
-    clickOnLogo() {
-      this.logoClicked = true;
+
+    const handleMouseOver = () => {
+      logoState.src = logoState.hovered;
+    };
+
+    const handleMouseLeave = () => {
+      logoState.src = logoState.isClicked ? logoState.clicked : logoDefault;
+    };
+
+    const handleClick = () => {
+      logoState.isClicked = true;
       setTimeout(() => {
-        this.logoClicked = false;
+        logoState.isClicked = false;
       }, 300); 
-    }
+    };
+
+    return {
+      isMenuActive,
+      navLinks,
+      logoState,
+      toggleMenu,
+      handleMouseOver,
+      handleMouseLeave,
+      handleClick
+    };
   }
 };
 </script>
 
 
 
+
+
+
 <style scoped>
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype');
-}
 
 h1, h2, p, a, li {
   font-family: 'MyCustomFont', sans-serif;
@@ -164,7 +176,7 @@ a {
   background: none;
   border: none;
   font-size: 2rem;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
   z-index: 20; 
 }

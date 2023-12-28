@@ -1,29 +1,34 @@
 <template lang="pug">
 .about-us-container
     .image-wrapper
-      img.full-width-image(src="../assets/images/photo-1556637640-2c80d3201be8.jpeg", alt="")
+      img.full-width-image(:src="imageSrc", alt="О нас")
     .content-column
       .text-wrapper
         h1.section-title
-          strong О нас
-        p.main-text Мы - ведущий интернет-магазин кроссовок, предлагающий широкий ассортимент моделей от лучших брендов.
-        p.main-text Наша команда экспертов тщательно отбирает каждую пару, чтобы удовлетворить потребности и предпочтения наших клиентов.
-        p.main-text Мы гордимся тем, что предлагаем только качественные и стильные кроссовки, которые помогут вам выделиться из толпы.
+          strong {{ title }}
+        p.main-text(v-for="paragraph in paragraphs" :key="paragraph") {{ paragraph }}
 </template>
 
 <script>
 export default {
 	name: 'HomeMeInfo',
+  data() {
+    return {
+      title: 'О нас',
+      paragraphs: [
+        'Мы - ведущий интернет-магазин кроссовок, предлагающий широкий ассортимент моделей от лучших брендов.',
+        'Наша команда экспертов тщательно отбирает каждую пару, чтобы удовлетворить потребности и предпочтения наших клиентов.',
+        'Мы гордимся тем, что предлагаем только качественные и стильные кроссовки, которые помогут вам выделиться из толпы.'
+      ],
+      imageSrc: require('../../assets/images/photo-1556637640-2c80d3201be8.jpeg')
+    }
+  }
 }
 </script>
 
+
 <style scoped>
 
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype'),
-
-}
 
 .about-us-container {
   margin: 50px;

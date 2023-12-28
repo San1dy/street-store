@@ -27,7 +27,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ModalComponent from './ModalComponent.vue';
+import ModalComponent from '../ModalComponent/ModalComponent.vue';
 
 export default {
   components: {

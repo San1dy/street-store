@@ -1,15 +1,15 @@
 <template lang="pug">
 section.features
   .feature
-    img(src="../assets/images/photo-1591550936261-4f22e48d1f03.jpeg" alt="Fast Delivery")
+    img(src="../../assets/images/photo-1591550936261-4f22e48d1f03.jpeg" alt="Fast Delivery")
     h2 Быстрая доставка
     p Получите свои кроссовки в кратчайшие сроки.
   .feature
-    img(src="../assets/images/photo-1587855049254-351f4e55fe2a.jpeg" alt="Quality Guaranteed")
+    img(src="../../assets/images/photo-1587855049254-351f4e55fe2a.jpeg" alt="Quality Guaranteed")
     h2 Качество гарантировано
     p Мы предлагаем только оригинальные и сертифицированные товары.
   .feature
-    img(src="../assets/images/photo-1533681018184-68bd1d883b97.jpeg" alt="Easy Return")
+    img(src="../../assets/images/photo-1533681018184-68bd1d883b97.jpeg" alt="Easy Return")
     h2 Простой возврат
     p Если вам не понравится товар, мы вернем вам деньги.
 </template>

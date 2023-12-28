@@ -1,9 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '@/views/HomePage.vue'
-import CatalogPage from '@/views/CatalogPage.vue'
-import ContactPage from '@/views/ContactPage.vue'
-import CorzinaPage from '@/views/CorzinaPage.vue'
+import { createRouter, createWebHistory } from 'vue-router';
 
+const HomePage = () => import('@/views/HomePage.vue');
+const CatalogPage = () => import('@/views/CatalogPage.vue');
+const ContactPage = () => import('@/views/ContactPage.vue');
+const CorzinaPage = () => import('@/views/CorzinaPage.vue');
 
 const routes = [
   {
@@ -26,13 +26,12 @@ const routes = [
     name: 'Corzina',
     component: CorzinaPage
   },
-
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;
 

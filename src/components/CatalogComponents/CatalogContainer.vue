@@ -12,17 +12,17 @@ div
         p.item-added-text(v-if="item.itemAddedToCart") Товар добавлен в корзину
     p.no-items(v-else) Нет товаров, соответствующих выбранным фильтрам.
     PaginationComponent(
-  :total-items="filteredItems.length"
-  :items-per-page="itemsPerPage"
-  :current-page.sync="currentPage"
-  @page-changed="changePage"
-)
+      :total-items="filteredItems.length"
+      :items-per-page="itemsPerPage"
+      :current-page.sync="currentPage"
+      @page-changed="changePage"
+    )
   ProductModal(:product="selectedProduct", :isVisible="isModalVisible", @close="isModalVisible = false", @add-to-cart="addToCart", @change-image="handleImageChange" )
 </template>
 
 <script>
 import FilterComponent from './FilterComponent.vue';
-import ProductModal from './ProductModal.vue';
+import ProductModal from '../ModalComponent/ProductModal.vue';
 import PaginationComponent from './PaginationComponent.vue';
 
 export default {
@@ -143,11 +143,7 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype'),
 
-}
 .item-added-text {
   position: absolute;
   top: 50%; 

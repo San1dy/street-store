@@ -1,41 +1,20 @@
 <template lang="pug">
 footer.footer
-  //.container
-    .footer-section
-      h3.section-title О нас
-      ul.section-links
-        li
-          router-link(to="/home") О компании
-        li
-          router-link(to="/contact") Контакты
-        li
-          a(href="https://www.avito.ru/user/44e47fa5016ee18631ac7c90bdce2e10/profile/all/odezhda_obuv_aksessuary?id=3547881447&iid=3547881447&src=messenger&page_from=from_item_messenger&sellerId=44e47fa5016ee18631ac7c90bdce2e10") Отзывы
-    .footer-section
-      h3.section-title Каталог
-      ul.section-links
-        li
-          router-link(to="/catalog") Мужские
-        li
-          router-link(to="/catalog") Женские
-    .footer-section
-      h3.section-title Помощь
-      ul.section-links
-        li
-          a(href="https://support.avito.ru/partitions/293") Доставка
-        li
-          a(href="https://support.avito.ru/partitions/63") Оплата
-        li
-          a(href="https://support.avito.ru/partitions/344") Возврат
   .container
     .footer-bottom
-        p © 2023 Онлайн магазин Street Store
+      p © 2023 Онлайн магазин Street Store
 </template>
-
-<script>
-export default {
-  name: 'FooterSection'
-}
-</script>
+  
+  <script>
+  export default {
+    name: 'FooterSection',
+    setup() {
+      return {
+      };
+    }
+  };
+  </script>
+  
 
 <style scoped>
 .footer {

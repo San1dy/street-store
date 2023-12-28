@@ -26,10 +26,6 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype'),
-}
 
 .gallery {
   display: flex;

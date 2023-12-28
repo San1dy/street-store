@@ -9,22 +9,25 @@ div
 </template>
   
 <script>
-import AppHeader from '@/views/AppHeader.vue';
-import FooterSection from '@/views/AppFooterSection.vue'
-import TeamComponent from '@/components/ContactTeamComponent.vue'
-import FaqComponent from '@/components/ContactFaqComponent.vue'
-import ContactUsForm from '@/components/ContactUsForm.vue'
-import ContactInfo from '@/components/ContactInfo.vue'
+import AppHeader from '@/components/MainComponents/AppHeader.vue';
+import FooterSection from '@/components/MainComponents/AppFooterSection.vue';
+import TeamComponent from '@/components/ContactComponents/ContactTeamComponent.vue'
+import FaqComponent from '@/components/ContactComponents/ContactFaqComponent.vue'
+import ContactUsForm from '@/components/ContactComponents/ContactUsForm.vue'
+import ContactInfo from '@/components/ContactComponents/ContactInfo.vue'
 
 export default {
   name: 'ContactPage',
   components: {
     AppHeader,
     TeamComponent,
-    FaqComponent,
-    ContactUsForm,
     ContactInfo,
+    ContactUsForm,
+    FaqComponent,
     FooterSection,
+  },
+  setup() {
+    
   }
 }
 </script>
@@ -32,4 +35,5 @@ export default {
 <style scoped>
 
 </style>
+
   

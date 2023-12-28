@@ -4,7 +4,7 @@
     v-for="page in totalPages"
     :key="page"
     :class="{ 'active': page === currentPage }"
-    @click="$emit('page-changed', page)"
+    @click="setCurrentPage(page)"
   ) {{ page }}
 </template>
 
@@ -37,6 +37,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .pagination {

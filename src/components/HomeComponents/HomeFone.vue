@@ -81,10 +81,7 @@ export default {
   background-color: #717171;
 }
 
-@font-face {
-  font-family: 'MyCustomFont';
-  src: url('../../fonts/groplet/Gropled-Bold.otf') format('truetype');
-}
+
 
 .content {
   z-index: 1;
@@ -184,6 +181,37 @@ export default {
  
 
   }
+}
+@keyframes blurFadeIn {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    filter: blur(8px);
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.logo {
+  animation: blurFadeIn 3s ease forwards, pulse 2s ease infinite 3s;
+  will-change: filter, opacity, transform;
 }
 
 @media (max-width: 320px) {

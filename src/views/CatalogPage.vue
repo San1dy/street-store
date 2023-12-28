@@ -7,10 +7,11 @@ div
 </template>
 
 <script>
-import AppHeader from '@/views/AppHeader.vue';
-import FooterSection from '@/views/AppFooterSection.vue';
-import CatalogContainer from '@/components/CatalogContainer.vue';
-import GenderComponent from '@/components/GenderComponent.vue';
+import { ref } from 'vue';
+import AppHeader from '@/components/MainComponents/AppHeader.vue';
+import FooterSection from '@/components/MainComponents/AppFooterSection.vue';
+import CatalogContainer from '@/components/CatalogComponents/CatalogContainer.vue';
+import GenderComponent from '@/components/CatalogComponents/GenderComponent.vue';
 
 export default {
   name: 'CatalogPage',
@@ -20,20 +21,27 @@ export default {
     CatalogContainer,
     FooterSection,
   },
-  data() {
+  setup() {
+    const selectedFloor = ref(null);
+
+    const handleFloorSelection = (floor) => {
+      selectedFloor.value = floor;
+    };
+
     return {
-      selectedFloor: null
+      selectedFloor,
+      handleFloorSelection,
     };
   },
-  methods: {
-    handleFloorSelection(floor) {
-      this.selectedFloor = floor;
-    }
-  }
-}
+};
 </script>
+
+<style scoped>
+
+</style>
 
 
 <style scoped>
 
 </style>
+

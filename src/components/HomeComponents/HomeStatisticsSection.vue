@@ -1,21 +1,25 @@
 <template lang="pug">
 .statistics
-  .statistic-item
-    h2.statistic-number 1000+
-    p.statistic-description Довольных клиентов
-  .statistic-item
-    h2.statistic-number 50+
-    p.statistic-description Новых моделей ежемесячно
-  .statistic-item
-    h2.statistic-number 20+
-    p.statistic-description Брендов в нашем каталоге
+  .statistic-item(v-for="stat in statistics" :key="stat.description")
+    h2.statistic-number {{ stat.number }}
+    p.statistic-description {{ stat.description }}
 </template>
 
 <script>
 export default {
-  name: 'StatisticsSection'
+  name: 'StatisticsSection',
+  data() {
+    return {
+      statistics: [
+        { number: '1000+', description: 'Довольных клиентов' },
+        { number: '50+', description: 'Новых моделей ежемесячно' },
+        { number: '20+', description: 'Брендов в нашем каталоге' }
+      ]
+    }
+  }
 }
 </script>
+
 
 <style scoped>
 .statistics {
