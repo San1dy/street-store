@@ -177,6 +177,10 @@ export default {
 };
 </script>
 
+
+
+
+
 <style scoped>
 
 .item-added-text {

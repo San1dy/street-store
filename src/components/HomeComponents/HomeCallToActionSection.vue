@@ -8,10 +8,15 @@ section.featured-section
 </template>
 
 <script>
-  export default {
-    name: 'HomeCallToActionSection'
-  }
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'HomeCallToActionSection',
+  setup() {
+  },
+});
 </script>
+
     
 <style scoped>
 

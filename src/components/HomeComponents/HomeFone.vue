@@ -1,7 +1,7 @@
 <template lang="pug">
 section.content#id
   .container-fluid
-    img.slider-image(:src="images[activeImageIndex]", :alt="`Image ${activeImageIndex + 1}`")
+    img.slider-image(:src="computedImageSrc", :alt="`Image ${activeImageIndex + 1}`")
     .navigation-panel
       span.navigation-dot(v-for="(image, index) in images" :key="index" :class="{ active: activeImageIndex === index }" @click="setActiveImage(index)")
     img.logo(:src="logo", :alt="`Logo`")
@@ -9,46 +9,60 @@ section.content#id
 </template>
 
 <script>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import image1 from '@/assets/images/1.jpg';
 import image2 from '@/assets/images/2.jpg';
 import image3 from '@/assets/images/3.jpg';
 import image4 from '@/assets/images/4.jpg';
-import logo from '@/assets/images/5.svg';
+import logoImg from '@/assets/images/5.svg';
 
 export default {
   name: "HomeFone",
-  data() {
-    return {
-      logo,
-      description: "Лучший выбор кроссовок для всех любителей спорта и стиля",
-      active: true,
-      images: [image1, image2, image3, image4],
-      activeImageIndex: 0,
-      slideInterval: null,
+  setup() {
+    const logo = ref(logoImg);
+    const description = ref("Лучший выбор кроссовок для всех любителей спорта и стиля");
+    const images = ref([image1, image2, image3, image4]);
+    const activeImageIndex = ref(0);
+    const slideInterval = ref(null);
+
+    const computedImageSrc = computed(() => images.value[activeImageIndex.value]);
+
+    const nextSlide = () => {
+      activeImageIndex.value = (activeImageIndex.value + 1) % images.value.length;
     };
-  },
-  methods: {
-    nextSlide() {
-      this.activeImageIndex = (this.activeImageIndex + 1) % this.images.length;
-    },
-    setActiveImage(index) {
-      this.activeImageIndex = index;
-    },
-    startSlideshow() {
-      this.slideInterval = setInterval(this.nextSlide, 10000);
-    },
-    stopSlideshow() {
-      clearInterval(this.slideInterval);
-    }
-  },
-  mounted() {
-    this.startSlideshow();
-  },
-  beforeUnmount() { 
-    this.stopSlideshow();
+
+    const setActiveImage = (index) => {
+      activeImageIndex.value = index;
+    };
+
+    const startSlideshow = () => {
+      slideInterval.value = setInterval(nextSlide, 10000);
+    };
+
+    const stopSlideshow = () => {
+      clearInterval(slideInterval.value);
+    };
+
+    onMounted(() => {
+      startSlideshow();
+    });
+
+    onBeforeUnmount(() => {
+      stopSlideshow();
+    });
+
+    return { 
+      logo: logo.value,
+      description: description.value,
+      images: images.value,
+      activeImageIndex: activeImageIndex.value,
+      computedImageSrc,
+      setActiveImage
+    };
   }
 };
 </script>
+
 
   
 <style scoped>

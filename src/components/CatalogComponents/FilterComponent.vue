@@ -33,10 +33,11 @@
 
 
 <script>
+import { defineComponent, ref, watch, toRefs } from 'vue';
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
 
-export default {
+export default defineComponent({
   name: 'FilterComponent',
   components: {
     VueSlider
@@ -51,57 +52,65 @@ export default {
       default: 50000
     },
   },
-  data() {
-    return {
-      selectedBrand: '',
-      selectedSize: '',
-      minPrice: this.minPriceLimit,
-      maxPrice: this.maxPriceLimit,
-      priceRange: [this.minPriceLimit, this.maxPriceLimit],
-      brands: ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
-      sizes: ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
-    };
-  },
-  watch: {
-  minPrice(newVal) {
-    if (newVal < this.minPriceLimit) {
-      this.minPrice = this.minPriceLimit;
-    } else if (newVal > this.maxPrice) {
-      this.minPrice = this.maxPrice;
-    }
-    // Обновление priceRange при изменении minPrice
-    this.priceRange = [this.minPrice, this.maxPrice];
-  },
-  maxPrice(newVal) {
-    if (newVal > this.maxPriceLimit) {
-      this.maxPrice = this.maxPriceLimit;
-    } else if (newVal < this.minPrice) {
-      this.maxPrice = this.minPrice;
-    }
-    // Обновление priceRange при изменении maxPrice
-    this.priceRange = [this.minPrice, this.maxPrice];
-  },
-  priceRange(newVal) {
-    if (newVal[0] !== this.minPrice) {
-      this.minPrice = newVal[0];
-    }
-    if (newVal[1] !== this.maxPrice) {
-      this.maxPrice = newVal[1];
-    }
-  }
-},
+  setup(props, { emit }) {
+    const { minPriceLimit, maxPriceLimit } = toRefs(props);
 
-  methods: {
-    applyFilters() {
-      this.$emit('filter-changed', {
-        brand: this.selectedBrand,
-        size: this.selectedSize,
-        minPrice: this.minPrice,
-        maxPrice: this.maxPrice,
+    const selectedBrand = ref('');
+    const selectedSize = ref('');
+    const minPrice = ref(minPriceLimit.value);
+    const maxPrice = ref(maxPriceLimit.value);
+    const priceRange = ref([minPriceLimit.value, maxPriceLimit.value]);
+    const brands = ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'];
+    const sizes = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
+
+    watch(minPrice, (newVal) => {
+      if (newVal < minPriceLimit.value) {
+        minPrice.value = minPriceLimit.value;
+      } else if (newVal > maxPrice.value) {
+        minPrice.value = maxPrice.value;
+      }
+      priceRange.value = [minPrice.value, maxPrice.value];
+    });
+
+    watch(maxPrice, (newVal) => {
+      if (newVal > maxPriceLimit.value) {
+        maxPrice.value = maxPriceLimit.value;
+      } else if (newVal < minPrice.value) {
+        maxPrice.value = minPrice.value;
+      }
+      priceRange.value = [minPrice.value, maxPrice.value];
+    });
+
+    watch(priceRange, (newVal) => {
+      if (newVal[0] !== minPrice.value) {
+        minPrice.value = newVal[0];
+      }
+      if (newVal[1] !== maxPrice.value) {
+        maxPrice.value = newVal[1];
+      }
+    });
+
+    const applyFilters = () => {
+      emit('filter-changed', {
+        brand: selectedBrand.value,
+        size: selectedSize.value,
+        minPrice: minPrice.value,
+        maxPrice: maxPrice.value,
       });
-    }
-  },
-};
+    };
+
+    return {
+      selectedBrand,
+      selectedSize,
+      minPrice,
+      maxPrice,
+      priceRange,
+      brands,
+      sizes,
+      applyFilters
+    };
+  }
+});
 </script>
 
 

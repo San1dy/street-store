@@ -1,53 +1,56 @@
 <template lang="pug">
 section.events
-  .event(v-for="(event, index) in events", :key="index")
-    img.event-image(:src="event.image", :alt="event.alt")
+  .event(v-for="(event, index) in events" :key="index")
+    img.event-image(:src="event.image" :alt="event.alt")
     h3.event-title {{ event.title }}
     p.event-date {{ event.date }}
     p.event-description {{ event.description }}
-
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   name: 'EventsSection',
-  data() {
+  setup() {
+    const events = ref([
+      {
+        image: require('@/assets/images/photo-1617695103171-8f9c25f014c6.jpeg'),
+        alt: "Распродажа",
+        title: "Распродажа",
+        date: "01.12.2023",
+        description: "Скидки до 50% на все кроссовки в нашем магазине.",
+      },
+      {
+        image: require('@/assets/images/photo-1592860986140-d77ede8b7116.jpeg'),
+        alt: "Новая коллекция",
+        title: "Новая коллекция",
+        date: "15.12.2023",
+        description: "Представляем новую коллекцию кроссовок от лучших брендов.",
+      },
+      {
+        image: require('@/assets/images/photo-1595341888016-a392ef81b7de.jpeg'),
+        alt: "Бесплатная доставка",
+        title: "Бесплатная доставка",
+        date: "31.12.2023",
+        description: "Бесплатная доставка при заказе от 5000₽.",
+      },
+      {
+        image: require('@/assets/images/photo-1608231387042-66d1773070a5.jpeg'),
+        alt: "Скидка для студентов",
+        title: "Скидка для студентов",
+        date: "31.12.2023",
+        description: "Скидка 10% для всех студентов при предъявлении студенческого билета.",
+      },
+    ]);
+
     return {
-      events: [
-        {
-          image: require('@/assets/images/photo-1617695103171-8f9c25f014c6.jpeg'),
-          alt: "Распродажа",
-          title: "Распродажа",
-          date: "01.12.2023",
-          description: "Скидки до 50% на все кроссовки в нашем магазине.",
-        },
-        {
-          image: require('@/assets/images/photo-1592860986140-d77ede8b7116.jpeg'),
-          alt: "Новая коллекция",
-          title: "Новая коллекция",
-          date: "15.12.2023",
-          description: "Представляем новую коллекцию кроссовок от лучших брендов.",
-        },
-        {
-          image: require('@/assets/images/photo-1595341888016-a392ef81b7de.jpeg'),
-          alt: "Бесплатная доставка",
-          title: "Бесплатная доставка",
-          date: "31.12.2023",
-          description: "Бесплатная доставка при заказе от 5000₽.",
-        },
-        {
-          image: require('@/assets/images/photo-1608231387042-66d1773070a5.jpeg'),
-          alt: "Скидка для студентов",
-          title: "Скидка для студентов",
-          date: "31.12.2023",
-          description: "Скидка 10% для всех студентов при предъявлении студенческого билета.",
-        },
-      ],
+      events,
     };
   },
 };
-
 </script>
+
 
 <style scoped>
 .events {

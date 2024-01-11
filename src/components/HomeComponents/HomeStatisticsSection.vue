@@ -5,21 +5,23 @@
     p.statistic-description {{ stat.description }}
 </template>
 
+
 <script>
+import { ref } from 'vue';
+
 export default {
   name: 'StatisticsSection',
-  data() {
-    return {
-      statistics: [
-        { number: '1000+', description: 'Довольных клиентов' },
-        { number: '50+', description: 'Новых моделей ежемесячно' },
-        { number: '20+', description: 'Брендов в нашем каталоге' }
-      ]
-    }
+  setup() {
+    const statistics = ref([
+      { number: '1000+', description: 'Довольных клиентов' },
+      { number: '50+', description: 'Новых моделей ежемесячно' },
+      { number: '20+', description: 'Брендов в нашем каталоге' }
+    ]);
+
+    return { statistics };
   }
 }
 </script>
-
 
 <style scoped>
 .statistics {

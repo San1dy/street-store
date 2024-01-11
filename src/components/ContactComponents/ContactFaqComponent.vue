@@ -9,35 +9,39 @@ section.faq
 </template>
 
 <script>
-export default {
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
   name: 'FaqComponent',
-  data() {
-    return {
-      faqItems: [
-        {
-          question: 'Как выбрать правильный размер?',
-          answer: 'Мы рекомендуем обратиться к нашей таблице размеров, чтобы выбрать подходящий размер кроссовок.',
-          open: false
-        },
-        {
-          question: 'Как оформить возврат?',
-          answer: 'Для оформления возврата свяжитесь с нашей службой поддержки.',
-          open: false
-        },
-        {
-          question: 'Как связаться с нами?',
-          answer: 'Вы можете связаться с нами по телефону или отправить нам электронное письмо.',
-          open: false
-        }
-      ]
-    };
-  },
-  methods: {
-    toggle(item) {
+  setup() {
+    const faqItems = ref([
+      {
+        question: 'Как выбрать правильный размер?',
+        answer: 'Мы рекомендуем обратиться к нашей таблице размеров, чтобы выбрать подходящий размер кроссовок.',
+        open: false
+      },
+      {
+        question: 'Как оформить возврат?',
+        answer: 'Для оформления возврата свяжитесь с нашей службой поддержки.',
+        open: false
+      },
+      {
+        question: 'Как связаться с нами?',
+        answer: 'Вы можете связаться с нами по телефону или отправить нам электронное письмо.',
+        open: false
+      }
+    ]);
+
+    const toggle = (item) => {
       item.open = !item.open;
-    }
+    };
+
+    return {
+      faqItems,
+      toggle
+    };
   }
-};
+});
 </script>
 
 <style scoped>

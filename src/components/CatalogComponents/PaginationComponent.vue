@@ -10,7 +10,9 @@
 
 
 <script>
-export default {
+import { defineComponent, toRef } from 'vue';
+
+export default defineComponent({
   name: 'PaginationComponent',
   props: {
     totalItems: {
@@ -26,18 +28,20 @@ export default {
       default: 1
     }
   },
-  computed: {
-    totalPages() {
-      return Math.ceil(this.totalItems / this.itemsPerPage);
-    }
-  },
-  methods: {
-    setCurrentPage(page) {
+  setup(props, { emit }) {
+    const totalPages = toRef(props, 'totalPages');
+
+    const setCurrentPage = (page) => {
       console.log('Changing page to:', page);
-      this.$emit('update:currentPage', page);
-    }
+      emit('update:currentPage', page);
+    };
+
+    return {
+      totalPages,
+      setCurrentPage
+    };
   }
-};
+});
 </script>
 
 

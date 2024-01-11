@@ -5,15 +5,21 @@ section.contact-us
 </template>
 
 <script>
+
 export default {
-  methods: {
-    redirectToAnotherSite() {
+  setup() {
+    const redirectToAnotherSite = () => {
       const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ";
       window.location.href = redirectTo;
-    }
+    };
+
+    return {
+      redirectToAnotherSite,
+    };
   }
 }
 </script>
+
 
 
 <style scoped>

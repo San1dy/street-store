@@ -16,55 +16,67 @@ section.home-image-gallery
 </template>
 
 <script>
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
 export default {
   name: 'HomeImageGallery',
-  data() {
-    return {
-      images: [
-        { id: 1, src: require('@/assets/images/photo-1623684225794-a8f1f5037f5c.jpeg'), alt: 'Описание 1' },
-        { id: 2, src: require('@/assets/images/photo-1532561685579-890e8f61456a.jpeg'), alt: 'Описание 2' },
-        { id: 3, src: require('@/assets/images/photo-1515955656352-a1fa3ffcd111.jpeg'), alt: 'Описание 3' },
-        { id: 4, src: require('@/assets/images/photo-1596936273467-b3af0c82af7a.jpeg'), alt: 'Описание 4' },
-        { id: 5, src: require('@/assets/images/photo-1552066344-2464c1135c32.jpeg'), alt: 'Описание 5' },
-        { id: 6, src: require('@/assets/images/photo-1549298916-f52d724204b4.jpeg'), alt: 'Описание 6' },
-        { id: 7, src: require('@/assets/images/photo-1524532787116-e70228437bbe.jpeg'), alt: 'Описание 7' },
-        { id: 8, src: require('@/assets/images/photo-1600185365926-3a2ce3cdb9eb.jpeg'), alt: 'Описание 8' },
-      ],
-      currentSlideIndex: 0,
-      slideInterval: null,
+  setup() {
+    const images = ref([
+      { id: 1, src: require('@/assets/images/photo-1623684225794-a8f1f5037f5c.jpeg'), alt: 'Описание 1' },
+      { id: 2, src: require('@/assets/images/photo-1532561685579-890e8f61456a.jpeg'), alt: 'Описание 2' },
+      { id: 3, src: require('@/assets/images/photo-1515955656352-a1fa3ffcd111.jpeg'), alt: 'Описание 3' },
+      { id: 4, src: require('@/assets/images/photo-1596936273467-b3af0c82af7a.jpeg'), alt: 'Описание 4' },
+      { id: 5, src: require('@/assets/images/photo-1552066344-2464c1135c32.jpeg'), alt: 'Описание 5' },
+      { id: 6, src: require('@/assets/images/photo-1549298916-f52d724204b4.jpeg'), alt: 'Описание 6' },
+      { id: 7, src: require('@/assets/images/photo-1524532787116-e70228437bbe.jpeg'), alt: 'Описание 7' },
+      { id: 8, src: require('@/assets/images/photo-1600185365926-3a2ce3cdb9eb.jpeg'), alt: 'Описание 8' },
+    ]);
+    const currentSlideIndex = ref(0);
+    const slideInterval = ref(null);
+    const slidesContainer = ref(null);
+
+    const startAutoSlide = () => {
+      slideInterval.value = setInterval(nextSlide, 3000);
     };
-  },
-  mounted() {
-    this.startAutoSlide();
-    window.addEventListener('resize', this.updateSlider);
-  },
-  beforeUnmount() {
-    clearInterval(this.slideInterval);
-    window.removeEventListener('resize', this.updateSlider);
-  },
-  methods: {
-    startAutoSlide() {
-      this.slideInterval = setInterval(this.nextSlide, 3000);
-    },
-    nextSlide() {
-      if (this.currentSlideIndex < this.images.length - 1) {
-        this.currentSlideIndex++;
+
+    const nextSlide = () => {
+      if (currentSlideIndex.value < images.value.length - 1) {
+        currentSlideIndex.value++;
       } else {
-        this.currentSlideIndex = 0;
+        currentSlideIndex.value = 0;
       }
-      this.updateSlider();
-    },
-    updateSlider() {
-      const slideWidth = this.$refs.slidesContainer.offsetWidth;
-      this.$refs.slidesContainer.style.transform = `translateX(-${this.currentSlideIndex * slideWidth}px)`;
-    },
-    moveToSlide(index) {
-      clearInterval(this.slideInterval);
-      this.currentSlideIndex = index;
-      this.updateSlider();
-      this.startAutoSlide();
-    },
-  },
+      updateSlider();
+    };
+
+    const updateSlider = () => {
+      const slideWidth = slidesContainer.value.offsetWidth;
+      slidesContainer.value.style.transform = `translateX(-${currentSlideIndex.value * slideWidth}px)`;
+    };
+
+    const moveToSlide = (index) => {
+      clearInterval(slideInterval.value);
+      currentSlideIndex.value = index;
+      updateSlider();
+      startAutoSlide();
+    };
+
+    onMounted(() => {
+      startAutoSlide();
+      window.addEventListener('resize', updateSlider);
+    });
+
+    onBeforeUnmount(() => {
+      clearInterval(slideInterval.value);
+      window.removeEventListener('resize', updateSlider);
+    });
+
+    return {
+      images,
+      currentSlideIndex,
+      slidesContainer,
+      moveToSlide
+    };
+  }
 };
 </script>
 

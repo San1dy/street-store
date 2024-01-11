@@ -5,16 +5,6 @@ footer.footer
       p © 2023 Онлайн магазин Street Store
 </template>
   
-  <script>
-  export default {
-    name: 'FooterSection',
-    setup() {
-      return {
-      };
-    }
-  };
-  </script>
-  
 
 <style scoped>
 .footer {

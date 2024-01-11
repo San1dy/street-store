@@ -7,7 +7,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'GenderComponent',
   data() {
     return {
@@ -22,7 +24,7 @@ export default {
       this.$router.push({ name: 'CatalogFloor', params: { floor } });
     }
   }
-}
+});
 </script>
 
 <style scoped>
