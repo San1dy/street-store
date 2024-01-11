@@ -11,35 +11,55 @@
       p.floor Пол: {{ product.floor }}
       p.color Цвет: {{ product.color }}
       p.size Размеры: {{ product.size.join(', ') }}
-      p.product-description Описание:  {{ product.description }}
+      p.product-description Описание: {{ product.description }}
       .price-container
-        span.new-price Цена: {{ product.price  }} ₽
+        span.new-price Цена: {{ product.price }} ₽
       .action-buttons
         button.buy-button(@click="openExternalLink(product.buy)") Купить
+        button.favorite-button(@click="addToCart(product)", v-if="showAddToCartButton") Добавить в корзину
+    p.item-added-text(v-if="product.itemAddedToCart && showAddToCartButton") Товар добавлен в корзину
     img.close-button(@click="closeModal", :src="require('@/assets/images/Close.svg')")
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   props: {
     product: Object,
-    isVisible: Boolean
-  },
-  methods: {
-    changeMainImage(image) {
-      this.$emit('change-image', image);
-    },
-    closeModal() {
-      this.$emit('close');
-    },
-    openExternalLink(url) {
-      window.open(url, '_blank');
+    isVisible: Boolean,
+    showAddToCartButton: {
+      type: Boolean,
+      default: false
     }
+  },
+  setup(props, { emit }) {
+
+    const changeMainImage = (image) => {
+      emit('change-image', image);
+    };
+
+    const closeModal = () => {
+      emit('close');
+    };
+
+    const addToCart = (product) => {
+      emit('add-to-cart', product);
+    };
+
+    const openExternalLink = (url) => {
+      window.open(url, '_blank');
+    };
+
+    return {
+      changeMainImage,
+      closeModal,
+      addToCart,
+      openExternalLink
+    };
   }
-};
+});
 </script>
-
-
 
 <style scoped>
 .modal {

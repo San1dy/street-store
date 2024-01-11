@@ -19,6 +19,7 @@
   ModalComponent(
     :product="selectedItem",
     :isVisible="isModalVisible",
+    :fromCart="true",
     @close="closeModal",
     @change-image="handleImageChange"
   )

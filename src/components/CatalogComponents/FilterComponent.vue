@@ -4,21 +4,32 @@
     label(for="brand") Бренд:
     select(v-model="selectedBrand")
       option(value='') Все
-      option(v-for="brand in brands" :value="brand" :key="brand") {{ brand }}
+      option(v-for="brand in brands", :value="brand", :key="brand") {{ brand }}
   .filter-item
     label(for="size") Размер:
     select(v-model="selectedSize")
       option(value='') Все
-      option(v-for="size in sizes" :value="size" :key="size") {{ size }}
+      option(v-for="size in sizes", :value="size", :key="size") {{ size }}
   .filter-item
     label(for="price") Цена:
     .price-inputs
-      input(type="number", v-model.number="minPrice", :min="minPriceLimit", :max="maxPrice", placeholder="От")
-      input(type="number", v-model.number="maxPrice", :min="minPrice", :max="maxPriceLimit", placeholder="До")
-    VueSlider(v-if="isSliderReady", :min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
+      input(
+        type="number", 
+        v-model.lazy="minPrice", 
+        :min="minPriceLimit", 
+        :max="maxPrice", 
+        placeholder="От"
+      )
+      input(
+        type="number", 
+        v-model.lazy="maxPrice", 
+        :min="minPrice", 
+        :max="maxPriceLimit", 
+        placeholder="До"
+      )
+    VueSlider(:min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
   button.button-apply-filters(@click="applyFilters") Применить фильтры
 </template>
-
 
 
 <script>
@@ -46,96 +57,52 @@ export default {
       selectedSize: '',
       minPrice: this.minPriceLimit,
       maxPrice: this.maxPriceLimit,
-      priceRange: [null, null],
+      priceRange: [this.minPriceLimit, this.maxPriceLimit],
       brands: ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'],
-      sizes: ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'],
-      isSliderReady: false,
+      sizes: ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45']
     };
   },
-  created() {
-    this.restoreFiltersFromSessionStorage();
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.isSliderReady = true;
-      this.priceRange = [this.minPrice, this.maxPrice];
-    });
-  },
   watch: {
-    minPriceLimit(newVal) {
-      if (this.isSliderReady && newVal !== this.minPrice) {
-        this.minPrice = newVal;
-        this.priceRange[0] = newVal;
-      }
-    },
-    maxPriceLimit(newVal) {
-      if (this.isSliderReady && newVal !== this.maxPrice) {
-        this.maxPrice = newVal;
-        this.priceRange[1] = newVal;
-      }
-    },
-    priceRange(newVal) {
-      if (this.isSliderReady) {
-        if (newVal[0] !== this.minPrice) {
-          this.minPrice = newVal[0];
-        }
-        if (newVal[1] !== this.maxPrice) {
-          this.maxPrice = newVal[1];
-        }
-      }
-    },
-    minPrice(newVal) {
-      if (this.isSliderReady) {
-        this.priceRange[0] = newVal;
-      }
-    },
-    maxPrice(newVal) {
-      if (this.isSliderReady) {
-        this.priceRange[1] = newVal;
-      }
+  minPrice(newVal) {
+    if (newVal < this.minPriceLimit) {
+      this.minPrice = this.minPriceLimit;
+    } else if (newVal > this.maxPrice) {
+      this.minPrice = this.maxPrice;
     }
+    // Обновление priceRange при изменении minPrice
+    this.priceRange = [this.minPrice, this.maxPrice];
   },
+  maxPrice(newVal) {
+    if (newVal > this.maxPriceLimit) {
+      this.maxPrice = this.maxPriceLimit;
+    } else if (newVal < this.minPrice) {
+      this.maxPrice = this.minPrice;
+    }
+    // Обновление priceRange при изменении maxPrice
+    this.priceRange = [this.minPrice, this.maxPrice];
+  },
+  priceRange(newVal) {
+    if (newVal[0] !== this.minPrice) {
+      this.minPrice = newVal[0];
+    }
+    if (newVal[1] !== this.maxPrice) {
+      this.maxPrice = newVal[1];
+    }
+  }
+},
+
   methods: {
-    saveFiltersToSessionStorage() {
-      sessionStorage.setItem('selectedBrand', this.selectedBrand);
-      sessionStorage.setItem('selectedSize', this.selectedSize);
-      sessionStorage.setItem('minPrice', this.minPrice.toString());
-      sessionStorage.setItem('maxPrice', this.maxPrice.toString());
-      sessionStorage.setItem('priceRange', JSON.stringify(this.priceRange));
-    },
-
-    restoreFiltersFromSessionStorage() {
-      this.selectedBrand = sessionStorage.getItem('selectedBrand') || '';
-      this.selectedSize = sessionStorage.getItem('selectedSize') || '';
-      const minPrice = sessionStorage.getItem('minPrice');
-      const maxPrice = sessionStorage.getItem('maxPrice');
-      this.minPrice = (minPrice !== null) ? Number(minPrice) : this.minPriceLimit;
-      this.maxPrice = (maxPrice !== null) ? Number(maxPrice) : this.maxPriceLimit;
-      const savedRange = sessionStorage.getItem('priceRange');
-      this.priceRange = savedRange ? JSON.parse(savedRange) : [this.minPrice, this.maxPrice];
-    },
-
     applyFilters() {
-      console.log("Применяемые фильтры:", {
-        brand: this.selectedBrand,
-        size: this.selectedSize,
-        minPrice: this.minPrice,
-        maxPrice: this.maxPrice,
-      });
       this.$emit('filter-changed', {
         brand: this.selectedBrand,
         size: this.selectedSize,
         minPrice: this.minPrice,
         maxPrice: this.maxPrice,
       });
-      this.saveFiltersToSessionStorage();
-    },
+    }
   },
 };
 </script>
-
-
-
 
 
 

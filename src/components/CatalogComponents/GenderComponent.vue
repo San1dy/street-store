@@ -1,6 +1,6 @@
 <template lang="pug">
 .gallery
-  .gallery-item(v-for="item in galleryItems" :key="item.id", @click="selectFloor(item.floor)")
+  .gallery-item(v-for="item in galleryItems", :key="item.id", @click="selectFloor(item.floor)")
     img(:src="item.imgSrc")
     .caption
       h2 {{ item.label }}
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     selectFloor(floor) {
-      this.$emit('floor-selected', floor);
+      this.$router.push({ name: 'CatalogFloor', params: { floor } });
     }
   }
 }

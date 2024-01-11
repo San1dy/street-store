@@ -1,6 +1,11 @@
- <template lang="pug">
+<template lang="pug">
 div
-  FilterComponent(:min-price-limit="minItemPrice", :max-price-limit="maxItemPrice", @filter-changed="applyFilters")
+  FilterComponent(
+    v-if="isDataLoaded",
+    :min-price-limit="minItemPrice",
+    :max-price-limit="maxItemPrice",
+    @filter-changed="applyFilters"
+  )
   .catalog
     h1 Каталог
     .products(v-if="displayedItems.length")
@@ -15,27 +20,34 @@ div
       :total-items="filteredItems.length"
       :items-per-page="itemsPerPage"
       :current-page.sync="currentPage"
-      @page-changed="changePage"
     )
-  ProductModal(:product="selectedProduct", :isVisible="isModalVisible", @close="isModalVisible = false", @add-to-cart="addToCart", @change-image="handleImageChange" )
+  ModalComponent(
+    :product="selectedProduct",
+    :isVisible="isModalVisible",
+    @close="isModalVisible = false",
+    @change-image="handleImageChange",
+    @add-to-cart="addToCart"
+    :showAddToCartButton="true"
+  )
 </template>
+
 
 <script>
 import FilterComponent from './FilterComponent.vue';
-import ProductModal from '../ModalComponent/ProductModal.vue';
+import ModalComponent from '../ModalComponent/ModalComponent.vue';
 import PaginationComponent from './PaginationComponent.vue';
 
 export default {
   name: 'CatalogContainer',
 
   components: {
-    ProductModal,
+    ModalComponent,
     FilterComponent,
     PaginationComponent
   },
 
   props: {
-    selectedFloor: String
+    floor: String
   },
 
   data() {
@@ -45,6 +57,7 @@ export default {
       items: [], 
       itemsPerPage: 12,
       currentPage: 1,
+      isDataLoaded: false,
       filters: {
         brand: '',
         size: '',
@@ -87,9 +100,22 @@ export default {
 
     showLoadMoreButton() {
       return this.visibleItems < this.filteredItems.length;
-    }
+    },
+    totalItems() {
+    console.log('Total items:', this.filteredItems.length);
+    return this.filteredItems.length;
   },
-
+    totalPages() {
+    console.log('Total items:', this.totalItems, 'Items per page:', this.itemsPerPage);
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+  },
+  watch: {
+    currentPage(newPage) {
+    console.log('Current page changed:', newPage);
+    this.updateDisplayedItems();
+  }
+  },
   methods: {
     changePage(page) {
       this.currentPage = page;
@@ -97,10 +123,15 @@ export default {
     },
 
     updateDisplayedItems() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
+    console.log('Updating items for page:', this.currentPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    if (this.filteredItems.slice) {
       this.displayedItems = this.filteredItems.slice(startIndex, endIndex);
-    },
+    } else {
+      console.error('filteredItems.slice is not a function');
+    }
+  },
 
     openModal(product) {
       this.selectedProduct = product;
@@ -131,13 +162,17 @@ export default {
     },
 
     fetchProducts() {
-      fetch('http://localhost:3000/api/products')
-        .then(response => response.json())
-        .then(data => {
-          this.items = data;
-        })
-      .catch(error => console.error('Error:', error));
-    },    
+    fetch('http://localhost:3000/api/products')
+      .then(response => response.json())
+      .then(data => {
+        this.items = data;
+        this.isDataLoaded = true; // Устанавливаем флаг в true после загрузки данных
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        this.isDataLoaded = false; // В случае ошибки
+      });
+  },    
   }
 };
 </script>

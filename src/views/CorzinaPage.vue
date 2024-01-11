@@ -27,4 +27,5 @@ export default {
   .main-container {
     min-height: 100vh; 
   }
+  
 </style>

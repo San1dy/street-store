@@ -1,6 +1,6 @@
 <template lang="pug">
 nav.navigation-bar
-  router-link.to-home(to="/home")
+  router-link.to-home(to="/")
     img.logo(
       :class="{ clicked: logoState.clicked }",
       :src="logoState.src", 
@@ -26,7 +26,7 @@ export default {
   setup() {
     const isMenuActive = ref(false);
     const navLinks = ref([
-      { name: 'Главная', path: '/home' },
+      { name: 'Главная', path: '/' },
       { name: 'Каталог', path: '/catalog' },
       { name: 'Контакты', path: '/contact' },
       { name: 'Корзина', path: '/corzina' }

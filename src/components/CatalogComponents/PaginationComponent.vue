@@ -8,6 +8,7 @@
   ) {{ page }}
 </template>
 
+
 <script>
 export default {
   name: 'PaginationComponent',
@@ -32,11 +33,13 @@ export default {
   },
   methods: {
     setCurrentPage(page) {
+      console.log('Changing page to:', page);
       this.$emit('update:currentPage', page);
     }
   }
 };
 </script>
+
 
 
 <style scoped>
