@@ -2,31 +2,33 @@
 .filter
   .filter-item
     label(for="brand") Бренд:
-    select(v-model="selectedBrand")
+    select(v-model="selectedBrand", id="brand")
       option(value='') Все
       option(v-for="brand in brands", :value="brand", :key="brand") {{ brand }}
   .filter-item
     label(for="size") Размер:
-    select(v-model="selectedSize")
+    select(v-model="selectedSize", id="size")
       option(value='') Все
       option(v-for="size in sizes", :value="size", :key="size") {{ size }}
   .filter-item
-    label(for="price") Цена:
-    .price-inputs
-      input(
-        type="number", 
-        v-model.lazy="minPrice", 
-        :min="minPriceLimit", 
-        :max="maxPrice", 
-        placeholder="От"
-      )
-      input(
-        type="number", 
-        v-model.lazy="maxPrice", 
-        :min="minPrice", 
-        :max="maxPriceLimit", 
-        placeholder="До"
-      )
+    label(for="min-price") Цена: От
+    input(
+      type="number", 
+      v-model.lazy="minPrice", 
+      :min="minPriceLimit", 
+      :max="maxPrice", 
+      placeholder="От",
+      id="min-price"
+    )
+    label(for="max-price") До
+    input(
+      type="number", 
+      v-model.lazy="maxPrice", 
+      :min="minPrice", 
+      :max="maxPriceLimit", 
+      placeholder="До",
+      id="max-price"
+    )
     VueSlider(:min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
   button.button-apply-filters(@click="applyFilters") Применить фильтры
 </template>

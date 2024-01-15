@@ -10,7 +10,7 @@
 
 
 <script>
-import { defineComponent, toRef } from 'vue';
+import { defineComponent, computed } from 'vue';
 
 export default defineComponent({
   name: 'PaginationComponent',
@@ -29,11 +29,13 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const totalPages = toRef(props, 'totalPages');
+    const totalPages = computed(() => {
+      return Math.ceil(props.totalItems / props.itemsPerPage);
+    });
 
     const setCurrentPage = (page) => {
-      console.log('Changing page to:', page);
-      emit('update:currentPage', page);
+      console.log(`Changing to page: ${page}`);
+  emit('update:currentPage', page);
     };
 
     return {
@@ -43,6 +45,7 @@ export default defineComponent({
   }
 });
 </script>
+
 
 
 

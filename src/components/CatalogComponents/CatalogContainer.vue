@@ -1,7 +1,7 @@
 <template lang="pug">
-div
+SpinnerComponent(:is-visible="!isDataLoaded")
+div(v-if="isDataLoaded")
   FilterComponent(
-    v-if="isDataLoaded",
     :min-price-limit="minItemPrice",
     :max-price-limit="maxItemPrice",
     @filter-changed="applyFilters"
@@ -16,11 +16,13 @@ div
         button(@click="addToCart(item)") Добавить в корзину
         p.item-added-text(v-if="item.itemAddedToCart") Товар добавлен в корзину
     p.no-items(v-else) Нет товаров, соответствующих выбранным фильтрам.
-    PaginationComponent(
-      :total-items="filteredItems.length"
-      :items-per-page="itemsPerPage"
-      :current-page.sync="currentPage"
-    )
+    
+  PaginationComponent(
+    :total-items="totalItems",
+    :items-per-page="itemsPerPage",
+    :current-page.sync="currentPage"  
+  )
+
   ModalComponent(
     :product="selectedProduct",
     :isVisible="isModalVisible",
@@ -47,7 +49,7 @@ export default {
   },
 
   props: {
-    floor: String
+    selectedFloor: String
   },
 
   data() {
@@ -57,7 +59,6 @@ export default {
       items: [], 
       itemsPerPage: 12,
       currentPage: 1,
-      isDataLoaded: false,
       filters: {
         brand: '',
         size: '',
@@ -100,22 +101,9 @@ export default {
 
     showLoadMoreButton() {
       return this.visibleItems < this.filteredItems.length;
-    },
-    totalItems() {
-    console.log('Total items:', this.filteredItems.length);
-    return this.filteredItems.length;
+    }
   },
-    totalPages() {
-    console.log('Total items:', this.totalItems, 'Items per page:', this.itemsPerPage);
-    return Math.ceil(this.totalItems / this.itemsPerPage);
-  }
-  },
-  watch: {
-    currentPage(newPage) {
-    console.log('Current page changed:', newPage);
-    this.updateDisplayedItems();
-  }
-  },
+
   methods: {
     changePage(page) {
       this.currentPage = page;
@@ -123,15 +111,10 @@ export default {
     },
 
     updateDisplayedItems() {
-    console.log('Updating items for page:', this.currentPage);
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    if (this.filteredItems.slice) {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
       this.displayedItems = this.filteredItems.slice(startIndex, endIndex);
-    } else {
-      console.error('filteredItems.slice is not a function');
-    }
-  },
+    },
 
     openModal(product) {
       this.selectedProduct = product;
@@ -162,21 +145,18 @@ export default {
     },
 
     fetchProducts() {
-    fetch('http://localhost:3000/api/products')
-      .then(response => response.json())
-      .then(data => {
-        this.items = data;
-        this.isDataLoaded = true; // Устанавливаем флаг в true после загрузки данных
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        this.isDataLoaded = false; // В случае ошибки
-      });
-  },    
+      fetch('http://localhost:3000/api/products')
+        .then(response => response.json())
+        .then(data => {
+          this.items = data;
+          console.log('Загружены товары:', data);
+
+        })
+      .catch(error => console.error('Error:', error));
+    },    
   }
 };
 </script>
-
 
 
 
