@@ -55,12 +55,12 @@ export default {
 <style scoped>
 .events {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Адаптивные колонки */
   gap: 20px;
   padding: 20px;
   margin-top: 50px;
   max-width: 1200px;
-  margin: 50px auto 0;
+  margin: 50px auto;
 }
 
 .event {
@@ -70,12 +70,12 @@ export default {
   align-items: center;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 2px 2px 2px rgba(8, 8, 8, 0.74);
-  background: rgba(255, 255, 255, 0.623);
-  backdrop-filter: blur(10px);
+  box-shadow: 7px 7px 14px #babecc,
+              -7px -7px 14px #ffffff; /* Тени для эффекта неоморфизма */
+  background: var(--main-bg-color); /* Цвет фона карточек */
   height: 350px;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   cursor: pointer;
 
   &:hover .event-description {
@@ -102,11 +102,14 @@ export default {
   overflow: hidden;
   transition: max-height 0.3s ease;
   text-align: center;
+  color: var(--text-color);
+  padding: 0 20px; /* Добавлено для плавности раскрытия */
 }
 
 .event-title, .event-date {
-  color: #000;
+  color: var(--text-color); /* Цвет текста из переменных */
   margin-bottom: 10px;
+  font-weight: 500; /* Увеличение веса шрифта для лучшей читаемости */
 }
 
 @media (max-width: 1024px) {

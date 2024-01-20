@@ -4,8 +4,7 @@ section.content#id
     img.slider-image(:src="computedImageSrc", :alt="`Image ${activeImageIndex + 1}`")
     .navigation-panel
       span.navigation-dot(v-for="(image, index) in images" :key="index" :class="{ active: activeImageIndex === index }" @click="setActiveImage(index)")
-    img.logo(:src="logo", :alt="`Logo`")
-    p.text {{ description }}
+
 </template>
 
 <script>
@@ -140,7 +139,30 @@ export default {
   backdrop-filter: blur(10px);
   border-radius: 20px;
 }
+.just-do-it {
+  position: absolute;
+  z-index: 10; /* Убедимся, что текст будет над другими элементами */
+  top: 50%; /* Центрирование по вертикали */
+  left: 50%; /* Центрирование по горизонтали */
+  transform: translate(-50%, -50%); /* Точное центрирование */
+  font-family: 'Helvetica Neue', sans-serif; /* Выберите подходящий шрифт */
+  font-size: 5rem; /* Размер шрифта */
+  color: #D3D3D3; /* Цвет шрифта, светло-серый */
+  letter-spacing: -5px; /* Отрицательный межбуквенный интервал для стиля */
+  text-transform: uppercase; /* Все буквы заглавные */
+  text-shadow: 3px 3px 0 #FFFFFF, /* Две тени для эффекта 3D */
+                -1px -1px 0 #FFFFFF, 
+                1px -1px 0 #FFFFFF,
+                -1px 1px 0 #FFFFFF,
+                1px 1px 0 #FFFFFF;
+}
 
+@media (max-width: 480px) {
+  .just-do-it {
+    font-size: 2rem; /* Меньший размер шрифта на маленьких экранах */
+    letter-spacing: -2px; /* Меньше межбуквенного интервала на маленьких экранах */
+  }
+}
 
 @media (max-width: 1240px) {
   .title {

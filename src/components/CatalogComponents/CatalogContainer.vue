@@ -11,16 +11,19 @@ div(v-if="isDataLoaded")
     .products(v-if="displayedItems.length")
       .product(v-for="item in displayedItems", :key="item.id")
         img(:src="item.image", @click="openModal(item)")
-        h2 {{ item.name }}
-        span.price {{ item.price }} ₽
-        button(@click="addToCart(item)") Добавить в корзину
+        .product-info
+          .product-details
+            h2.product-name {{ item.name }}
+            span.price {{ item.price }} ₽
         p.item-added-text(v-if="item.itemAddedToCart") Товар добавлен в корзину
     p.no-items(v-else) Нет товаров, соответствующих выбранным фильтрам.
     
   PaginationComponent(
-    :total-items="totalItems",
-    :items-per-page="itemsPerPage",
-    :current-page.sync="currentPage"  
+    v-if="totalDisplayedItems !== undefined"
+    :total-items="totalDisplayedItems"
+    :items-per-page="itemsPerPage"
+    :current-page.sync="currentPage"
+    @update:currentPage="page => currentPage = page"
   )
 
   ModalComponent(
@@ -35,125 +38,139 @@ div(v-if="isDataLoaded")
 
 
 <script>
+import { ref, computed, onMounted, reactive, watch, toRefs } from 'vue';
 import FilterComponent from './FilterComponent.vue';
 import ModalComponent from '../ModalComponent/ModalComponent.vue';
 import PaginationComponent from './PaginationComponent.vue';
+import SpinnerComponent from '../SpinnerComponent/SpinnerComponent.vue';
+import { useStore } from 'vuex';
 
 export default {
   name: 'CatalogContainer',
-
   components: {
     ModalComponent,
     FilterComponent,
-    PaginationComponent
+    PaginationComponent,
+    SpinnerComponent
   },
 
   props: {
-    selectedFloor: String
+    totalItems: Number,
+    floor: String,
+    selectedFloor: {
+      type: String,
+      default: ''
+    },
   },
 
-  data() {
-    return {
-      selectedProduct: null,
-      isModalVisible: false,
-      items: [], 
-      itemsPerPage: 12,
-      currentPage: 1,
-      filters: {
-        brand: '',
-        size: '',
-        minPrice: this.minPriceLimit, 
-        maxPrice: this.maxPriceLimit, 
-        priceRange: [this.minPriceLimit, this.maxPriceLimit], 
+  setup(props) {
+    const { selectedFloor } = toRefs(props); // Деструктуризация props
+
+    const selectedProduct = ref(null);
+    const isModalVisible = ref(false);
+    const store = useStore();
+    const items = ref([]);
+    const itemsPerPage = ref(12);
+    const currentPage = ref(1);
+    const isDataLoaded = ref(false);
+    const totalDisplayedItems = computed(() => items.value.length);
+    const filters = reactive({
+      brand: '',
+      size: '',
+      minPrice: null,
+      maxPrice: null,
+      priceRange: [],
+    });
+
+    const fetchProducts = async () => {
+      isDataLoaded.value = false;
+      try {
+        const response = await fetch('http://localhost:3000/api/products');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        items.value = data;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        isDataLoaded.value = true;
       }
     };
-  },
 
-  created() {
-    this.fetchProducts(); 
-  },
+    watch([currentPage, filters], () => {
+  console.log(`Текущая страница: ${currentPage.value}, выбранные фильтры: ${JSON.stringify(filters)}`);
+});
 
-  computed: {
-    displayedItems() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      const end = start + this.itemsPerPage;
-      return this.filteredItems.slice(start, end);
-    },
+    onMounted(fetchProducts);
 
-    minItemPrice() {
-      return Math.min(...this.items.map(item => parseFloat(item.price.replace(/\s/g, ''))));
-    },
-
-    maxItemPrice() {
-      return Math.max(...this.items.map(item => parseFloat(item.price.replace(/\s/g, ''))));
-    },
-
-    filteredItems() {
-    return this.items.filter(item => {
-      const price = parseFloat(item.price.replace(/\s/g, ''));
-      return (!this.filters.brand || item.brand === this.filters.brand) &&
-             (!this.filters.size || item.size.includes(this.filters.size)) &&
-             (!this.filters.minPrice || price >= this.filters.minPrice) &&
-             (!this.filters.maxPrice || price <= this.filters.maxPrice) &&
-             (!this.selectedFloor || item.floor === this.selectedFloor);
+    const displayedItems = computed(() => {
+      const start = (currentPage.value - 1) * itemsPerPage.value;
+      const end = start + itemsPerPage.value;
+      return filteredItems.value.slice(start, end);
     });
-    },
 
-    showLoadMoreButton() {
-      return this.visibleItems < this.filteredItems.length;
-    }
-  },
 
-  methods: {
-    changePage(page) {
-      this.currentPage = page;
-      this.updateDisplayedItems(); 
-    },
 
-    updateDisplayedItems() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      this.displayedItems = this.filteredItems.slice(startIndex, endIndex);
-    },
+    const minItemPrice = computed(() => {
+      return Math.min(...items.value.map(item => parseFloat(item.price.replace(/\s/g, ''))));
+    });
 
-    openModal(product) {
-      this.selectedProduct = product;
-      this.isModalVisible = true;
-    },
+    const maxItemPrice = computed(() => {
+      return Math.max(...items.value.map(item => parseFloat(item.price.replace(/\s/g, ''))));
+    });
 
-    handleImageChange(newImage) {
-      this.selectedProduct = { ...this.selectedProduct, image: newImage };
-    },
 
-    loadMore() {
-      this.visibleItems += this.loadMoreStep;
-    },
+    const filteredItems = computed(() => {
+      return items.value.filter(item => {
+        const price = parseFloat(item.price.replace(/\s/g, ''));
+        return (!filters.brand || item.brand === filters.brand) &&
+               (!filters.size || item.size.includes(filters.size)) &&
+               (!filters.minPrice || price >= filters.minPrice) &&
+               (!filters.maxPrice || price <= filters.maxPrice) &&
+               (!selectedFloor.value || item.floor === selectedFloor.value);
+      });
+    });
 
-    applyFilters(newFilters) {
-      this.filters = { ...this.filters, ...newFilters };
-      this.currentPage = 1; 
-      this.updateDisplayedItems(); 
-    },
-    
-    addToCart(item) {
-      this.$store.dispatch('addToCart', item);
+    const openModal = (product) => {
+      selectedProduct.value = product;
+      isModalVisible.value = true;
+    };
+
+    const handleImageChange = (newImage) => {
+      selectedProduct.value = { ...selectedProduct.value, image: newImage };
+    };
+
+    const addToCart = (item) => {
+      store.dispatch('addToCart', item);
       item.itemAddedToCart = true;
-      
       setTimeout(() => {
         item.itemAddedToCart = false;
-      }, 2000); 
-    },
+      }, 2000);
+    };
 
-    fetchProducts() {
-      fetch('http://localhost:3000/api/products')
-        .then(response => response.json())
-        .then(data => {
-          this.items = data;
-          console.log('Загружены товары:', data);
+    const applyFilters = (newFilters) => {
+      Object.assign(filters, newFilters);
+      currentPage.value = 1; // Сбросить текущую страницу при изменении фильтров
+    };
 
-        })
-      .catch(error => console.error('Error:', error));
-    },    
+    return {
+      selectedProduct,
+      isModalVisible,
+      items,
+      itemsPerPage,
+      currentPage,
+      filters,
+      isDataLoaded,
+      displayedItems,
+      minItemPrice,
+      maxItemPrice,
+      totalDisplayedItems,
+      openModal,
+      handleImageChange,
+      addToCart,
+      applyFilters
+    };
   }
 };
 </script>
@@ -161,7 +178,17 @@ export default {
 
 
 
+
 <style scoped>
+
+:root {
+  --main-bg-color: #EFF2F9; /* светло-серый фон */
+  --accent-color: #4E84D9; /* синий акцент для кнопок и ссылок */
+  --text-color: #333; /* темно-серый для основного текста */
+  --detail-text-color: #666; /* светло-серый для дополнительного текста */
+  --card-bg-color: #ffffff; /* белый фон для карточек */
+  --button-hover-color: rgba(78, 132, 217, 0.8); /* прозрачный синий для наведения */
+}
 
 .item-added-text {
   position: absolute;
@@ -172,6 +199,8 @@ export default {
   padding: 15px; 
   border-radius: 10px; 
   text-align: center;
+  color: white;
+  font-size: 0.9rem;
 }
 .catalog {
   text-align: center;
@@ -180,11 +209,12 @@ export default {
   font-family: 'MyCustomFont';
 }
 h1 {
-  color:#f3080b;
+  color: var(--text-color);
 }
 p{ 
   text-align: left;
   margin-left: 5px;
+  color: var(--text-color);
 }
 .products {
   display: grid;
@@ -196,49 +226,47 @@ p{
 
 .product {
   box-sizing: border-box;
-  padding: 1rem;
-  transition: transform 0.3s ease;
-  position: relative;
-  background: #ffffff;
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  box-shadow: 5px 5px 5px #2826269b;
   margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  background: var(--card-bg-color);
+  border-radius: 20px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+              -5px -5px 15px rgba(255, 255, 255, 0.7);
   display: flex; 
   flex-direction: column; 
   justify-content: space-between; 
   height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .product:nth-child(4n) {
   margin-right: 0;
 }
 
 .product:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
+  box-shadow: 10px 10px 15px #2826269b;
 }
 
 .product img {
   width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  aspect-ratio: 1 / 1; 
-  object-fit: cover; 
-  margin-bottom: 1rem; 
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
 }
 
 .product h2 {
-  color: #000;
-  margin-top: 0.5rem;
-  font-size: 1.5rem; 
-  margin-bottom: 0.5rem;
+  font-size: 1.6rem; /* Увеличенный размер */
+  color: #333;
+  margin: 5px 0;
 }
 
 
 .product .price {
-  font-size: 24px;
-  color: #000;
-  margin: 10px 0;
-  margin-bottom: 0.8rem;
+  font-size: 1.2rem; /* Увеличенный размер */
+  color: #666;
 }
 
 .product p {
@@ -246,6 +274,56 @@ p{
   font-size: 16px;
 }
 
+.product-info {
+  padding: 10px 15px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.product-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.add-to-cart {
+  display: none;
+  padding: 10px 20px;
+  background-color: #BA1519;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: center; 
+  margin-bottom: 10px;
+}
+
+.product:hover .add-to-cart {
+  display: block;
+}
+
+.product:hover img {
+  opacity: 1;
+}
+
+.product:hover .add-to-cart {
+  display: block; /* Показываем кнопку при наведении */
+}
+.item-added-text {
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background-color: #1b1b1b; 
+  padding: 15px; 
+  border-radius: 10px; 
+  text-align: center;
+  color: white;
+  font-size: 0.9rem;
+}
 button {
   border: none;
   border-radius: 15px;
@@ -296,8 +374,15 @@ button:active {
   margin-top: 100px;
   font-size: 35px;
 }
-
+@media (min-width: 1241px) {
+  .product:nth-child(4n) {
+    margin-right: 0;
+  }
+}
 @media (max-width: 1240px) {
+  .product:nth-child(4n) {
+    margin-right: auto;
+  }
   .product {
     max-width: 300px;
   }
@@ -314,9 +399,8 @@ button:active {
 
 @media (max-width: 1080px) {
   .product {
-    max-width: 250px; 
+    max-width: 250px;
   }
-
   .product h2 {
     font-size: 0.8rem;
   }

@@ -29,13 +29,18 @@ export default defineComponent({
   text-align: center;
   max-width: 80%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.1),
+              -8px -8px 16px rgba(255, 255, 255, 0.6);
 }
 
 .contact-info {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Автоматическая адаптация количества столбцов */
+  gap: 2rem;
 }
 
 .contact-item {
@@ -43,55 +48,42 @@ export default defineComponent({
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding: 0.5rem 2rem;
-  box-shadow: 5px 5px 5px #605E61 ;
+  padding: 1.5rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+              -4px -4px 8px rgba(255, 255, 255, 0.7);
+  cursor: pointer;
 }
 
 h1 {
-  color: #000;
+  color: #4b5563;
+  font-size: 2.5rem; /* Размер заголовка */
+  margin-bottom: 1rem; /* Отступ после заголовка */
+  margin-top: 0rem;
 }
 
 .contact-item:hover {
   transform: translateY(-10px);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15),
+              -6px -6px 12px rgba(255, 255, 255, 0.8);
 }
 
 .contact-item h2 {
-  font-size: 18px;
-  color: #000;
+  font-size: 1.25rem; /* Увеличенный размер для подзаголовков */
+  color: #333;
+  margin-bottom: 0.5rem; /* Отступ после подзаголовка */
 }
 
 .contact-item p {
-  font-size: 16px;
-  color: #605E61;
+  font-size: 1rem; /* Размер текста */
+  color: #6b7280; /* Цвет текста */
 }
 
-@media (max-width: 1240px) {
-  .contact-info {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 1080px) {
-  .contact-info {
-    grid-template-columns: repeat(2, 1fr); 
-  }
-}
+/* Удаляем дублирующиеся медиа-запросы, оставляем только нужные */
 
 @media (max-width: 720px) {
   .contact-info {
-    grid-template-columns: repeat(1, 1fr); 
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-info {
-    grid-template-columns: repeat(1, 1fr); 
-  }
-}
-
-@media (max-width: 320px) {
-  .contact-info {
-    grid-template-columns: repeat(1, 1fr); 
+    grid-template-columns: 1fr; /* Все элементы в один столбец */
+    gap: 1rem; /* Уменьшенный отступ между элементами */
   }
 }
 </style>

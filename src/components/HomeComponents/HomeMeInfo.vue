@@ -32,84 +32,66 @@ export default {
 <style scoped>
 
 .about-us-container {
-  margin: 50px;
-  background-color: #605E61;
-  border-radius: 20px;
-  color: #000;
-  background: linear-gradient(145deg, #00000000, #ffffff00);
-  backdrop-filter: blur(5px); 
-  padding: 15px;
   display: flex;
+  flex-direction: row; /* Горизонтальное направление по умолчанию */
+  align-items: center;
   justify-content: space-between;
-
+  margin: 50px auto; /* Автоматические отступы для центрирования */
+  padding: 15px;
+  border-radius: 20px;
+  background: var(--main-bg-color); /* Используем переменную для цвета фона */
+  box-shadow: 7px 7px 14px #babecc,
+              -7px -7px 14px #ffffff; /* Тени для эффекта неоморфизма */
+  color: var(--text-color); /* Цвет текста из переменных */
 }
 
 .image-wrapper {
-  width: 50%;
-	margin: auto;
+  flex: 1; /* Автоматическая регулировка размера */
+  padding: 20px; /* Отступы внутри контейнера изображения */
 }
 
 .full-width-image {
   width: 100%;
   height: auto;
   border-radius: 20px;
-  box-shadow: 2px 2px 2px rgba(228, 35, 35, 0.74);
+  object-fit: cover; /* Обрезать изображение по контейнеру */
 }
 
 .content-column {
-  width: 50%;
-}
-
-.text-wrapper {
-  padding: 20px;
+  flex: 1; /* Автоматическая регулировка размера */
+  padding: 20px; /* Отступы внутри контейнера текста */
 }
 
 .section-title {
-  font-size: 25px;
+  font-size: 2rem; /* Увеличиваем размер заголовка */
   font-weight: bold;
-  font-family: 'MyCustomFont', sans-serif;
+  margin-bottom: 1rem; /* Отступ снизу заголовка */
 }
 
 .main-text {
-  font-size: 18px;
-  line-height: 1.5;
-  font-family: 'MyCustomFont', sans-serif;
+  font-size: 1rem; /* Размер текста абзаца */
+  line-height: 1.6; /* Высота строки для улучшения читаемости */
+  margin-bottom: 1rem; /* Отступы между абзацами */
 }
-
 
 @media (max-width: 1080px) {
-  .section-title {
-    font-size: 20px;
-  }
-
-  .main-text {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 900px) {
-  .section-title {
-    font-size: 15px;
-  }
-
-  .main-text {
-    font-size: 10px;
-  }
-}
-@media (max-width: 900px) {
   .about-us-container {
-    width: auto;
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
+    flex-direction: column; /* Столбцовое расположение для узких экранов */
+  }
 
+  .image-wrapper, .content-column {
+    width: 100%; /* Полная ширина для узких экранов */
+  }
 }
-.image-wrapper {
-  width: 100%;
-	margin: auto;
+
+@media (max-width: 900px) {
+  .section-title {
+    font-size: 1.5rem; /* Уменьшаем размер заголовка */
+  }
+
+  .main-text {
+    font-size: 0.9rem; /* Уменьшаем размер текста абзаца */
+  }
 }
-.content-column {
-  width: 100%;
-}
-}
+
 </style>

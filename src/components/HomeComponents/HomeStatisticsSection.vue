@@ -25,13 +25,14 @@ export default {
 
 <style scoped>
 .statistics {
-
   display: flex;
   justify-content: space-around; 
   padding: 40px 0; 
   margin: 50px auto;
   border-radius: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
+  background: var(--card-bg-color); /* Фон для неоморфизма */
+  box-shadow: 7px 7px 14px #babecc,
+              -7px -7px 14px #ffffff; /* Тени для создания эффекта неоморфизма */
   max-width: 90%;
   gap: 20px;
 }
@@ -41,31 +42,24 @@ export default {
 }
 
 .statistic-number {
-  color: #BA1519; 
-  font-size: 2.5em;
+  color: var(--accent-color); /* Цвет для чисел статистики */
+  font-size: 3em; /* Увеличенный размер для более драматического эффекта */
   margin: 0 0 10px;
+  font-weight: bold; /* Жирное начертание */
 }
 
 .statistic-description {
-  color: #666;
+  color: var(--detail-text-color); /* Цвет для описания статистики */
   font-size: 1.5em; 
   margin: 0; 
 }
 
 @media (max-width: 1240px) {
-  .statistic-number {
-    font-size: 2.2em;
-  }
-  .statistic-description {
-    font-size: 1.3em;
-  }
-}
-
-@media (max-width: 1080px) {
   .statistics {
-    flex-direction: column;
+    flex-direction: column; /* Столбцовое расположение для средних экранов */
     align-items: center;
   }
+
   .statistic-item {
     margin-bottom: 20px;
   }
@@ -73,10 +67,11 @@ export default {
 
 @media (max-width: 720px) {
   .statistic-number {
-    font-size: 2em;
+    font-size: 2.5em; /* Уменьшенный размер шрифта для адаптивности */
   }
+
   .statistic-description {
-    font-size: 1.2em;
+    font-size: 1.2em; /* Уменьшенный размер шрифта для адаптивности */
   }
 }
 
@@ -84,20 +79,24 @@ export default {
   .statistics {
     padding: 20px 0;
   }
+
   .statistic-number {
-    font-size: 1.8em;
+    font-size: 2em; /* Дальнейшее уменьшение размера шрифта для мобильных устройств */
   }
+
   .statistic-description {
-    font-size: 1.1em;
+    font-size: 1em; /* Дальнейшее уменьшение размера шрифта для мобильных устройств */
   }
 }
 
 @media (max-width: 320px) {
   .statistic-number {
-    font-size: 1.6em;
+    font-size: 1.8em; /* Минимальный размер шрифта для очень узких экранов */
   }
+
   .statistic-description {
-    font-size: 1em;
+    font-size: 0.9em; /* Минимальный размер шрифта для описания на очень узких экранов */
   }
 }
+
 </style>

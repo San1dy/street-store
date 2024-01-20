@@ -46,18 +46,29 @@ export default defineComponent({
 
 <style scoped>
 .faq {
-  max-width: 600px;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 0 10px; 
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.2),
+              -8px -8px 16px rgba(255, 255, 255, 0.2);
 }
 
-h1{
+h1 {
   text-align: center;
-  font-size: 3em; 
-  color: #605E61;
+  font-size: 3rem; /* Использование rem для адаптивности */
+  color: #4b5563;
+  padding: 1rem 0;
 }
 .faq-item {
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 15px;
+  padding: 0.5rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1),
+              -4px -4px 8px rgba(255, 255, 255, 0.7);
 }
 
 h2 {
@@ -72,73 +83,57 @@ p {
   text-align: left;
   background: none;
   border: none;
-  padding: 10px;
-  font-size: 15px;
+  padding: 1rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
   transition: background-color 0.3s;
-  padding-left: 50px;
 }
 
 .faq-question:hover {
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .faq-answer {
-  padding: 10px;
-  padding-left: 40px;
-  border-top: none;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: #6b7280;
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 768px) {
   h1 {
-    font-size: 2.5em;
+    font-size: 2rem;
   }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 576px) {
   .faq-question {
-    padding-left: 30px;
-    font-size: 10px;
+    font-size: 0.9rem;
   }
-}
 
-@media (max-width: 720px) {
-  .faq {
-    max-width: 500px;
-  }
-  h1 {
-    font-size: 2em;
-  }
   .faq-answer {
-    padding-left: 20px;
-    font-size: 10px;
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 480px) {
-  .faq {
-    max-width: 400px;
-  }
-  .faq-question {
-    padding-left: 20px;
-    font-size: 7px;
-  }
   h1 {
-    font-size: 1.5em;
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 360px) {
   .faq {
-    max-width: 300px;
+    padding: 0 5px;
   }
+
   h1 {
-    font-size: 1em;
+    font-size: 1.2rem;
+  }
+
+  .faq-question {
+    padding: 0.8rem;
   }
 }
 </style>

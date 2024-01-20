@@ -1,37 +1,41 @@
 <template lang="pug">
 .filter
-  .filter-item
-    label(for="brand") Бренд:
-    select(v-model="selectedBrand", id="brand")
-      option(value='') Все
-      option(v-for="brand in brands", :value="brand", :key="brand") {{ brand }}
-  .filter-item
-    label(for="size") Размер:
-    select(v-model="selectedSize", id="size")
-      option(value='') Все
-      option(v-for="size in sizes", :value="size", :key="size") {{ size }}
-  .filter-item
-    label(for="min-price") Цена: От
-    input(
-      type="number", 
-      v-model.lazy="minPrice", 
-      :min="minPriceLimit", 
-      :max="maxPrice", 
-      placeholder="От",
-      id="min-price"
-    )
-    label(for="max-price") До
-    input(
-      type="number", 
-      v-model.lazy="maxPrice", 
-      :min="minPrice", 
-      :max="maxPriceLimit", 
-      placeholder="До",
-      id="max-price"
-    )
+  .filter-duo
+    .filter-item.brand-name
+      label(for="brand") Бренд:
+      select(v-model="selectedBrand", id="brand")
+        option(value='') Все
+        option(v-for="brand in brands", :value="brand", :key="brand") {{ brand }}
+    .filter-item.brand-size
+      label(for="size") Размер:
+      select(v-model="selectedSize", id="size")
+        option(value='') Все
+        option(v-for="size in sizes", :value="size", :key="size") {{ size }}
+  .filter-price
+    .filter-item.price-range
+      .price-inputs
+        label(for="min-price") От:
+        input(
+          type="number", 
+          v-model.lazy="minPrice", 
+          :min="minPriceLimit", 
+          :max="maxPrice", 
+          placeholder="От",
+          id="min-price"
+        )
+        label(for="max-price") До:
+        input(
+          type="number", 
+          v-model.lazy="maxPrice", 
+          :min="minPrice", 
+          :max="maxPriceLimit", 
+          placeholder="До",
+          id="max-price"
+        )
     VueSlider(:min="minPriceLimit", :max="maxPriceLimit", v-model="priceRange", :tooltip="'active'", :process="true")
   button.button-apply-filters(@click="applyFilters") Применить фильтры
 </template>
+
 
 
 <script>
@@ -119,157 +123,149 @@ export default defineComponent({
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+.label, select, input[type='number'], .button-apply-filters {
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  box-shadow: inset 2px 2px 5px #cbced1, inset -5px -5px 10px #ffffff;
+}
+
 
 .filter {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  background: linear-gradient(170deg, #fffefe, #848484); 
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  width: 90%;
+  max-width: 500px;
+  margin: 1rem auto;
+  padding: 1rem;
   font-family: 'Roboto', sans-serif;
-  margin: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.filter-duo {
+  display: flex;
+  justify-content: space-between; /* Равномерно распределяет пространство между элементами */
+  align-items: center; /* Выравнивает элементы по центру по вертикали */
+  flex-wrap: nowrap; /* Запрещает перенос элементов на новую строку */
+  width: 100%;
 }
 
 .filter-item {
+  width: calc(50% - 10px);
+  margin: 5px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.brand-name, .brand-size {
+  display: flex; /* Используем Flexbox для выравнивания */
+  align-items: center; /* Центрирование элементов по вертикали */
+  justify-content: center; /* Центрирование элементов по горизонтали */
+  gap: 10px; /* Отступ между внутренними элементами */
+}
+
+/* Пример стилизации для label и select/input внутри этих классов */
+.brand-name label, .brand-size label,
+.brand-name select, .brand-size select,
+.brand-name input, .brand-size input {
+  padding: 0.5rem; /* Добавляем небольшой внутренний отступ для удобства */
+  /* Дополнительные стили по необходимости */
+}
+.filter-price {
+  width: 100%;
+}
+
+.price-range {
+  flex: 0 0 100%; /* Блок занимает всю ширину родителя */
+  display: flex;
+  justify-content: space-between; /* Равномерно распределяет пространство между элементами */
+  align-items: center; /* Выравнивает элементы по центру по вертикали */
+  flex-wrap: nowrap;
   flex-direction: column;
-  margin: 10px;
-  width: 200px;
-}
-
-label {
-  font-weight: 500;
-  margin-bottom: 5px;
-  color: #605E61;
-}
-
-select, .price-inputs input {
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: white;
-  cursor: pointer;
-  font-weight: 400;
-  color: #605E61;
+  align-items: stretch;
+  width: 94%;
 }
 
 .price-inputs {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
+.price-inputs label,
 .price-inputs input {
-  width: calc(50% - 10px);
+  flex: 1; /* Устанавливает равное пространство для label и input */
+  margin: 0 5px; /* Добавляет небольшой отступ между элементами */
 }
 
-button {
-  padding: 10px 15px;
+.VueSlider {
+  width: calc(100% - 2rm); /* Учитываем отступы */
+  margin-top: 10px;
+}
+
+.VueSlider-dot {
   background-color: #BA1519;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-  width: auto; 
-  align-self: center; 
 }
 
-button:hover {
-  background-color: #f70307;
-}
-button:active {
-  transform: scale(0.9);
+.VueSlider-process {
+  background-color: #BA1519;
 }
 
-.vue-slider {
-  height: 8px; 
-  background-color: #E0E0E0; 
-  border-radius: 4px; 
-}
-
-.vue-slider-dot {
-  width: 25px; 
-  height: 25px; 
-  border: none; 
-  background-color: #ff0000; 
-  box-shadow: none; 
-}
-
-.vue-slider-dot-handle {
-  display: none; 
-}
-
-.vue-slider-process {
-  background-color: #FF6A00; 
-  border-radius: 4px; 
-}
-
-.vue-slider-mark {
-  display: none; 
-}
 .button-apply-filters {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  font-size: 10px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
-              7px 7px 20px 0px rgba(0,0,0,.3),
-              4px 4px 5px 0px rgba(0,0,0,.3);
-  outline: none;
-  background: rgb(128,128,128); /* серый цвет */
-  background: linear-gradient(0deg, rgb(245, 3, 3) 0%, rgb(243, 53, 53) 100%);
+  padding: 0.5rem 1rem;
+  margin-top: 10px;
+  border-radius: 15px;
+  background-color: #f3f3f3;
+  border: none;
+  box-shadow: 2px 2px 5px #cbced1, -2px -2px 5px #ffffff;
+  align-self: center;
 }
 
 .button-apply-filters:hover {
-  text-decoration: none;
-  color: #fff;
-  opacity: .7;
+  background-color: #e1e1e1;
 }
 
 .button-apply-filters:active {
-  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-              inset -4px -4px 6px 0 rgba(255,255,255,.2),
-              inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+  transform: scale(0.95);
 }
 
-@keyframes shiny-btn1 {
-  0% { transform: scale(0) rotate(45deg); opacity: 0; }
-  80% { transform: scale(0) rotate(45deg); opacity: 0.5; }
-  81% { transform: scale(4) rotate(45deg); opacity: 1; }
-  100% { transform: scale(50) rotate(45deg); opacity: 0; }
-}
+@media (max-width: 480px) {
+  .label, select, input[type='number'], .button-apply-filters {
+    font-size: 0.6rem; /* Уменьшаем размер шрифта */
+    padding: 0.4rem; /* Уменьшаем внутренний отступ */
+  }
 
-@media (max-width: 768px) {
+  .filter-item, .price-range, .VueSlider {
+    padding: 0.4rem;
+    font-size: 0.6rem; /* Уменьшаем внутренний отступ элементов фильтра */
+  }
+
+  .button-apply-filters {
+    padding: 0.4rem 0.8rem; /* Уменьшаем внутренний отступ кнопки */
+  }
+
   .filter {
-    flex-direction: column;
-    align-items: center;
+    padding: 0.8rem; /* Уменьшаем внутренний отступ всего фильтра */
   }
 
-  .filter-item {
-    width: 100%;
-  }
-
-  select, .price-inputs input {
-    width: 100%;
-  }
-
+  .price-inputs label,
   .price-inputs input {
-    margin-bottom: 10px;
+    margin: 0 3px; /* Уменьшаем внешний отступ */
+  }
+
+  .VueSlider {
+    width: calc(100% - 20px); /* Уменьшаем ширину ползунка, учитывая отступы */
   }
 }
 </style>
-

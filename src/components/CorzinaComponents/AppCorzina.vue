@@ -15,7 +15,7 @@
       button.delete-button(
         :class="{'show-delete': item.showDelete}", 
         @click="removeFromCart(item)"
-      ) Удалить
+      )
   ModalComponent(
     :product="selectedItem",
     :isVisible="isModalVisible",
@@ -86,124 +86,142 @@ export default {
 <style scoped>
 .catalog, .products {
   text-align: center;
-  width: 90%;
-  margin: auto;
-  height: auto;
+  width: 80%;
+  margin: 0 auto; /* Центрирование блока внутри родителя */
+ 
 }
-
-.catalog {
-  position: relative;
+h1 {
+  color: var(--text-color);
 }
 .text {
-  position: absolute;
-  margin: auto;
+  color: var(--text-color);
+  margin-top: 2rem; /* Отступ сверху для текста */
+  font-size: 1.5rem; /* Размер шрифта для текста */
 }
+
 .products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px; /* Расстояние между карточками */
   justify-content: center;
   margin-top: 30px;
 }
 
 .product {
   box-sizing: border-box;
-  padding: 1rem;
-  transition: transform 0.3s ease;
+  margin: 0 auto;
+  overflow: hidden;
   position: relative;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  
+  background: var(--card-bg-color);
   border-radius: 20px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1),
+              -5px -5px 15px rgba(255, 255, 255, 0.7);
+  display: flex; 
+  flex-direction: column; 
+  justify-content: space-between; 
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product img {
   width: 100%;
-  border-radius: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  margin-bottom: 1rem;
+}
+.product:hover {
+  transform: translateY(-5px);
+  box-shadow: 10px 10px 15px #2826269b;
+}
+.product h2 {
+  font-size: 1.6rem; /* Увеличенный размер */
+  color: var(--text-color);
+  margin: 10px;
 }
 
-.product h2, .product .price, button {
-  color: #000;
-  font-size: 25px;
+.product .price {
+  font-size: 1.2rem; /* Увеличенный размер */
+  color: var(--detail-text-color);
+  margin-bottom: 10px;
 }
 
-.buy-button, .delete-button {
+.delete-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  padding: 5px 10px;
-  background-color: rgba(231, 76, 60, 0.8);
-  color: white;
-  border: none;
-  border-radius: 5px;
+  width: 24px;
+  height: 24px;
+  opacity: 0;
   cursor: pointer;
-  display: none;
-  opacity: 1;
-  transition: opacity 0.3s ease, display 0.3s ease;
+  transition: opacity ease 0.5s;
+  border: none;
+  background: transparent;
 }
 
-p{
+.delete-button::before,
+.delete-button::after {
+  content: '';
   position: absolute;
-  font-size: 20px;
-}
-.product:hover .buy-button, .product:hover .delete-button {
+  top: 10px;
   display: block;
+  width: 24px;
+  height: 3px;
+  background: #000;
 }
 
-.buy-button:hover, .delete-button:hover {
-  background-color: #c0392b;
-}
-
-.buy-button:hover, .delete-button:active {
-  transform: scale(0.95);
-}
-.show-delete {
-  display: block;
+.product:hover .delete-button {
   opacity: 1;
 }
 
-@media (max-width: 1240px) {
-  .product {
-    max-width: 300px;
-  }
-  .product h2, .product .price, button {
-  font-size: 20px;
+.buy-button:hover,
+.delete-button:hover {
+  background: var(--button-hover-color);
 }
+.delete-button::before {
+  transform: rotate(45deg);
+}
+
+.delete-button::after {
+  transform: rotate(-45deg);
+}
+
+.product:hover .delete-button {
+  opacity: 0.7;
+}
+
+.delete-button:hover {
+  opacity: 1;
+}
+@media (max-width: 1240px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 1080px) {
-  .product {
-    max-width: 250px;
+  .products {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .product h2, .product .price, button {
-  font-size: 15px;
-}
 }
 
 @media (max-width: 720px) {
   .products {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 480px) {
-  .products {
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  .product h2, .product .price, .buy-button, .delete-button {
+    font-size: 0.8rem; /* Уменьшение шрифта для мобильных устройств */
   }
-
 }
 
 @media (max-width: 320px) {
-  .products {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  .catalog, .products {
+    width: 95%;
   }
 }
+
 </style>

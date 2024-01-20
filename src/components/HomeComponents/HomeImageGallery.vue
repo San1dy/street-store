@@ -85,6 +85,9 @@ export default {
   text-align: center;
   max-width: 1240px;
   margin: auto;
+  padding: 40px 0; /* Добавлены отступы */
+  background: var(--main-bg-color); /* Цвет фона */
+  color: var(--text-color); /* Цвет текста */
 }
 
 .slider {
@@ -95,6 +98,8 @@ export default {
   max-height: 600px; 
   margin: 20px auto;
   border-radius: 20px;
+  box-shadow: 7px 7px 14px #babecc,
+              -7px -7px 14px #ffffff; /* Тени для создания визуального рельефа */
 }
 
 .slides-container {
@@ -110,6 +115,7 @@ export default {
   width: 100%;
   height: auto;
   object-fit: cover; 
+  border-radius: 20px; /* Скругление углов изображений */
 }
 
 .navigation-dots {
@@ -128,42 +134,41 @@ export default {
   background-color: grey;
   margin: 0 5px;
   cursor: pointer;
+  box-shadow: inset 1px 1px 2px #babecc,
+              inset -1px -1px 2px #ffffff; /* Внутренние тени для эффекта неоморфизма */
+  transition: background-color 0.3s; /* Плавный переход цвета */
 }
 
 .dot.active {
-  background-color: #BA1519;
+  background-color: var(--accent-color); /* Цвет активной точки */
 }
 
 h2, p {
-  color: #605E61;
   margin: 20px 0;
 }
 
-
+/* Адаптивные стили */
 @media (max-width: 1240px) {
-  h2, p {
-    font-size: calc(16px + (24 - 16) * ((100vw - 320px) / (1240 - 320)));
+  .home-image-gallery {
+    padding: 20px 0; /* Уменьшенные отступы */
   }
 }
 
 @media (max-width: 1080px) {
   .slider {
     height: 45vw;
-    max-height: 500px;
   }
 }
 
 @media (max-width: 720px) {
   .slider {
-    height: 40vw;
-    max-height: 400px;
+    height: 50vw;
   }
 }
 
 @media (max-width: 480px) {
   .slider {
-    height: 35vw;
-    max-height: 300px;
+    height: 50vw;
   }
 
   .dot {
@@ -174,8 +179,7 @@ h2, p {
 
 @media (max-width: 320px) {
   .slider {
-    height: 30vw;
-    max-height: 250px;
+    height: 40vw;
   }
 
   .dot {
@@ -183,4 +187,5 @@ h2, p {
     height: 8px;
   }
 }
+
 </style>

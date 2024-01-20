@@ -9,7 +9,10 @@ nav.navigation-bar
       @mouseleave="handleMouseLeave",
       @click="handleClick"
     )
-  button.burger-button(@click="toggleMenu") ☰
+  .hamburger(:class="{ 'is-active': isMenuActive }", @click="toggleMenu")
+    .hamburger__container
+      .hamburger__inner
+      .hamburger__hidden
   ul.navigation-links(:class="{ 'active': isMenuActive }")
     li(v-for="link in navLinks" :key="link.path")
       router-link(:to="link.path") {{ link.name }}
@@ -48,13 +51,14 @@ export default {
     };
 
     const handleMouseLeave = () => {
-      logoState.src = logoState.isClicked ? logoState.clicked : logoDefault;
-    };
+        logoState.src = logoState.isClicked ? logoState.clicked : logoDefault;
+      };
 
     const handleClick = () => {
       logoState.isClicked = true;
       setTimeout(() => {
         logoState.isClicked = false;
+        handleMouseLeave();
       }, 300); 
     };
 
@@ -78,6 +82,114 @@ export default {
 
 <style scoped>
 
+.hamburger {
+  padding: 15px;
+  cursor: pointer;
+  display: none;
+  overflow: hidden;
+  background-color: transparent;
+}
+.hamburger__container {
+  width: 36px;
+  height: 24px;
+  position: relative;
+}
+.hamburger:hover .hamburger__inner {
+  transform: translate(-51px, 50%);
+  opacity: 0;
+}
+.hamburger:hover .hamburger__inner::before, .hamburger:hover .hamburger__inner::after {
+  transform: translate(102px, 0);
+  opacity: 0;
+}
+.hamburger.is-active .hamburger__inner {
+  display: none;
+}
+.hamburger__inner {
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.4s;
+  top: 50%;
+  transform: translate(5px, -50%);
+  opacity: 1;
+}
+.hamburger__inner::before, .hamburger__inner::after {
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.4s;
+  content: "";
+  opacity: 1;
+  transform: translate(-5px, 0);
+}
+.hamburger__inner::before {
+  top: -13px;
+}
+.hamburger__inner::after {
+  top: 13px;
+}
+.hamburger:hover .hamburger__hidden {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+.hamburger:hover .hamburger__hidden::before, .hamburger:hover .hamburger__hidden::after {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.hamburger.is-active .hamburger__hidden {
+  opacity: 1;
+  transform: rotate(45deg);
+}
+.hamburger.is-active .hamburger__hidden::before {
+  transform: translate(0, 13px) rotate(90deg);
+  transform-origin: center;
+}
+.hamburger.is-active .hamburger__hidden::after {
+  transform-origin: center;
+  transform: translate(0, -13px) rotate(0);
+}
+.hamburger__hidden {
+  opacity: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.4s;
+  background-color: red;
+  top: 50%;
+  transform: translate(51px, -50%);
+}
+.hamburger__hidden::before, .hamburger__hidden::after {
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform, opacity;
+  transition-timing-function: ease;
+  transition-duration: 0.4s;
+  background-color: red;
+  content: "";
+  transform: translate(102px, 0);
+}
+.hamburger__hidden::before {
+  top: -13px;
+}
+.hamburger__hidden::after {
+  top: 13px;
+}
 h1, h2, p, a, li {
   font-family: 'MyCustomFont', sans-serif;
   color: #fff;
@@ -131,19 +243,52 @@ a {
 }
 @media (max-width: 850px) {
   .logo {
-    width: 150px; 
+    width: 150px; /* Уменьшаем логотип */
+  }
+
+  .hamburger__container {
+    width: 30px; /* Уменьшаем контейнер бургера */
+    height: 20px; /* Уменьшаем высоту контейнера бургера */
   }
 }
 
 @media (max-width: 720px) {
   .logo {
-    width: 120px; 
+    width: 120px; /* Дальнейшее уменьшение логотипа */
+  }
+
+  .hamburger {
+    display: block; /* Показываем иконку бургера */
+  }
+
+  .hamburger__container {
+    width: 25px; /* Ещё меньше для контейнера бургера */
+    height: 18px; /* Ещё меньше для высоты контейнера бургера */
+  }
+
+  .navigation-links {
+    /* ... */
   }
 }
 
 @media (max-width: 400px) {
   .logo {
-    width: 100px; 
+    width: 100px; /* Ещё меньше для логотипа */
+  }
+
+  .hamburger__container {
+    width: 20px; /* Ещё меньше для контейнера бургера */
+    height: 16px; /* Ещё меньше для высоты контейнера бургера */
+  }
+
+  .burger-button {
+    font-size: 1.5rem; /* Уменьшаем размер шрифта кнопки бургера */
+  }
+}
+
+@media (max-width: 320px) {
+  .burger-button {
+    font-size: 1.2rem; /* Дальнейшее уменьшение размера шрифта кнопки бургера */
   }
 }
 
@@ -219,5 +364,7 @@ a {
     font-size: 1.2rem;
   }
 }
+
+
 </style>
 

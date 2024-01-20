@@ -62,6 +62,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+:root {
+  --main-bg-color: #EFF2F9; /* светло-серый фон */
+  --accent-color: #4E84D9; /* синий акцент для кнопок и ссылок */
+  --text-color: #333; /* темно-серый для основного текста */
+  --detail-text-color: #666; /* светло-серый для дополнительного текста */
+  --card-bg-color: #ffffff; /* белый фон для карточек */
+  --button-hover-color: rgba(78, 132, 217, 0.8); /* прозрачный синий для наведения */
+}
+
+
 .modal {
   display: flex;
   justify-content:center;
@@ -79,13 +90,16 @@ export default defineComponent({
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  background-color: rgba(2, 2, 2, 0.2);
+  padding: 2rem;
+  background-color: #ffffff;
   backdrop-filter: blur(10px);
-  border-radius: 15px;
+  border-radius: 20px;
   width: 80%;
   max-width: 700px;
+  margin: 1rem;
   transition: width 0.3s ease;
+  box-shadow: 7px 7px 14px #babecc,
+              -7px -7px 14px #ffffff;
 }
 
 .row {
@@ -107,10 +121,12 @@ export default defineComponent({
   cursor: pointer;
   object-fit: cover;
   border-radius: 10px;
+  box-shadow: inset 1px 1px 2px #babecc,
+              inset -1px -1px 2px #ffffff;
 }
 
 .image-selection.active {
-  border: 2px solid #BA1519;
+  border: 2px solid var(--accent-color);
 }
 
 .main-image {
@@ -118,12 +134,14 @@ export default defineComponent({
   height: 330px;
   object-fit: cover;
   border-radius: 10px;
+  box-shadow: 4px 4px 6px #babecc,
+              -4px -4px 6px #ffffff;
 }
 
 .product-details {
   display: flex;
   flex-direction: column;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .product-name {
@@ -137,6 +155,7 @@ export default defineComponent({
 .size,
 .product-description {
   margin-bottom: 10px;
+  color: var(--text-color); 
 }
 
 .price-container {
@@ -148,7 +167,7 @@ export default defineComponent({
 .new-price {
   font-size: 24px;
   font-weight: bold;
-  color: #0a0000;
+  color: var(--accent-color);
 }
 
 .action-buttons {
@@ -156,33 +175,24 @@ export default defineComponent({
   gap: 10px;
 }
 
-.buy-button {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.6),
-              7px 7px 20px 0px rgba(255, 255, 255, 0.329),
-              4px 4px 5px 0px rgba(255, 255, 255, 0.199);
-  outline: none;
-  background: rgb(207, 84, 84); 
-  background: linear-gradient(0deg, rgb(238, 13, 13) 0%, rgb(82, 19, 19) 100%);
-  text-decoration: none;
+.buy-button,.favorite-button {
+  background: var(--main-bg-color); /* Фоновый цвет кнопок */
+  color: var(--text-color); /* Цвет текста кнопок */
+  padding: 1rem; /* Внутренний отступ */
+  border-radius: 15px; /* Скругление углов */
+  box-shadow: 4px 4px 8px #babecc,
+              -4px -4px 8px #ffffff; /* Тени для кнопок */
+  font-family: 'Lato', sans-serif; /* Семейство шрифтов */
+  font-weight: 500; /* Начертание шрифта */
+  font-size: 1rem; /* Размер шрифта */
+  transition: all 0.3s ease; /* Плавность переходов */
 }
 
-.buy-button:hover {
-  text-decoration: none;
-  color: #fff;
-  opacity: .7;
+.buy-button,.favorite-button:hover {
+  background: var(--accent-color); /* Цвет фона при наведении */
+  color: rgb(10, 10, 10); /* Цвет текста при наведении */
+  box-shadow: inset 1px 1px 2px #babecc,
+              inset -1px -1px 2px #ffffff; 
 }
 
 .buy-button:active {
@@ -201,7 +211,7 @@ export default defineComponent({
   height: 24px;
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1980px) {
   .modal-content, .image-selection-container {
     flex-direction: row;
   }
