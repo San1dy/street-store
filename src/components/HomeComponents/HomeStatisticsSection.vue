@@ -30,9 +30,9 @@ export default {
   padding: 40px 0; 
   margin: 50px auto;
   border-radius: 25px;
-  background: var(--card-bg-color); /* Фон для неоморфизма */
+  background: var(--card-bg-color); 
   box-shadow: 7px 7px 14px #babecc,
-              -7px -7px 14px #ffffff; /* Тени для создания эффекта неоморфизма */
+              -7px -7px 14px #ffffff; 
   max-width: 90%;
   gap: 20px;
 }
@@ -42,21 +42,21 @@ export default {
 }
 
 .statistic-number {
-  color: var(--accent-color); /* Цвет для чисел статистики */
-  font-size: 3em; /* Увеличенный размер для более драматического эффекта */
+  color: var(--accent-color); 
+  font-size: 3em; 
   margin: 0 0 10px;
-  font-weight: bold; /* Жирное начертание */
+  font-weight: bold; 
 }
 
 .statistic-description {
-  color: var(--detail-text-color); /* Цвет для описания статистики */
+  color: var(--detail-text-color); 
   font-size: 1.5em; 
   margin: 0; 
 }
 
 @media (max-width: 1240px) {
   .statistics {
-    flex-direction: column; /* Столбцовое расположение для средних экранов */
+    flex-direction: column; 
     align-items: center;
   }
 
@@ -67,11 +67,11 @@ export default {
 
 @media (max-width: 720px) {
   .statistic-number {
-    font-size: 2.5em; /* Уменьшенный размер шрифта для адаптивности */
+    font-size: 2.5em; 
   }
 
   .statistic-description {
-    font-size: 1.2em; /* Уменьшенный размер шрифта для адаптивности */
+    font-size: 1.2em; 
   }
 }
 
@@ -81,21 +81,21 @@ export default {
   }
 
   .statistic-number {
-    font-size: 2em; /* Дальнейшее уменьшение размера шрифта для мобильных устройств */
+    font-size: 2em;
   }
 
   .statistic-description {
-    font-size: 1em; /* Дальнейшее уменьшение размера шрифта для мобильных устройств */
+    font-size: 1em; 
   }
 }
 
 @media (max-width: 320px) {
   .statistic-number {
-    font-size: 1.8em; /* Минимальный размер шрифта для очень узких экранов */
+    font-size: 1.8em; 
   }
 
   .statistic-description {
-    font-size: 0.9em; /* Минимальный размер шрифта для описания на очень узких экранов */
+    font-size: 0.9em; 
   }
 }
 

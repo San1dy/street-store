@@ -58,7 +58,7 @@ export default defineComponent({
 
 h1 {
   text-align: center;
-  font-size: 3rem; /* Использование rem для адаптивности */
+  font-size: 3rem; 
   color: #4b5563;
   padding: 1rem 0;
 }
@@ -103,37 +103,79 @@ p {
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 2rem;
-  }
+  font-size: 2rem; 
+  padding: 0.5rem 0;
+}
+  .faq {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 0 10px;
+  border-radius: 20px;
+}
+.faq-item {
+  margin-bottom: 0.5rem;
+  border-radius: 15px;
+  padding: 0.3rem;
 }
 
-@media (max-width: 576px) {
-  .faq-question {
-    font-size: 0.9rem;
-  }
+.faq-question h2 {
+  font-size: 1rem;
+  margin: 0.2rem;
+}
+p {
+  font-size: 0.7rem;
+  margin: 0.2rem;
+}
+.faq-question {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+}
 
-  .faq-answer {
-    font-size: 0.8rem;
-  }
+.faq-answer {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+}
+
+@media (max-width: 560px) {
+  h1 {
+  font-size: 1.5rem; 
+  padding: 0.5rem 0;
+}
 }
 
 @media (max-width: 480px) {
   h1 {
-    font-size: 1.5rem;
-  }
+  font-size: 1rem; 
+  padding: 0.3 rem 0;
 }
 
-@media (max-width: 360px) {
-  .faq {
-    padding: 0 5px;
-  }
+.faq-question h2 {
+  font-size: 0.5rem;
+  margin: 0.1rem;
+}
+p {
+  font-size: 0.4rem;
+  margin: 0.1rem;
+}
 
+.faq-question {
+  padding: 0.2rem;
+
+}
+
+.faq-answer {
+  padding: 0.2rem ;
+
+}
+}
+
+
+@media (max-width: 480px) {
   h1 {
-    font-size: 1.2rem;
-  }
-
-  .faq-question {
-    padding: 0.8rem;
-  }
+  font-size: 0.5rem; 
+  padding: 0.2 rem 0;
+}
 }
 </style>

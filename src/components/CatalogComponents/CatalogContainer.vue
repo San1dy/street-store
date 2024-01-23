@@ -64,7 +64,7 @@ export default {
   },
 
   setup(props) {
-    const { selectedFloor } = toRefs(props); // Деструктуризация props
+    const { selectedFloor } = toRefs(props); 
 
     const selectedProduct = ref(null);
     const isModalVisible = ref(false);
@@ -151,7 +151,7 @@ export default {
 
     const applyFilters = (newFilters) => {
       Object.assign(filters, newFilters);
-      currentPage.value = 1; // Сбросить текущую страницу при изменении фильтров
+      currentPage.value = 1; 
     };
 
     return {
@@ -258,14 +258,14 @@ p{
 }
 
 .product h2 {
-  font-size: 1.6rem; /* Увеличенный размер */
+  font-size: 1.6rem; 
   color: #333;
   margin: 5px 0;
 }
 
 
 .product .price {
-  font-size: 1.2rem; /* Увеличенный размер */
+  font-size: 1.2rem; 
   color: #666;
 }
 
@@ -310,7 +310,7 @@ p{
 }
 
 .product:hover .add-to-cart {
-  display: block; /* Показываем кнопку при наведении */
+  display: block; 
 }
 .item-added-text {
   position: absolute;

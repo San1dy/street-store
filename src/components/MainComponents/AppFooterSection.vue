@@ -21,7 +21,7 @@ footer.footer
 
 .container {
   display: flex;
-  justify-content: center; /* Центрирование содержимого */
+  justify-content: center; 
   align-items: center;
   width: 100%;
 }
@@ -30,8 +30,8 @@ footer.footer
   text-align: center;
   color: #605E61;
   width: 100%;
-  font-size: 0.9em; /* Уменьшенный размер шрифта для мобильных устройств */
-  padding-top: 20px; /* Отступ сверху для текста копирайта */
+  font-size: 0.9em; 
+  padding-top: 20px;
 }
 </style>
 

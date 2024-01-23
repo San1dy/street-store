@@ -147,6 +147,7 @@ export default defineComponent({
 .product-name {
   color: #000000;
   margin-bottom: 10px;
+  font-size: 1.5rem;
 }
 
 .brand,
@@ -176,21 +177,21 @@ export default defineComponent({
 }
 
 .buy-button,.favorite-button {
-  background: var(--main-bg-color); /* Фоновый цвет кнопок */
-  color: var(--text-color); /* Цвет текста кнопок */
-  padding: 1rem; /* Внутренний отступ */
-  border-radius: 15px; /* Скругление углов */
+  background: var(--main-bg-color); 
+  color: var(--text-color); 
+  padding: 1rem; 
+  border-radius: 15px; 
   box-shadow: 4px 4px 8px #babecc,
-              -4px -4px 8px #ffffff; /* Тени для кнопок */
-  font-family: 'Lato', sans-serif; /* Семейство шрифтов */
-  font-weight: 500; /* Начертание шрифта */
-  font-size: 1rem; /* Размер шрифта */
-  transition: all 0.3s ease; /* Плавность переходов */
+              -4px -4px 8px #ffffff; 
+  font-family: 'Lato', sans-serif; 
+  font-weight: 500; 
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
 .buy-button,.favorite-button:hover {
-  background: var(--accent-color); /* Цвет фона при наведении */
-  color: rgb(10, 10, 10); /* Цвет текста при наведении */
+  background: var(--accent-color); 
+  color: rgb(10, 10, 10); 
   box-shadow: inset 1px 1px 2px #babecc,
               inset -1px -1px 2px #ffffff; 
 }
@@ -238,32 +239,179 @@ export default defineComponent({
   }
 }
 
-@media (max-width: 720px) {
-  .main-image, .image-selection {
-    width: 100%;
-  }
+@media (max-width: 900px) {
   .modal-content {
-    padding: 15px;
+    padding: 20px; 
+  }
+
+  .image-selection {
+    width: 50px; 
+    height: 63px;
+  }
+
+  .main-image {
+    height: 250px; 
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.9rem; 
+  }
+
+  .new-price {
+    font-size: 20px; 
+  }
+
+  .buy-button, .favorite-button {
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 480px) {
-  .product-details {
-    font-size: 14px;
+
+@media (max-width: 720px) {
+  .modal-content {
+    width: 60%;
+    padding: 10px; 
+    max-width: 90%; 
   }
-  .action-buttons button {
-    padding: 8px 15px;
+
+  .image-selection {
+    width: 30px; 
+    height: 38px;
+    border-radius: 5px;
+  }
+
+  .main-image {
+    max-width: 150px; 
+    max-height: 120px; 
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.5rem; 
+  }
+
+  .new-price {
+    font-size: 7px; 
+  }
+
+  .buy-button, .favorite-button {
+    padding: 0.3rem; 
+    font-size: 0.3rem; 
+    border-radius: 10px; 
+  }
+
+  .close-button {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 20px;
+  height: 20px;
+}
+}
+
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px;
+  }
+
+  .image-selection {
+    width: 40px; 
+    height: 30px;
+  }
+
+  .main-image {
+    height: 200px; 
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.9rem;
+  }
+
+  .new-price {
+    font-size: 20px; 
+  }
+
+  .buy-button, .favorite-button {
+    font-size: 0.9rem; 
+  }
+
+  .image-selection-container {
+    flex-wrap: wrap;
+    max-width: 400px;
+    margin-bottom: 5px;
   }
 }
+
+@media (max-width: 720px) {
+  .modal-content {
+    width: 70%;
+    padding: 5px; 
+    max-width: 90%; 
+  }
+
+  .image-selection {
+    width: 30px; 
+    height: 38px;
+    border-radius: 5px;
+  }
+
+  .main-image {
+    max-width: 100px; 
+    max-height: 80px; 
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.3rem; 
+    margin-bottom: 5px;
+  }
+
+  .new-price {
+    font-size: 5px; 
+  }
+
+  .buy-button, .favorite-button {
+    padding: 0.2rem; 
+    font-size: 0.2rem; 
+    border-radius: 10px;
+  }
+
+  .close-button {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+}
+}
+
 
 @media (max-width: 320px) {
   .modal-content {
-    width: 95%;
-    padding: 10px;
+    padding: 6px; 
+    max-width: 80%; 
   }
-  .close-button {
-    width: 20px;
-    height: 20px;
+
+  .image-selection {
+    width: 20px; 
+    height: 25px;
+  }
+
+  .main-image {
+    max-width: 150px; 
+    max-height: 112px; 
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.6rem;
+  }
+
+  .new-price {
+    font-size: 12px;
+  }
+
+  .buy-button, .favorite-button {
+    padding: 0.6rem; 
+    font-size: 0.6rem; 
   }
 }
 </style>

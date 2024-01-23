@@ -17,7 +17,7 @@ export default {
   setup() {
     const teamMembers = ref([
       { name: 'Алексей', role: 'Основатель', photo: require('@/assets/images/photo-1569598409550-55537a83a662.jpeg') },
-      { name: 'Елена', role: 'Менеджер по продажам', photo: require('@/assets/images/photo-1541385767762-a55c33eb0c80.jpeg') },
+      { name: 'Елена', role: 'Менеджер', photo: require('@/assets/images/photo-1541385767762-a55c33eb0c80.jpeg') },
       { name: 'Иван', role: 'Дизайнер', photo: require('@/assets/images/photo-1621624666561-84d0107001dc.jpeg') },
       { name: 'Мария', role: 'Маркетолог', photo: require('@/assets/images/photo-1681075401974-907cc62a4373.jpeg') }
     ]);
@@ -36,40 +36,40 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem; /* Подходящий размер шрифта */
-  color: #050505; /* Яркий цвет для привлечения внимания */
-  margin-bottom: 1rem; /* Добавляем отступ снизу */
+  font-size: 2.5rem; 
+  color: #050505; 
+  margin-bottom: 1rem; 
 }
 
 .team-members {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Авто-подбор количества элементов в строке */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 20px;
   justify-content: center;
   margin-top: 20px;
 }
 
 .team-member {
-  max-width: 100%; /* Убираем фиксированную ширину для адаптивности */
+  max-width: 100%; 
   transition: transform 0.3s ease;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 20px;
-  padding:  2rem;
+  padding:  1rem;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
-              -5px -5px 10px rgba(255, 255, 255, 0.6); /* Мягкие тени для неоморфизма */
+              -5px -5px 10px rgba(255, 255, 255, 0.6); 
 }
 
 .team-member:hover {
   transform: translateY(-5px);
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.25),
-              -8px -8px 16px rgba(255, 255, 255, 0.7); /* Более выраженные тени при наведении */
+              -8px -8px 16px rgba(255, 255, 255, 0.7); 
 }
 
 .team-member img {
   width: 100%;
   height: auto;
-  border-radius: 10px; /* Скругляем углы изображения */
+  border-radius: 10px; 
 }
 
 .member-info {
@@ -77,39 +77,84 @@ h1 {
 }
 
 .member-info h2 {
-  margin: 10px 0;
-  font-size: 1.5rem; /* Увеличенный размер для имени */
-  color: #605E61; /* Цвет шрифта */
+  margin-bottom:10px;
+  font-size: 1.5rem; 
+  color: #605E61; 
 }
 
 .member-info p {
-  font-size: 1.2rem; /* Размер шрифта для роли */
-  color: #605E61; /* Цвет шрифта */
+  margin:0;
+  font-size: 1.2rem; 
+  color: #605E61; 
 }
 
-/* Медиа-запросы для адаптивности */
 @media (max-width: 1079px) {
-  .team-members {
-    grid-template-columns: repeat(2, 1fr); /* Две колонки на экранах до 1079px */
-  }
+  .member-info {
+  margin-top: 10px;
+}
+
+.member-info h2 {
+
+  font-size: 1.2rem; 
+
+}
+
+.member-info p {
+
+  font-size: 1.0rem; 
+
+}
 }
 
 @media (max-width: 720px) {
-  .team-members {
-    grid-template-columns: repeat(1, 1fr); /* Одна колонка на экранах до 720px */
-  }
-
+  .member-info {
+  margin-top: 5px;
+}
   .team-member {
-    /* Уменьшаем размеры элементов и контента */
-    padding: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 15px;
   }
 
   .member-info h2 {
-    font-size: 1rem; /* Уменьшаем размер шрифта для имени */
+    font-size: 0.7rem;
+    margin-bottom:5px;
+    margin-top: 0; 
   }
 
   .member-info p {
-    font-size: 0.8rem; /* Уменьшаем размер шрифта для роли */
+    font-size: 0.5rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  
+  .team-members {
+
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 5px;
+  justify-content: center;
+}
+  
+  .member-info {
+  margin-top: 2px;
+}
+  .team-member {
+    padding: 1rem;
+    border-radius: 20px;
+  }
+
+  .team-member img {
+
+  border-radius: 20px; 
+}
+  .member-info h2 {
+    font-size: 1rem;
+    margin-bottom:5px;
+    margin-top: 0; 
+  }
+
+  .member-info p {
+    font-size: 0.7rem; 
   }
 }
 

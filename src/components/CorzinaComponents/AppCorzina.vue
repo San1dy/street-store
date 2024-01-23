@@ -136,13 +136,13 @@ h1 {
   box-shadow: 10px 10px 15px #2826269b;
 }
 .product h2 {
-  font-size: 1.6rem; /* Увеличенный размер */
+  font-size: 1.6rem; 
   color: var(--text-color);
   margin: 10px;
 }
 
 .product .price {
-  font-size: 1.2rem; /* Увеличенный размер */
+  font-size: 1.2rem; 
   color: var(--detail-text-color);
   margin-bottom: 10px;
 }
@@ -202,7 +202,7 @@ h1 {
 
 @media (max-width: 1080px) {
   .products {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -214,7 +214,7 @@ h1 {
 
 @media (max-width: 480px) {
   .product h2, .product .price, .buy-button, .delete-button {
-    font-size: 0.8rem; /* Уменьшение шрифта для мобильных устройств */
+    font-size: 0.8rem; 
   }
 }
 

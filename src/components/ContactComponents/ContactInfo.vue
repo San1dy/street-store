@@ -39,7 +39,7 @@ export default defineComponent({
 
 .contact-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Автоматическая адаптация количества столбцов */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 2rem;
 }
 
@@ -56,10 +56,11 @@ export default defineComponent({
 
 h1 {
   color: #4b5563;
-  font-size: 2.5rem; /* Размер заголовка */
-  margin-bottom: 1rem; /* Отступ после заголовка */
+  font-size: 2.5rem; 
+  margin-bottom: 1rem; 
   margin-top: 0rem;
 }
+
 
 .contact-item:hover {
   transform: translateY(-10px);
@@ -68,22 +69,117 @@ h1 {
 }
 
 .contact-item h2 {
-  font-size: 1.25rem; /* Увеличенный размер для подзаголовков */
+  font-size: 1.25rem; 
   color: #333;
-  margin-bottom: 0.5rem; /* Отступ после подзаголовка */
+  margin-bottom: 0.5rem; 
 }
 
 .contact-item p {
-  font-size: 1rem; /* Размер текста */
-  color: #6b7280; /* Цвет текста */
+  font-size: 1rem; 
+  color: #6b7280; 
 }
 
-/* Удаляем дублирующиеся медиа-запросы, оставляем только нужные */
 
-@media (max-width: 720px) {
+
+@media (max-width: 1200px) {
   .contact-info {
-    grid-template-columns: 1fr; /* Все элементы в один столбец */
-    gap: 1rem; /* Уменьшенный отступ между элементами */
+    gap: 1rem; 
   }
+
+  h1 {
+  font-size: 2rem; 
+  margin-bottom: 0.8rem; 
 }
+
+.contact-item h2 {
+  font-size: 1rem; 
+  margin-bottom: 0.3rem; 
+}
+
+.contact-item p {
+  font-size: 0.7rem; 
+}
+
+.contact-item {
+  border-radius: 20px;
+  padding: 1rem;
+}
+}
+
+@media (max-width: 890px) {
+  .contact-info {
+    gap: 0.5rem; 
+  }
+
+  h1 {
+  font-size: 1.7rem; 
+  margin-bottom: 0.4rem; 
+}
+
+.contact-item h2 {
+  font-size: 0.7rem; 
+  margin-bottom: 0.2rem; 
+}
+
+.contact-item p {
+  font-size: 0.5rem; 
+}
+
+.contact-item {
+  border-radius: 20px;
+  padding: 0.5rem;
+}
+}
+
+@media (max-width: 600px) {
+  .contact-info {
+    gap: 0.3rem; 
+  }
+
+  h1 {
+  font-size: 1.3rem; 
+  margin-bottom: 0.2rem; 
+}
+
+.contact-item h2 {
+  font-size: 0.5rem; 
+  margin-bottom: 0.1rem; 
+}
+
+.contact-item p {
+  font-size: 0.3rem; 
+}
+
+.contact-item {
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+}
+
+@media (max-width: 600px) {
+  .contact-info {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.3rem; 
+  }
+
+  h1 {
+  font-size: 1.3rem; 
+  margin-bottom: 0.5rem; 
+}
+
+.contact-item h2 {
+  font-size: 0.5rem; 
+  margin-bottom: 0.1rem; 
+}
+
+.contact-item p {
+  font-size: 0.3rem; 
+}
+
+.contact-item {
+  border-radius: 20px;
+  padding: 0.3rem;
+}
+}
+
 </style>

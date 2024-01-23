@@ -25,7 +25,7 @@ export default {
 .features {
   margin: 20px auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Адаптивные колонки */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
   gap: 50px;
   padding: 30px;
   text-align: center;
@@ -37,8 +37,8 @@ export default {
   margin-bottom: 20px; 
   border-radius: 10px;
   box-shadow: 7px 7px 14px #babecc,
-              -7px -7px 14px #ffffff; /* Мягкие тени для эффекта неоморфизма */
-  background: var(--card-bg-color); /* Используем переменную для цвета фона */
+              -7px -7px 14px #ffffff; 
+  background: var(--card-bg-color);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   height: auto; 
@@ -46,38 +46,38 @@ export default {
 
 .feature img {
   width: 100%; 
-  height: auto; /* Убрано фиксированное значение высоты для адаптивности */
+  height: auto; 
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
 .feature h2 {
-  color: var(--text-color); /* Цвет текста из переменных */
+  color: var(--text-color); 
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
 .feature p {
-  color: var(--detail-text-color); /* Цвет детального текста из переменных */
+  color: var(--detail-text-color); 
   font-size: 1rem;
 }
 
 @media (max-width: 1240px) {
   .features {
-    grid-template-columns: repeat(2, 1fr); /* Две колонки для средних экранов */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 720px) {
   .features {
-    grid-template-columns: 1fr; /* Одна колонка для маленьких экранов */
+    grid-template-columns: 1fr; 
   }
 }
 
 @media (max-width: 480px) {
   .features {
-    padding: 15px; /* Уменьшенные отступы для узких экранов */
+    padding: 15px; 
   }
 
   .feature {
@@ -86,7 +86,7 @@ export default {
 }
 
 @media (max-width: 320px) {
-  /* Стили для самых маленьких экранов, если требуется */
+
 }
 
 </style>

@@ -2,75 +2,58 @@
 nav.navigation-bar
   router-link.to-home(to="/")
     img.logo(
-      :class="{ clicked: logoState.clicked }",
-      :src="logoState.src", 
+      :class="{ clicked: logoClicked }",
+      :src="logoSrc", 
       alt="Логотип", 
-      @mouseover="handleMouseOver", 
-      @mouseleave="handleMouseLeave",
-      @click="handleClick"
+      @mouseover="mouseOverLogo", 
+      @mouseleave="mouseLeaveLogo",
+      @click="clickOnLogo"
     )
-  .hamburger(:class="{ 'is-active': isMenuActive }", @click="toggleMenu")
-    .hamburger__container
-      .hamburger__inner
-      .hamburger__hidden
-  ul.navigation-links(:class="{ 'active': isMenuActive }")
-    li(v-for="link in navLinks" :key="link.path")
-      router-link(:to="link.path") {{ link.name }}
+  button.burger-button(@click="toggleMenu") ☰
+  ul.navigation-links(:class="{ 'active': menuActive }")
+    li
+      router-link(to="/") Главная 
+    li
+      router-link(to="/catalog") Каталог
+    li
+      router-link(to="/contact") Контакты
+    li
+      router-link(to="/corzina") Корзина
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+
 import logoDefault from '@/assets/images/5.svg';
 import logoHover from '@/assets/images/4.svg';
 import logoClickedImg from '@/assets/images/5.svg';
 
 export default {
   name: 'AppHeader',
-  setup() {
-    const isMenuActive = ref(false);
-    const navLinks = ref([
-      { name: 'Главная', path: '/' },
-      { name: 'Каталог', path: '/catalog' },
-      { name: 'Контакты', path: '/contact' },
-      { name: 'Корзина', path: '/corzina' }
-    ]);
-    
-    const logoState = reactive({
-      src: logoDefault,
-      hovered: logoHover,
-      clicked: logoClickedImg,
-      isClicked: false
-    });
-
-    const toggleMenu = () => {
-      isMenuActive.value = !isMenuActive.value;
-    };
-
-    const handleMouseOver = () => {
-      logoState.src = logoState.hovered;
-    };
-
-    const handleMouseLeave = () => {
-        logoState.src = logoState.isClicked ? logoState.clicked : logoDefault;
-      };
-
-    const handleClick = () => {
-      logoState.isClicked = true;
-      setTimeout(() => {
-        logoState.isClicked = false;
-        handleMouseLeave();
-      }, 300); 
-    };
-
+  data() {
     return {
-      isMenuActive,
-      navLinks,
-      logoState,
-      toggleMenu,
-      handleMouseOver,
-      handleMouseLeave,
-      handleClick
+      menuActive: false,
+      logoSrc: logoDefault,
+      logoHoverSrc: logoHover,
+      logoClickedSrc: logoClickedImg,
+      logoClicked: false
     };
+  },
+  methods: {
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
+    },
+    mouseOverLogo() {
+      this.logoSrc = this.logoHoverSrc;
+    },
+    mouseLeaveLogo() {
+      this.logoSrc = this.logoClicked ? this.logoClickedSrc : logoDefault;
+    },
+    clickOnLogo() {
+      this.logoClicked = true;
+      setTimeout(() => {
+        this.logoClicked = false;
+      }, 300); 
+    }
   }
 };
 </script>
@@ -82,114 +65,11 @@ export default {
 
 <style scoped>
 
-.hamburger {
-  padding: 15px;
-  cursor: pointer;
-  display: none;
-  overflow: hidden;
-  background-color: transparent;
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('../../../fonts/groplet/Gropled-Bold.otf') format('truetype');
 }
-.hamburger__container {
-  width: 36px;
-  height: 24px;
-  position: relative;
-}
-.hamburger:hover .hamburger__inner {
-  transform: translate(-51px, 50%);
-  opacity: 0;
-}
-.hamburger:hover .hamburger__inner::before, .hamburger:hover .hamburger__inner::after {
-  transform: translate(102px, 0);
-  opacity: 0;
-}
-.hamburger.is-active .hamburger__inner {
-  display: none;
-}
-.hamburger__inner {
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  border-radius: 4px;
-  position: absolute;
-  transition-property: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 0.4s;
-  top: 50%;
-  transform: translate(5px, -50%);
-  opacity: 1;
-}
-.hamburger__inner::before, .hamburger__inner::after {
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  border-radius: 4px;
-  position: absolute;
-  transition-property: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 0.4s;
-  content: "";
-  opacity: 1;
-  transform: translate(-5px, 0);
-}
-.hamburger__inner::before {
-  top: -13px;
-}
-.hamburger__inner::after {
-  top: 13px;
-}
-.hamburger:hover .hamburger__hidden {
-  opacity: 1;
-  transform: translate(0, -50%);
-}
-.hamburger:hover .hamburger__hidden::before, .hamburger:hover .hamburger__hidden::after {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-.hamburger.is-active .hamburger__hidden {
-  opacity: 1;
-  transform: rotate(45deg);
-}
-.hamburger.is-active .hamburger__hidden::before {
-  transform: translate(0, 13px) rotate(90deg);
-  transform-origin: center;
-}
-.hamburger.is-active .hamburger__hidden::after {
-  transform-origin: center;
-  transform: translate(0, -13px) rotate(0);
-}
-.hamburger__hidden {
-  opacity: 0;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  border-radius: 4px;
-  position: absolute;
-  transition-property: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 0.4s;
-  background-color: red;
-  top: 50%;
-  transform: translate(51px, -50%);
-}
-.hamburger__hidden::before, .hamburger__hidden::after {
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  border-radius: 4px;
-  position: absolute;
-  transition-property: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 0.4s;
-  background-color: red;
-  content: "";
-  transform: translate(102px, 0);
-}
-.hamburger__hidden::before {
-  top: -13px;
-}
-.hamburger__hidden::after {
-  top: 13px;
-}
+
 h1, h2, p, a, li {
   font-family: 'MyCustomFont', sans-serif;
   color: #fff;
@@ -243,52 +123,22 @@ a {
 }
 @media (max-width: 850px) {
   .logo {
-    width: 150px; /* Уменьшаем логотип */
-  }
-
-  .hamburger__container {
-    width: 30px; /* Уменьшаем контейнер бургера */
-    height: 20px; /* Уменьшаем высоту контейнера бургера */
+  height: 40px;
+  width: 150px; 
   }
 }
 
 @media (max-width: 720px) {
   .logo {
-    width: 120px; /* Дальнейшее уменьшение логотипа */
-  }
-
-  .hamburger {
-    display: block; /* Показываем иконку бургера */
-  }
-
-  .hamburger__container {
-    width: 25px; /* Ещё меньше для контейнера бургера */
-    height: 18px; /* Ещё меньше для высоты контейнера бургера */
-  }
-
-  .navigation-links {
-    /* ... */
+    width: 120px; 
+    height: 30px;
   }
 }
 
 @media (max-width: 400px) {
   .logo {
-    width: 100px; /* Ещё меньше для логотипа */
-  }
-
-  .hamburger__container {
-    width: 20px; /* Ещё меньше для контейнера бургера */
-    height: 16px; /* Ещё меньше для высоты контейнера бургера */
-  }
-
-  .burger-button {
-    font-size: 1.5rem; /* Уменьшаем размер шрифта кнопки бургера */
-  }
-}
-
-@media (max-width: 320px) {
-  .burger-button {
-    font-size: 1.2rem; /* Дальнейшее уменьшение размера шрифта кнопки бургера */
+    width: 100px; 
+    height: 20px;
   }
 }
 
@@ -321,9 +171,26 @@ a {
   background: none;
   border: none;
   font-size: 2rem;
-  color: #000000;
+  color: #fff;
   cursor: pointer;
   z-index: 20; 
+}
+
+@media (max-width: 1080px) {
+  .navigation-bar {
+  border-radius: 20px;
+  padding: 0.3rem 1rem;
+  margin: 3px 5px 5px 5px;
+}
+.navigation-links {
+  gap: 0.5rem;
+}
+
+.navigation-links li a {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
 }
 
 @media (max-width: 720px) {
@@ -364,7 +231,5 @@ a {
     font-size: 1.2rem;
   }
 }
-
-
 </style>
 

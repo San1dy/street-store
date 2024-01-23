@@ -150,9 +150,9 @@ export default defineComponent({
 
 .filter-duo {
   display: flex;
-  justify-content: space-between; /* Равномерно распределяет пространство между элементами */
-  align-items: center; /* Выравнивает элементы по центру по вертикали */
-  flex-wrap: nowrap; /* Запрещает перенос элементов на новую строку */
+  justify-content: space-between; 
+  align-items: center; 
+  flex-wrap: nowrap; 
   width: 100%;
 }
 
@@ -168,28 +168,27 @@ export default defineComponent({
   align-items: flex-start;
 }
 .brand-name, .brand-size {
-  display: flex; /* Используем Flexbox для выравнивания */
-  align-items: center; /* Центрирование элементов по вертикали */
-  justify-content: center; /* Центрирование элементов по горизонтали */
-  gap: 10px; /* Отступ между внутренними элементами */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
 }
 
-/* Пример стилизации для label и select/input внутри этих классов */
 .brand-name label, .brand-size label,
 .brand-name select, .brand-size select,
 .brand-name input, .brand-size input {
-  padding: 0.5rem; /* Добавляем небольшой внутренний отступ для удобства */
-  /* Дополнительные стили по необходимости */
+  padding: 0.5rem; 
+
 }
 .filter-price {
   width: 100%;
 }
 
 .price-range {
-  flex: 0 0 100%; /* Блок занимает всю ширину родителя */
+  flex: 0 0 100%; 
   display: flex;
-  justify-content: space-between; /* Равномерно распределяет пространство между элементами */
-  align-items: center; /* Выравнивает элементы по центру по вертикали */
+  justify-content: space-between; 
+  align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
   align-items: stretch;
@@ -205,12 +204,12 @@ export default defineComponent({
 
 .price-inputs label,
 .price-inputs input {
-  flex: 1; /* Устанавливает равное пространство для label и input */
-  margin: 0 5px; /* Добавляет небольшой отступ между элементами */
+  flex: 1; 
+  margin: 0 5px; 
 }
 
 .VueSlider {
-  width: calc(100% - 2rm); /* Учитываем отступы */
+  width: calc(100% - 2rm); 
   margin-top: 10px;
 }
 
@@ -242,30 +241,30 @@ export default defineComponent({
 
 @media (max-width: 480px) {
   .label, select, input[type='number'], .button-apply-filters {
-    font-size: 0.6rem; /* Уменьшаем размер шрифта */
-    padding: 0.4rem; /* Уменьшаем внутренний отступ */
+    font-size: 0.6rem; 
+    padding: 0.4rem; 
   }
 
   .filter-item, .price-range, .VueSlider {
     padding: 0.4rem;
-    font-size: 0.6rem; /* Уменьшаем внутренний отступ элементов фильтра */
+    font-size: 0.6rem; 
   }
 
   .button-apply-filters {
-    padding: 0.4rem 0.8rem; /* Уменьшаем внутренний отступ кнопки */
+    padding: 0.4rem 0.8rem; 
   }
 
   .filter {
-    padding: 0.8rem; /* Уменьшаем внутренний отступ всего фильтра */
+    padding: 0.8rem; 
   }
 
   .price-inputs label,
   .price-inputs input {
-    margin: 0 3px; /* Уменьшаем внешний отступ */
+    margin: 0 3px; 
   }
 
   .VueSlider {
-    width: calc(100% - 20px); /* Уменьшаем ширину ползунка, учитывая отступы */
+    width: calc(100% - 20px); 
   }
 }
 </style>

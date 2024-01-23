@@ -66,39 +66,39 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  color: var(--text-color); /* Используйте переменную для цвета текста */
+  color: var(--text-color); 
 }
 
 button {
-  background: var(--main-bg-color); /* Используйте переменную для фона */
+  background: var(--main-bg-color);
   border: none;
   padding: 10px 20px;
   margin: 0 5px;
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s, transform 0.2s;
-  color: var(--text-color); /* Используйте переменную для цвета текста */
+  color: var(--text-color); 
   border-radius: 20px;
-  font-size: 0.9rem; /* Более крупный размер шрифта для лучшей читаемости */
+  font-size: 0.9rem; 
   box-shadow: 7px 7px 14px #babecc,
               -7px -7px 14px #ffffff;
 }
 
 button:hover {
-  background: var(--accent-color); /* Светлый акцентный цвет при наведении */
-  color: white; /* Белый текст на акцентном фоне */
+  background: var(--accent-color);
+  color: white; 
 }
 
 button:active {
-  transform: translateY(2px); /* Мягкий эффект при нажатии */
+  transform: translateY(2px); 
   box-shadow: inset 1px 1px 2px #babecc,
               inset -1px -1px 2px #ffffff;
 }
 
 button.active {
-  background-color: var(--accent-color); /* Акцентный цвет для активной кнопки */
-  color: white; /* Белый текст на акцентном фоне */
+  background-color: var(--accent-color); 
+  color: white; 
   box-shadow: inset 1px 1px 2px #babecc,
-              inset -1px -1px 2px #ffffff; /* Вдавленная кнопка для активного состояния */
+              inset -1px -1px 2px #ffffff; 
 }
 
 </style>

@@ -30,15 +30,15 @@ export default {
   padding: 20px;
   display: flex;
   align-items: center;
-  justify-content: center; /* Изменим на center для центрирования кнопки в мобильной версии */
-  flex-direction: column; /* По умолчанию делаем столбец, а в медиа-запросах переопределяем */
+  justify-content: center; 
+  flex-direction: column; 
 }
 
 h1 {
-  color: #4b5563; /* Светлый оттенок серого для лучшего сочетания */
-  margin-bottom: 1rem; /* Отступ для отделения от кнопки */
-  font-size: 2rem; /* Базовый размер шрифта */
-  transition: color 0.3s, font-size 0.3s; /* Добавляем переход для цвета */
+  color: #4b5563; 
+  margin-bottom: 1rem; 
+  font-size: 2rem; 
+  transition: color 0.3s, font-size 0.3s; 
 }
 
 button {
@@ -46,26 +46,26 @@ button {
   backdrop-filter: blur(5px);
   color: white;
   border: none;
-  padding: 1rem 2rem; /* Используем rem для лучшей адаптивности */
+  padding: 1rem 2rem; 
   text-transform: uppercase;
-  font-size: 1rem; /* Размер шрифта в rem */
-  border-radius: 10px; /* Увеличиваем скругление */
+  font-size: 1rem; 
+  border-radius: 10px; 
   cursor: pointer;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2),
-              -4px -4px 8px rgba(255, 255, 255, 0.7); /* Мягкие тени для неоморфизма */
-  transition: all 0.3s ease; /* Плавные переходы для всех свойств */
+              -4px -4px 8px rgba(255, 255, 255, 0.7); 
+  transition: all 0.3s ease; 
 }
 
 button:hover {
-  background: rgba(96, 94, 97, 0.85); /* Цвет при наведении */
-  box-shadow: none; /* Убираем тени при наведении */
+  background: rgba(96, 94, 97, 0.85); 
+  box-shadow: none; 
 }
 
 button:active {
-  transform: scale(0.95); /* Меньше уменьшение, чтобы не было слишком резким */
+  transform: scale(0.95); 
 }
 
-/* Оптимизируем медиа-запросы */
+
 @media (max-width: 1240px) {
   h1 {
     font-size: 1.8rem;
@@ -77,7 +77,7 @@ button:active {
 }
 
 @media (max-width: 1080px) {
-  /* Нет необходимости менять flex-direction, так как он уже column */
+
 }
 
 @media (max-width: 720px) {

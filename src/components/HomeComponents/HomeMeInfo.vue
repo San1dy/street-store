@@ -33,64 +33,64 @@ export default {
 
 .about-us-container {
   display: flex;
-  flex-direction: row; /* Горизонтальное направление по умолчанию */
+  flex-direction: row; 
   align-items: center;
   justify-content: space-between;
-  margin: 50px auto; /* Автоматические отступы для центрирования */
+  margin: 50px auto; 
   padding: 15px;
   border-radius: 20px;
-  background: var(--main-bg-color); /* Используем переменную для цвета фона */
+  background: var(--main-bg-color); 
   box-shadow: 7px 7px 14px #babecc,
-              -7px -7px 14px #ffffff; /* Тени для эффекта неоморфизма */
-  color: var(--text-color); /* Цвет текста из переменных */
+              -7px -7px 14px #ffffff; 
+  color: var(--text-color); 
 }
 
 .image-wrapper {
-  flex: 1; /* Автоматическая регулировка размера */
-  padding: 20px; /* Отступы внутри контейнера изображения */
+  flex: 1; 
+  padding: 20px; 
 }
 
 .full-width-image {
   width: 100%;
   height: auto;
   border-radius: 20px;
-  object-fit: cover; /* Обрезать изображение по контейнеру */
+  object-fit: cover; 
 }
 
 .content-column {
-  flex: 1; /* Автоматическая регулировка размера */
-  padding: 20px; /* Отступы внутри контейнера текста */
+  flex: 1; 
+  padding: 20px; 
 }
 
 .section-title {
-  font-size: 2rem; /* Увеличиваем размер заголовка */
+  font-size: 2rem; 
   font-weight: bold;
-  margin-bottom: 1rem; /* Отступ снизу заголовка */
+  margin-bottom: 1rem; 
 }
 
 .main-text {
-  font-size: 1rem; /* Размер текста абзаца */
-  line-height: 1.6; /* Высота строки для улучшения читаемости */
-  margin-bottom: 1rem; /* Отступы между абзацами */
+  font-size: 1rem; 
+  line-height: 1.6; 
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 1080px) {
   .about-us-container {
-    flex-direction: column; /* Столбцовое расположение для узких экранов */
+    flex-direction: column; 
   }
 
   .image-wrapper, .content-column {
-    width: 100%; /* Полная ширина для узких экранов */
+    width: 100%; 
   }
 }
 
 @media (max-width: 900px) {
   .section-title {
-    font-size: 1.5rem; /* Уменьшаем размер заголовка */
+    font-size: 1.5rem; 
   }
 
   .main-text {
-    font-size: 0.9rem; /* Уменьшаем размер текста абзаца */
+    font-size: 0.9rem; 
   }
 }
 

@@ -141,16 +141,16 @@ export default {
 }
 .just-do-it {
   position: absolute;
-  z-index: 10; /* Убедимся, что текст будет над другими элементами */
-  top: 50%; /* Центрирование по вертикали */
-  left: 50%; /* Центрирование по горизонтали */
-  transform: translate(-50%, -50%); /* Точное центрирование */
-  font-family: 'Helvetica Neue', sans-serif; /* Выберите подходящий шрифт */
-  font-size: 5rem; /* Размер шрифта */
-  color: #D3D3D3; /* Цвет шрифта, светло-серый */
-  letter-spacing: -5px; /* Отрицательный межбуквенный интервал для стиля */
-  text-transform: uppercase; /* Все буквы заглавные */
-  text-shadow: 3px 3px 0 #FFFFFF, /* Две тени для эффекта 3D */
+  z-index: 10; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 5rem; 
+  color: #D3D3D3; 
+  letter-spacing: -5px;
+  text-transform: uppercase; 
+  text-shadow: 3px 3px 0 #FFFFFF, 
                 -1px -1px 0 #FFFFFF, 
                 1px -1px 0 #FFFFFF,
                 -1px 1px 0 #FFFFFF,
@@ -159,8 +159,8 @@ export default {
 
 @media (max-width: 480px) {
   .just-do-it {
-    font-size: 2rem; /* Меньший размер шрифта на маленьких экранах */
-    letter-spacing: -2px; /* Меньше межбуквенного интервала на маленьких экранах */
+    font-size: 2rem; 
+    letter-spacing: -2px; 
   }
 }
 

@@ -1,7 +1,7 @@
 <template lang="pug">
 section.home-image-gallery
   h2 Галерея
-  p Посмотрите наши лучшие модели кроссовок в действии.
+  p Наши лучшие модели кроссовок в действии.
   .slider
     .slides-container(ref="slidesContainer")
       .slide(v-for="image in images", :key="image.id")
@@ -85,9 +85,9 @@ export default {
   text-align: center;
   max-width: 1240px;
   margin: auto;
-  padding: 40px 0; /* Добавлены отступы */
-  background: var(--main-bg-color); /* Цвет фона */
-  color: var(--text-color); /* Цвет текста */
+  padding: 40px 0; 
+  background: var(--main-bg-color); 
+  color: var(--text-color); 
 }
 
 .slider {
@@ -99,7 +99,7 @@ export default {
   margin: 20px auto;
   border-radius: 20px;
   box-shadow: 7px 7px 14px #babecc,
-              -7px -7px 14px #ffffff; /* Тени для создания визуального рельефа */
+              -7px -7px 14px #ffffff; 
 }
 
 .slides-container {
@@ -115,7 +115,7 @@ export default {
   width: 100%;
   height: auto;
   object-fit: cover; 
-  border-radius: 20px; /* Скругление углов изображений */
+  border-radius: 20px; 
 }
 
 .navigation-dots {
@@ -135,12 +135,12 @@ export default {
   margin: 0 5px;
   cursor: pointer;
   box-shadow: inset 1px 1px 2px #babecc,
-              inset -1px -1px 2px #ffffff; /* Внутренние тени для эффекта неоморфизма */
-  transition: background-color 0.3s; /* Плавный переход цвета */
+              inset -1px -1px 2px #ffffff;
+  transition: background-color 0.3s; 
 }
 
 .dot.active {
-  background-color: var(--accent-color); /* Цвет активной точки */
+  background-color: var(--accent-color); 
 }
 
 h2, p {
@@ -150,7 +150,7 @@ h2, p {
 /* Адаптивные стили */
 @media (max-width: 1240px) {
   .home-image-gallery {
-    padding: 20px 0; /* Уменьшенные отступы */
+    padding: 20px 0; 
   }
 }
 

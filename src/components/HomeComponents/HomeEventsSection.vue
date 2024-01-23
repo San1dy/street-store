@@ -55,7 +55,7 @@ export default {
 <style scoped>
 .events {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Адаптивные колонки */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
   gap: 20px;
   padding: 20px;
   margin-top: 50px;
@@ -71,8 +71,8 @@ export default {
   padding: 20px;
   border-radius: 20px;
   box-shadow: 7px 7px 14px #babecc,
-              -7px -7px 14px #ffffff; /* Тени для эффекта неоморфизма */
-  background: var(--main-bg-color); /* Цвет фона карточек */
+              -7px -7px 14px #ffffff; 
+  background: var(--main-bg-color); 
   height: 350px;
   overflow: hidden;
   transition: transform 0.3s ease;
@@ -103,13 +103,13 @@ export default {
   transition: max-height 0.3s ease;
   text-align: center;
   color: var(--text-color);
-  padding: 0 20px; /* Добавлено для плавности раскрытия */
+  padding: 0 20px; 
 }
 
 .event-title, .event-date {
-  color: var(--text-color); /* Цвет текста из переменных */
+  color: var(--text-color); 
   margin-bottom: 10px;
-  font-weight: 500; /* Увеличение веса шрифта для лучшей читаемости */
+  font-weight: 500; 
 }
 
 @media (max-width: 1024px) {
