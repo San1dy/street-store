@@ -36,8 +36,7 @@ div(v-if="isDataLoaded")
   )
 </template>
 
-
-<script>
+<script setup>
 import { ref, computed, onMounted, reactive, watch, toRefs } from 'vue';
 import FilterComponent from './FilterComponent.vue';
 import ModalComponent from '../ModalComponent/ModalComponent.vue';
@@ -45,136 +44,94 @@ import PaginationComponent from './PaginationComponent.vue';
 import SpinnerComponent from '../SpinnerComponent/SpinnerComponent.vue';
 import { useStore } from 'vuex';
 
-export default {
-  name: 'CatalogContainer',
-  components: {
-    ModalComponent,
-    FilterComponent,
-    PaginationComponent,
-    SpinnerComponent
-  },
+const props = defineProps({
+  totalItems: Number,
+  floor: String,
+  selectedFloor: String
+});
 
-  props: {
-    totalItems: Number,
-    floor: String,
-    selectedFloor: {
-      type: String,
-      default: ''
-    },
-  },
+const { selectedFloor } = toRefs(props);
+const selectedProduct = ref(null);
+const isModalVisible = ref(false);
+const store = useStore();
+const items = ref([]);
+const itemsPerPage = ref(12);
+const currentPage = ref(1);
+const isDataLoaded = ref(false);
 
-  setup(props) {
-    const { selectedFloor } = toRefs(props); 
+const fetchProducts = async () => {
+  isDataLoaded.value = false;
+  try {
+    const response = await fetch('http://localhost:3000/api/products');
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.json();
+    items.value = data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  } finally {
+    isDataLoaded.value = true;
+  }
+};
 
-    const selectedProduct = ref(null);
-    const isModalVisible = ref(false);
-    const store = useStore();
-    const items = ref([]);
-    const itemsPerPage = ref(12);
-    const currentPage = ref(1);
-    const isDataLoaded = ref(false);
-    const totalDisplayedItems = computed(() => items.value.length);
-    const filters = reactive({
-      brand: '',
-      size: '',
-      minPrice: null,
-      maxPrice: null,
-      priceRange: [],
-    });
+onMounted(fetchProducts);
 
-    const fetchProducts = async () => {
-      isDataLoaded.value = false;
-      try {
-        const response = await fetch('http://localhost:3000/api/products');
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        items.value = data;
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      } finally {
-        isDataLoaded.value = true;
-      }
-    };
+const filters = reactive({
+  brand: '',
+  size: '',
+  minPrice: null,
+  maxPrice: null,
+  priceRange: [],
+});
 
-    watch([currentPage, filters], () => {
+watch([currentPage, filters], () => {
   console.log(`Текущая страница: ${currentPage.value}, выбранные фильтры: ${JSON.stringify(filters)}`);
 });
 
-    onMounted(fetchProducts);
+const minItemPrice = computed(() => Math.min(...items.value.map(item => parseFloat(item.price.replace(/\s/g, '')))));
+const maxItemPrice = computed(() => Math.max(...items.value.map(item => parseFloat(item.price.replace(/\s/g, '')))));
 
-    const displayedItems = computed(() => {
-      const start = (currentPage.value - 1) * itemsPerPage.value;
-      const end = start + itemsPerPage.value;
-      return filteredItems.value.slice(start, end);
-    });
+const filteredItems = computed(() => items.value.filter(item => {
+  const price = parseFloat(item.price.replace(/\s/g, ''));
+  return (!filters.brand || item.brand === filters.brand) &&
+         (!filters.size || item.size.includes(filters.size)) &&
+         (!filters.minPrice || price >= filters.minPrice) &&
+         (!filters.maxPrice || price <= filters.maxPrice) &&
+         (!selectedFloor.value || item.floor === selectedFloor.value);
+}));
 
+const displayedItems = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredItems.value.slice(start, end);
+});
 
-
-    const minItemPrice = computed(() => {
-      return Math.min(...items.value.map(item => parseFloat(item.price.replace(/\s/g, ''))));
-    });
-
-    const maxItemPrice = computed(() => {
-      return Math.max(...items.value.map(item => parseFloat(item.price.replace(/\s/g, ''))));
-    });
-
-
-    const filteredItems = computed(() => {
-      return items.value.filter(item => {
-        const price = parseFloat(item.price.replace(/\s/g, ''));
-        return (!filters.brand || item.brand === filters.brand) &&
-               (!filters.size || item.size.includes(filters.size)) &&
-               (!filters.minPrice || price >= filters.minPrice) &&
-               (!filters.maxPrice || price <= filters.maxPrice) &&
-               (!selectedFloor.value || item.floor === selectedFloor.value);
-      });
-    });
-
-    const openModal = (product) => {
-      selectedProduct.value = product;
-      isModalVisible.value = true;
-    };
-
-    const handleImageChange = (newImage) => {
-      selectedProduct.value = { ...selectedProduct.value, image: newImage };
-    };
-
-    const addToCart = (item) => {
-      store.dispatch('addToCart', item);
-      item.itemAddedToCart = true;
-      setTimeout(() => {
-        item.itemAddedToCart = false;
-      }, 2000);
-    };
-
-    const applyFilters = (newFilters) => {
-      Object.assign(filters, newFilters);
-      currentPage.value = 1; 
-    };
-
-    return {
-      selectedProduct,
-      isModalVisible,
-      items,
-      itemsPerPage,
-      currentPage,
-      filters,
-      isDataLoaded,
-      displayedItems,
-      minItemPrice,
-      maxItemPrice,
-      totalDisplayedItems,
-      openModal,
-      handleImageChange,
-      addToCart,
-      applyFilters
-    };
-  }
+const openModal = product => {
+  selectedProduct.value = product;
+  isModalVisible.value = true;
 };
-</script>
 
+const handleImageChange = newImage => {
+  selectedProduct.value = { ...selectedProduct.value, image: newImage };
+};
+
+const addToCart = item => {
+  store.dispatch('addToCart', item);
+  item.itemAddedToCart = true;
+  setTimeout(() => {
+    item.itemAddedToCart = false;
+  }, 2000);
+};
+
+const applyFilters = newFilters => {
+  Object.assign(filters, newFilters);
+  currentPage.value = 1;
+};
+
+const totalDisplayedItems = computed(() => filteredItems.value.length);
+
+</script>
 
 
 

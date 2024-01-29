@@ -33,5 +33,14 @@ footer.footer
   font-size: 0.9em; 
   padding-top: 20px;
 }
+
+@media (max-width: 720px) {
+  .footer {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding: 5px;
+  padding-top: 0px;
+}
+}
 </style>
 

@@ -7,14 +7,7 @@ section.featured-section
       router-link.btn-primary(to="/catalog") Посмотреть предложения
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'HomeCallToActionSection',
-  setup() {
-  },
-});
+<script setup>
 </script>
 
     

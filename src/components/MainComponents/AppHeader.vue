@@ -21,45 +21,36 @@ nav.navigation-bar
       router-link(to="/corzina") Корзина
 </template>
 
-<script>
-
+<script setup>
+import { ref } from 'vue';
 import logoDefault from '@/assets/images/5.svg';
 import logoHover from '@/assets/images/4.svg';
 import logoClickedImg from '@/assets/images/5.svg';
 
-export default {
-  name: 'AppHeader',
-  data() {
-    return {
-      menuActive: false,
-      logoSrc: logoDefault,
-      logoHoverSrc: logoHover,
-      logoClickedSrc: logoClickedImg,
-      logoClicked: false
-    };
-  },
-  methods: {
-    toggleMenu() {
-      this.menuActive = !this.menuActive;
-    },
-    mouseOverLogo() {
-      this.logoSrc = this.logoHoverSrc;
-    },
-    mouseLeaveLogo() {
-      this.logoSrc = this.logoClicked ? this.logoClickedSrc : logoDefault;
-    },
-    clickOnLogo() {
-      this.logoClicked = true;
-      setTimeout(() => {
-        this.logoClicked = false;
-      }, 300); 
-    }
-  }
+const menuActive = ref(false);
+const logoSrc = ref(logoDefault);
+const logoClicked = ref(false);
+
+const toggleMenu = () => {
+  menuActive.value = !menuActive.value;
+};
+
+const mouseOverLogo = () => {
+  logoSrc.value = logoHover;
+};
+
+const mouseLeaveLogo = () => {
+  logoSrc.value = logoClicked.value ? logoClickedImg : logoDefault;
+};
+
+const clickOnLogo = () => {
+  logoClicked.value = true;
+  setTimeout(() => {
+    logoClicked.value = false;
+    logoSrc.value = logoDefault;
+  }, 300); 
 };
 </script>
-
-
-
 
 
 

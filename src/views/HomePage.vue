@@ -11,7 +11,7 @@ div
   FooterSection
 </template>
 
-<script>
+<script setup>
 import AppHeader from '@/components/MainComponents/AppHeader.vue';
 import FooterSection from '@/components/MainComponents/AppFooterSection.vue';
 import HomeFone from '@/components/HomeComponents/HomeFone.vue';
@@ -21,25 +21,8 @@ import StatisticsSection from '@/components/HomeComponents/HomeStatisticsSection
 import FeatureSection from '@/components/HomeComponents/HomeFeaturesection.vue';
 import EventsSection from '@/components/HomeComponents/HomeEventsSection.vue';
 import ImageGallery from '@/components/HomeComponents/HomeImageGallery.vue';
-
-export default {
-  name: 'HomePage',
-  components: {
-    AppHeader,
-    HomeFone,
-    HomeMeInfo,
-    HomeCallToActionSection,
-    StatisticsSection,
-    FeatureSection,
-    EventsSection,
-    ImageGallery,
-    FooterSection,
-  },
-  setup() {
-
-  }
-};
 </script>
+
 
 <style>
 

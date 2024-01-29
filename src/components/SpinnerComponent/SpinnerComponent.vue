@@ -1,20 +1,20 @@
 <template lang="pug">
 .no-freeze-spinner(v-if="isVisible")
-	#no-freeze-spinner
-		div
-			i.material-icons account_circle
-			i.material-icons home
-			i.material-icons work
+  #no-freeze-spinner
+    div
+      i.material-icons account_circle
+      i.material-icons home
+      i.material-icons work
 </template>
 
-<script>
-export default {
-  name: 'SpinnerComponent',
-  props: {
-    isVisible: Boolean,
-  }
-};
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  isVisible: Boolean
+});
 </script>
+
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");

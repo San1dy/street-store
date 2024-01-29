@@ -3,11 +3,10 @@ div#app
   router-view
 </template>
 
-<script>
-export default {
-  name: 'App'
-};
+<script setup>
+
 </script>
+
 
 <style>
 @font-face {

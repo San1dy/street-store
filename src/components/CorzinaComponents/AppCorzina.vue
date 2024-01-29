@@ -6,15 +6,15 @@
     .product(
       v-for="item in cartItems", 
       :key="item.id",
-      @mouseenter="showDelete(item, true)", 
-      @mouseleave="showDelete(item, false)"
+      @mouseenter="() => showDelete(item, true)", 
+      @mouseleave="() => showDelete(item, false)"
     )
       img(:src="item.image", @click="openModal(item)")
       h2 {{ item.name }}
       span.price {{ item.price }} ₽
       button.delete-button(
         :class="{'show-delete': item.showDelete}", 
-        @click="removeFromCart(item)"
+        @click="() => removeFromCart(item)"
       )
   ModalComponent(
     :product="selectedItem",
@@ -25,63 +25,44 @@
   )
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import ModalComponent from '../ModalComponent/ModalComponent.vue';
 
-export default {
-  components: {
-    ModalComponent
-  },
-  setup() {
-    const store = useStore();
-    const selectedItem = ref(null);
-    const isModalVisible = ref(false);
-    
-    const cartItems = computed(() => {
-      return store.state.cart.map(item => ({ ...item, showDelete: false }));
-    });
+const store = useStore();
+const selectedItem = ref(null);
+const isModalVisible = ref(false);
 
-    onMounted(() => {
-      store.dispatch('initializeCart');
-    });
+const cartItems = computed(() => {
+  return store.state.cart.map(item => ({ ...item, showDelete: false }));
+});
 
-    const removeFromCart = (itemToRemove) => {
-      store.dispatch('removeFromCart', itemToRemove);
-    };
+onMounted(() => {
+  store.dispatch('initializeCart');
+});
 
-    const openModal = (item) => {
-      selectedItem.value = item;
-      isModalVisible.value = true;
-    };
+const removeFromCart = (itemToRemove) => {
+  store.dispatch('removeFromCart', itemToRemove);
+};
 
-    const closeModal = () => {
-      isModalVisible.value = false;
-    };
+const openModal = (item) => {
+  selectedItem.value = item;
+  isModalVisible.value = true;
+};
 
-    const handleImageChange = (newImage) => {
-      selectedItem.value.image = newImage;
-    };
+const closeModal = () => {
+  isModalVisible.value = false;
+};
 
-    const showDelete = (item, value) => {
-      item.showDelete = value;
-    };
+const handleImageChange = (newImage) => {
+  selectedItem.value.image = newImage;
+};
 
-    return {
-      cartItems,
-      selectedItem,
-      isModalVisible,
-      removeFromCart,
-      openModal,
-      closeModal,
-      handleImageChange,
-      showDelete
-    };
-  }
+const showDelete = (item, value) => {
+  item.showDelete = value;
 };
 </script>
-
 
 <style scoped>
 .catalog, .products {

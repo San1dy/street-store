@@ -6,25 +6,20 @@
       h2 {{ item.label }}
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-export default defineComponent({
-  name: 'GenderComponent',
-  data() {
-    return {
-      galleryItems: [
-        { id: 1, floor: 'Женское', label: 'Женское', imgSrc: 'https://www.sneakerstore.ru/upload/resize_cache/iblock/2c3/570_750_2/2c324233a8d7025e35bbb10823995fbf.jpg', link: '#' },
-        { id: 2, floor: 'Мужское', label: 'Мужское', imgSrc: 'https://www.sneakerstore.ru/upload/resize_cache/iblock/bb4/570_750_2/bb425b9c7a7d7b7029cd10daec654601.jpg', link: '#' }
-      ]
-    };
-  },
-  methods: {
-    selectFloor(floor) {
-      this.$router.push({ name: 'CatalogFloor', params: { floor } });
-    }
-  }
-});
+const galleryItems = ref([
+  { id: 1, floor: 'Женское', label: 'Женское', imgSrc: 'https://www.sneakerstore.ru/upload/resize_cache/iblock/2c3/570_750_2/2c324233a8d7025e35bbb10823995fbf.jpg', link: '#' },
+  { id: 2, floor: 'Мужское', label: 'Мужское', imgSrc: 'https://www.sneakerstore.ru/upload/resize_cache/iblock/bb4/570_750_2/bb425b9c7a7d7b7029cd10daec654601.jpg', link: '#' }
+]);
+
+const router = useRouter();
+
+function selectFloor(floor) {
+  router.push({ name: 'CatalogFloor', params: { floor } });
+}
 </script>
 
 <style scoped>

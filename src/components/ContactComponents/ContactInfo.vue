@@ -2,27 +2,22 @@
 section.contacts
   h1 Контакты
   .contact-info
-    .contact-item
-      h2 Телефон
-      p +7 953 011-10-35
-    .contact-item
-      h2 Email
-      p obivan266@gmail.com
-    .contact-item
-      h2 Адрес
-      p Чебоксары
-    .contact-item
-      h2 Режим работы
-      p Пн-Пт: 10:00-18:00
+    .contact-item(v-for="contact in contacts" :key="contact.id")
+      h2 {{ contact.title }}
+      p {{ contact.value }}
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'ContactInfo',
-});
+const contacts = ref([
+  { id: 1, title: 'Телефон', value: '+7 953 011-10-35' },
+  { id: 2, title: 'Email', value: 'obivan266@gmail.com' },
+  { id: 3, title: 'Адрес', value: 'Чебоксары' },
+  { id: 4, title: 'Режим работы', value: 'Пн-Пт: 10:00-18:00' }
+]);
 </script>
+
 
 <style scoped>
 .contacts {

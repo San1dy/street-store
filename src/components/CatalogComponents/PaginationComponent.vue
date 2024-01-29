@@ -9,45 +9,38 @@
 </template>
 
 
-<script>
-import { defineComponent, computed } from 'vue';
+<script setup>
+import { computed, defineProps, defineEmits } from 'vue';
 
-export default defineComponent({
-  name: 'PaginationComponent',
-  props: {
-    totalItems: {
-      type: Number,
-      required: true
-    },
-    itemsPerPage: {
-      type: Number,
-      required: true
-    },
-    currentPage: {
-      type: Number,
-      default: 1
-    }
+const props = defineProps({
+  totalItems: {
+    type: Number,
+    required: true
   },
-  setup(props, { emit }) {
-  const totalPages = computed(() => {
-    if (props.itemsPerPage <= 0 || props.totalItems < 0) {
-      console.error('Неверные props: itemsPerPage или totalItems');
-      return 0;
-    }
-    return Math.ceil(props.totalItems / props.itemsPerPage);
-  });
-
-  const setCurrentPage = (page) => {
-    console.log(`Изменение страницы на: ${page}}`);
-    emit('update:currentPage', page);
-  };
-
-  return {
-    totalPages,
-    setCurrentPage
-  };
-}
+  itemsPerPage: {
+    type: Number,
+    required: true
+  },
+  currentPage: {
+    type: Number,
+    default: 1
+  }
 });
+
+const emit = defineEmits(['update:currentPage']);
+
+const totalPages = computed(() => {
+  if (props.itemsPerPage <= 0 || props.totalItems < 0) {
+    console.error('Неверные props: itemsPerPage или totalItems');
+    return 0;
+  }
+  return Math.ceil(props.totalItems / props.itemsPerPage);
+});
+
+const setCurrentPage = (page) => {
+  console.log(`Изменение страницы на: ${page}`);
+  emit('update:currentPage', page);
+};
 </script>
 
 

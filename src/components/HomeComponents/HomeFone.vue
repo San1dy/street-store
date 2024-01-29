@@ -4,63 +4,41 @@ section.content#id
     img.slider-image(:src="computedImageSrc", :alt="`Image ${activeImageIndex + 1}`")
     .navigation-panel
       span.navigation-dot(v-for="(image, index) in images" :key="index" :class="{ active: activeImageIndex === index }" @click="setActiveImage(index)")
-
 </template>
 
-<script>
+<script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import image1 from '@/assets/images/1.jpg';
 import image2 from '@/assets/images/2.jpg';
 import image3 from '@/assets/images/3.jpg';
 import image4 from '@/assets/images/4.jpg';
-import logoImg from '@/assets/images/5.svg';
 
-export default {
-  name: "HomeFone",
-  setup() {
-    const logo = ref(logoImg);
-    const description = ref("Лучший выбор кроссовок для всех любителей спорта и стиля");
-    const images = ref([image1, image2, image3, image4]);
-    const activeImageIndex = ref(0);
-    const slideInterval = ref(null);
+const images = ref([image1, image2, image3, image4]);
+const activeImageIndex = ref(0);
+const slideInterval = ref(null);
 
-    const computedImageSrc = computed(() => images.value[activeImageIndex.value]);
+const computedImageSrc = computed(() => images.value[activeImageIndex.value]);
 
-    const nextSlide = () => {
-      activeImageIndex.value = (activeImageIndex.value + 1) % images.value.length;
-    };
-
-    const setActiveImage = (index) => {
-      activeImageIndex.value = index;
-    };
-
-    const startSlideshow = () => {
-      slideInterval.value = setInterval(nextSlide, 10000);
-    };
-
-    const stopSlideshow = () => {
-      clearInterval(slideInterval.value);
-    };
-
-    onMounted(() => {
-      startSlideshow();
-    });
-
-    onBeforeUnmount(() => {
-      stopSlideshow();
-    });
-
-    return { 
-      logo: logo.value,
-      description: description.value,
-      images: images.value,
-      activeImageIndex: activeImageIndex.value,
-      computedImageSrc,
-      setActiveImage
-    };
-  }
+const nextSlide = () => {
+  activeImageIndex.value = (activeImageIndex.value + 1) % images.value.length;
 };
+
+const setActiveImage = (index) => {
+  activeImageIndex.value = index;
+};
+
+const startSlideshow = () => {
+  slideInterval.value = setInterval(nextSlide, 10000);
+};
+
+const stopSlideshow = () => {
+  clearInterval(slideInterval.value);
+};
+
+onMounted(startSlideshow);
+onBeforeUnmount(stopSlideshow);
 </script>
+
 
 
   

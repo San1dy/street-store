@@ -1,10 +1,10 @@
 <template lang="pug">
 .modal(v-if="isVisible", @click.self="closeModal")
   .modal-content
-    .row
+    .image-section
+      img.main-image(:src="product.image")
       .image-selection-container
         img.image-selection(v-for="(image, index) in product.images", :key="index", :src="image", @click="changeMainImage(image)", :class="{ active: product.image === image }")
-      img.main-image(:src="product.image")
     .product-details
       h1.product-name {{ product.name }}
       p.brand Бренд: {{ product.brand }}
@@ -21,45 +21,37 @@
     img.close-button(@click="closeModal", :src="require('@/assets/images/Close.svg')")
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 
-export default defineComponent({
-  props: {
-    product: Object,
-    isVisible: Boolean,
-    showAddToCartButton: {
-      type: Boolean,
-      default: false
-    }
-  },
-  setup(props, { emit }) {
-
-    const changeMainImage = (image) => {
-      emit('change-image', image);
-    };
-
-    const closeModal = () => {
-      emit('close');
-    };
-
-    const addToCart = (product) => {
-      emit('add-to-cart', product);
-    };
-
-    const openExternalLink = (url) => {
-      window.open(url, '_blank');
-    };
-
-    return {
-      changeMainImage,
-      closeModal,
-      addToCart,
-      openExternalLink
-    };
+const props = defineProps({
+  product: Object,
+  isVisible: Boolean,
+  showAddToCartButton: {
+    type: Boolean,
+    default: false
   }
 });
+
+const emit = defineEmits(['change-image', 'close', 'add-to-cart']);
+
+const changeMainImage = (image) => {
+  emit('change-image', image);
+};
+
+const closeModal = () => {
+  emit('close');
+};
+
+const addToCart = (product) => {
+  emit('add-to-cart', product);
+};
+
+const openExternalLink = (url) => {
+  window.open(url, '_blank');
+};
 </script>
+
 
 <style scoped>
 
@@ -130,6 +122,7 @@ export default defineComponent({
 }
 
 .main-image {
+  margin: 0;
   width: 100%;
   height: 330px;
   object-fit: cover;
@@ -137,7 +130,19 @@ export default defineComponent({
   box-shadow: 4px 4px 6px #babecc,
               -4px -4px 6px #ffffff;
 }
-
+.item-added-text {
+  position: fixed; 
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background-color: rgba(0, 0, 0, 0.8); 
+  color: #fff; 
+  padding: 1rem 2rem; 
+  border-radius: 10px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+  z-index: 2000; 
+  transition: all 0.3s ease; 
+}
 .product-details {
   display: flex;
   flex-direction: column;
@@ -177,6 +182,7 @@ export default defineComponent({
 }
 
 .buy-button,.favorite-button {
+  border: none;
   background: var(--main-bg-color); 
   color: var(--text-color); 
   padding: 1rem; 
@@ -190,13 +196,14 @@ export default defineComponent({
 }
 
 .buy-button,.favorite-button:hover {
+  cursor: pointer;
   background: var(--accent-color); 
   color: rgb(10, 10, 10); 
   box-shadow: inset 1px 1px 2px #babecc,
               inset -1px -1px 2px #ffffff; 
 }
 
-.buy-button:active {
+.buy-button,.favorite-button:active {
   box-shadow: 4px 4px 6px 0 rgba(255,255,255,.3),
               -4px -4px 6px 0 rgba(116, 125, 136, .2), 
               inset -4px -4px 6px 0 rgba(255,255,255,.2),
@@ -260,158 +267,134 @@ export default defineComponent({
   .new-price {
     font-size: 20px; 
   }
-
+  .image-selection-container {
+    max-width: 400px;
+    margin-bottom: 0px;
+  }
   .buy-button, .favorite-button {
     font-size: 0.9rem;
   }
 }
 
-
-@media (max-width: 720px) {
+@media (max-width: 800px) {
   .modal-content {
-    width: 60%;
-    padding: 10px; 
-    max-width: 90%; 
-  }
-
-  .image-selection {
-    width: 30px; 
-    height: 38px;
-    border-radius: 5px;
+    padding: 15px;
+    width: 70%;
   }
 
   .main-image {
-    max-width: 150px; 
-    max-height: 120px; 
+    height: 180px;
+    width: 300px;
   }
 
   .product-name, .brand, .floor, .color, .size, .product-description {
-    font-size: 0.5rem; 
+    font-size: 0.6rem; 
   }
 
   .new-price {
-    font-size: 7px; 
+    font-size: 0.6rem;
   }
 
   .buy-button, .favorite-button {
-    padding: 0.3rem; 
-    font-size: 0.3rem; 
-    border-radius: 10px; 
+    font-size: 0.6rem;
+    padding: 0.5rem;; 
+  }
+}
+
+@media (max-width: 720px) {
+  .modal-content {
+    padding: 15px;
+    width: 50%;
+    flex-direction: column;
+  }
+  .image-section {
+    width: 100%;
+  }
+  .product-details {
+    width: 100%;
+  }
+  .main-image {
+    height: 180px;
+    width: 100%;
+  }
+
+  .product-name, .brand, .floor, .color, .size, .product-description {
+    font-size: 0.6rem; 
+    margin-top: 7px;
+    margin-bottom: 0px;
+  }
+
+  .new-price {
+    font-size: 0.6rem;
+    margin-top: 20px;
+  }
+
+  .buy-button, .favorite-button {
+    font-size: 0.6rem;
+    padding: 0.5rem;; 
   }
 
   .close-button {
-  position: absolute;
   top: -15px;
   right: -15px;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
+}
+
+.image-selection {
+  width: 40px;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 10px;
 }
 }
 
 
 @media (max-width: 480px) {
   .modal-content {
-    padding: 20px;
+    padding: 15px;
+    width: 50%;
+    flex-direction: column;
   }
-
-  .image-selection {
-    width: 40px; 
-    height: 30px;
+  .image-section {
+    width: 100%;
   }
-
+  .product-details {
+    width: 100%;
+  }
   .main-image {
-    height: 200px; 
+    height: 100px;
+    width: 100%;
   }
 
   .product-name, .brand, .floor, .color, .size, .product-description {
-    font-size: 0.9rem;
+    font-size: 0.4rem; 
+    margin-top: 7px;
+    margin-bottom: 0px;
   }
 
   .new-price {
-    font-size: 20px; 
+    font-size: 0.6rem;
+    margin-top: 20px;
   }
 
   .buy-button, .favorite-button {
-    font-size: 0.9rem; 
-  }
-
-  .image-selection-container {
-    flex-wrap: wrap;
-    max-width: 400px;
-    margin-bottom: 5px;
-  }
-}
-
-@media (max-width: 720px) {
-  .modal-content {
-    width: 70%;
-    padding: 5px; 
-    max-width: 90%; 
-  }
-
-  .image-selection {
-    width: 30px; 
-    height: 38px;
-    border-radius: 5px;
-  }
-
-  .main-image {
-    max-width: 100px; 
-    max-height: 80px; 
-  }
-
-  .product-name, .brand, .floor, .color, .size, .product-description {
-    font-size: 0.3rem; 
-    margin-bottom: 5px;
-  }
-
-  .new-price {
-    font-size: 5px; 
-  }
-
-  .buy-button, .favorite-button {
-    padding: 0.2rem; 
-    font-size: 0.2rem; 
-    border-radius: 10px;
+    font-size: 0.5rem;
+    padding: 0.5rem;; 
   }
 
   .close-button {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  width: 10px;
-  height: 10px;
-}
+  top: -15px;
+  right: -15px;
+  width: 15px;
+  height: 15px;
 }
 
-
-@media (max-width: 320px) {
-  .modal-content {
-    padding: 6px; 
-    max-width: 80%; 
-  }
-
-  .image-selection {
-    width: 20px; 
-    height: 25px;
-  }
-
-  .main-image {
-    max-width: 150px; 
-    max-height: 112px; 
-  }
-
-  .product-name, .brand, .floor, .color, .size, .product-description {
-    font-size: 0.6rem;
-  }
-
-  .new-price {
-    font-size: 12px;
-  }
-
-  .buy-button, .favorite-button {
-    padding: 0.6rem; 
-    font-size: 0.6rem; 
-  }
+.image-selection {
+  width: 30px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
 }
 </style>

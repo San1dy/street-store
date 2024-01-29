@@ -5,18 +5,11 @@ div
   FooterSection
 </template>
 
-<script>
+<script setup>
 import AppHeader from '@/components/MainComponents/AppHeader.vue';
 import FooterSection from '@/components/MainComponents/AppFooterSection.vue';
-
-export default {
-  name: 'CatalogPage',
-  components: {
-    AppHeader,
-    FooterSection,
-  }
-};
 </script>
+
 
 <style scoped>
 

@@ -9,25 +9,17 @@ section.team
         p {{ member.role }}
 </template>
 
-<script>
+<script setup>
 import { ref } from 'vue';
 
-export default {
-  name: 'TeamComponent',
-  setup() {
-    const teamMembers = ref([
-      { name: 'Алексей', role: 'Основатель', photo: require('@/assets/images/photo-1569598409550-55537a83a662.jpeg') },
-      { name: 'Елена', role: 'Менеджер', photo: require('@/assets/images/photo-1541385767762-a55c33eb0c80.jpeg') },
-      { name: 'Иван', role: 'Дизайнер', photo: require('@/assets/images/photo-1621624666561-84d0107001dc.jpeg') },
-      { name: 'Мария', role: 'Маркетолог', photo: require('@/assets/images/photo-1681075401974-907cc62a4373.jpeg') }
-    ]);
-
-    return {
-      teamMembers
-    };
-  }
-};
+const teamMembers = ref([
+  { name: 'Алексей', role: 'Основатель', photo: require('@/assets/images/photo-1569598409550-55537a83a662.jpeg') },
+  { name: 'Елена', role: 'Менеджер', photo: require('@/assets/images/photo-1541385767762-a55c33eb0c80.jpeg') },
+  { name: 'Иван', role: 'Дизайнер', photo: require('@/assets/images/photo-1621624666561-84d0107001dc.jpeg') },
+  { name: 'Мария', role: 'Маркетолог', photo: require('@/assets/images/photo-1681075401974-907cc62a4373.jpeg') }
+]);
 </script>
+
 
 <style scoped>
 .team {

@@ -5,7 +5,9 @@
       label(for="brand") Бренд:
       select(v-model="selectedBrand", id="brand")
         option(value='') Все
-        option(v-for="brand in brands", :value="brand", :key="brand") {{ brand }}
+        option(v-for="brand in brands", 
+        :value="brand",
+         :key="brand") {{ brand }}
     .filter-item.brand-size
       label(for="size") Размер:
       select(v-model="selectedSize", id="size")
@@ -36,84 +38,141 @@
   button.button-apply-filters(@click="applyFilters") Применить фильтры
 </template>
 
-
-
 <script setup>
-import { ref, watch, defineProps, defineEmits } from 'vue';
-// eslint-disable-next-line no-unused-vars
+  import { ref, watch, toRefs } from 'vue'
+  import VueSlider from 'vue-slider-component';
+  import 'vue-slider-component/theme/default.css';
+
+  const props = defineProps({
+    minPriceLimit: {
+      type: Number,
+      required: false,
+      default: 2300
+    },
+    maxPriceLimit: {
+      type: Number,
+      required: false,
+      default: 50000
+    },
+  })
+
+  const emit = defineEmits([ 'filter-changed', ])
+
+  const selectedBrand = ref('');
+  const selectedSize = ref('');
+  const minPrice = ref(props.minPriceLimit);
+  const maxPrice = ref(props.maxPriceLimit);
+  const priceRange = ref([minPrice.value, maxPrice.value]);
+  const brands = ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'];
+  const sizes = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
+
+  watch(
+    () => minPrice.value,
+    newVal => {
+      if (newVal < minPriceLimit.value) {
+        minPrice.value = minPriceLimit.value;
+      } else if (newVal > maxPrice.value) {
+        minPrice.value = maxPrice.value;
+      }
+      minPrice.value = newVal < props.minPriceLimit ? minPrice.value = props.minPriceLimit : minPrice.value = maxPrice.value
+      priceRange.value = [minPrice.value, maxPrice.value];
+    }
+  )
+
+  watch(minPrice, (newVal) => {
+      if (newVal < minPriceLimit.value) {
+        minPrice.value = minPriceLimit.value;
+      } else if (newVal > maxPrice.value) {
+        minPrice.value = maxPrice.value;
+      }
+      priceRange.value = [minPrice.value, maxPrice.value];
+    });
+</script>
+
+
+
+<script>
+import { defineComponent, ref, watch, toRefs } from 'vue';
 import VueSlider from 'vue-slider-component';
 import 'vue-slider-component/theme/default.css';
 
-const props = defineProps({
-  minPriceLimit: {
-    type: Number,
-    default: 2300,
-    required: false
+export default defineComponent({
+  name: 'FilterComponent',
+  components: {
+    VueSlider
   },
-  maxPriceLimit: {
-    type: Number,
-    default: 50000,
-    required: false
+  props: {
+    minPriceLimit: {
+      type: Number,
+      default: 2300
+    },
+    maxPriceLimit: {
+      type: Number,
+      default: 50000
+    },
+  },
+  setup(props, { emit }) {
+    const { minPriceLimit, maxPriceLimit } = toRefs(props);
+
+    const selectedBrand = ref('');
+    const selectedSize = ref('');
+    const minPrice = ref(minPriceLimit.value);
+    const maxPrice = ref(maxPriceLimit.value);
+    const priceRange = ref([minPriceLimit.value, maxPriceLimit.value]);
+    const brands = ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'];
+    const sizes = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
+
+    watch(minPrice, (newVal) => {
+      if (newVal < minPriceLimit.value) {
+        minPrice.value = minPriceLimit.value;
+      } else if (newVal > maxPrice.value) {
+        minPrice.value = maxPrice.value;
+      }
+      priceRange.value = [minPrice.value, maxPrice.value];
+    });
+
+    watch(maxPrice, (newVal) => {
+      if (newVal > maxPriceLimit.value) {
+        maxPrice.value = maxPriceLimit.value;
+      } else if (newVal < minPrice.value) {
+        maxPrice.value = minPrice.value;
+      }
+      priceRange.value = [minPrice.value, maxPrice.value];
+    });
+
+    watch(priceRange, (newVal) => {
+      if (newVal[0] !== minPrice.value) {
+        minPrice.value = newVal[0];
+      }
+      if (newVal[1] !== maxPrice.value) {
+        maxPrice.value = newVal[1];
+      }
+    });
+
+    function qwe() {}
+
+    const applyFilters = () => {
+      emit('filter-changed', {
+        brand: selectedBrand.value,
+        size: selectedSize.value,
+        minPrice: minPrice.value,
+        maxPrice: maxPrice.value,
+      });
+    };
+
+    return {
+      selectedBrand,
+      selectedSize,
+      minPrice,
+      maxPrice,
+      priceRange,
+      brands,
+      sizes,
+      applyFilters
+    };
   }
 });
-
-const emit = defineEmits(['filter-changed']);
-
-const selectedBrand = ref('');
-const selectedSize = ref('');
-const minPrice = ref(props.minPriceLimit);
-const maxPrice = ref(props.maxPriceLimit);
-const priceRange = ref([props.minPriceLimit, props.maxPriceLimit]);
-
-// eslint-disable-next-line no-unused-vars
-const brands = ['Nike', 'Reebok', 'New Balance', 'Diadora', 'Mizuno', 'ASICS', 'PUMA', 'ON', 'IYSO'];
-// eslint-disable-next-line no-unused-vars
-const sizes = ['34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45'];
-
-watch(
-  () => minPrice.value,
-  (newVal) => {
-    if (newVal < props.minPriceLimit) {
-      minPrice.value = props.minPriceLimit;
-    } else if (newVal > maxPrice.value) {
-      minPrice.value = maxPrice.value;
-    }
-    priceRange.value = [minPrice.value, maxPrice.value];
-  }
-);
-
-watch(
-  () => maxPrice.value,
-  (newVal) => {
-    if (newVal > props.maxPriceLimit) {
-      maxPrice.value = props.maxPriceLimit;
-    } else if (newVal < minPrice.value) {
-      maxPrice.value = minPrice.value;
-    }
-    priceRange.value = [minPrice.value, maxPrice.value];
-  }
-);
-
-watch(priceRange, (newVal) => {
-  if (newVal[0] !== minPrice.value) {
-    minPrice.value = newVal[0];
-  }
-  if (newVal[1] !== maxPrice.value) {
-    maxPrice.value = newVal[1];
-  }
-});
-
-// eslint-disable-next-line no-unused-vars
-const applyFilters = () => {
-  emit('filter-changed', {
-    brand: selectedBrand.value,
-    size: selectedSize.value,
-    minPrice: minPrice.value,
-    maxPrice: maxPrice.value
-  });
-};
 </script>
-
 
 
 

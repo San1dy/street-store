@@ -4,21 +4,13 @@ section.contact-us
   button(@click="redirectToAnotherSite") Перейти в диалог
 </template>
 
-<script>
-
-export default {
-  setup() {
-    const redirectToAnotherSite = () => {
-      const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ";
-      window.location.href = redirectTo;
-    };
-
-    return {
-      redirectToAnotherSite,
-    };
-  }
-}
+<script setup>
+const redirectToAnotherSite = () => {
+  const redirectTo = "https://www.avito.ru/profile/messenger/channel/u2u-ezsL8fYdGRikG~Upo35vDQ";
+  window.location.href = redirectTo;
+};
 </script>
+
 
 
 

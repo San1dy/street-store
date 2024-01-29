@@ -8,41 +8,32 @@ section.faq
       p {{ item.answer }}
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue';
+<script setup>
+import { ref } from 'vue';
 
-export default defineComponent({
-  name: 'FaqComponent',
-  setup() {
-    const faqItems = ref([
-      {
-        question: 'Как выбрать правильный размер?',
-        answer: 'Мы рекомендуем обратиться к нашей таблице размеров, чтобы выбрать подходящий размер кроссовок.',
-        open: false
-      },
-      {
-        question: 'Как оформить возврат?',
-        answer: 'Для оформления возврата свяжитесь с нашей службой поддержки.',
-        open: false
-      },
-      {
-        question: 'Как связаться с нами?',
-        answer: 'Вы можете связаться с нами по телефону или отправить нам электронное письмо.',
-        open: false
-      }
-    ]);
-
-    const toggle = (item) => {
-      item.open = !item.open;
-    };
-
-    return {
-      faqItems,
-      toggle
-    };
+const faqItems = ref([
+  {
+    question: 'Как выбрать правильный размер?',
+    answer: 'Мы рекомендуем обратиться к нашей таблице размеров, чтобы выбрать подходящий размер кроссовок.',
+    open: false
+  },
+  {
+    question: 'Как оформить возврат?',
+    answer: 'Для оформления возврата свяжитесь с нашей службой поддержки.',
+    open: false
+  },
+  {
+    question: 'Как связаться с нами?',
+    answer: 'Вы можете связаться с нами по телефону или отправить нам электронное письмо.',
+    open: false
   }
-});
+]);
+
+const toggle = (item) => {
+  item.open = !item.open;
+};
 </script>
+
 
 <style scoped>
 .faq {
